@@ -1,0 +1,17 @@
+@import "../../../styles/variables";
+.menu-container {
+    height: calc(100% - 100px);
+    max-height: calc(100% - 100px);
+    overflow: auto;
+    max-width: 100%;
+    min-width: 500px;
+}
+
+.menu-item {
+    border-bottom: solid 1px $border-color;
+}
+
+.menu-item:hover {
+    background: #efefef;
+    cursor: pointer;
+}

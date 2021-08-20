@@ -1,0 +1,6 @@
+<mat-grid-list cols="12" rowHeight="50px">
+    <ng-container *ngFor="let menu of producMenuService.menuActions; let i = index;">
+        <mat-grid-tile [colspan]="10" [ngClass]="{'even-row': (i%2 === 0)}">{{menu.MenuItem.name}}</mat-grid-tile>
+        <mat-grid-tile [colspan]="2" [ngClass]="{'even-row': (i%2 === 0)}"><app-menu-action [menuAction]="menu"></app-menu-action></mat-grid-tile>
+    </ng-container>
+</mat-grid-list>

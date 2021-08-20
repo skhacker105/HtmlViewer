@@ -1,0 +1,5 @@
+<button mat-raised-button *ngIf="control" [ngClass]=" {'selected-control': control.selected && designMode}"
+    color="primary" [style.width]="control.controlProperties.width"
+    (click)="pageDesignerService.clickSelectControl($event, control, disabled)">
+    {{control.controlProperties.labelName}}
+</button>

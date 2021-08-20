@@ -1,0 +1,28 @@
+<mat-card *ngIf="control"
+  [ngClass]=" {'selected-control': control.selected && designMode, 'control-container-unselected': !control.selected && designMode }"
+  (click)="pageDesignerService.clickSelectControl($event, control, disabled)"
+  [style.width]="control.controlProperties.width" [style.height]="control.controlProperties.height"
+  class="control-container">
+  <mat-card-header *ngIf="control.controlProperties.headerTitle || control.controlProperties.headerTitle">
+    <div mat-card-avatar class="{{control.controlProperties.headerAvtarClass}}"></div>
+    <mat-card-title *ngIf="control.controlProperties.headerTitle">{{control.controlProperties.headerTitle}}
+    </mat-card-title>
+    <mat-card-subtitle *ngIf="control.controlProperties.headerSubTitle">{{control.controlProperties.headerSubTitle}}
+    </mat-card-subtitle>
+  </mat-card-header>
+  <img mat-card-image *ngIf="control.controlProperties.imageSrc" src="{{control.controlProperties.imageSrc}}" alt="">
+  <mat-card-content>
+    <ng-container *ngIf="designMode && (!control.children || control.children.length === 0)">
+      Container Control
+    </ng-container>
+    <ng-container *ngIf="control.children && control.children.length > 0">
+      <p [ngStyle]="{ 'text-align': control.controlProperties.controlAlignment }">
+        <ng-container *ngFor="let child of getSortedChildren(control.children)">
+          <app-control-render [control]="child"></app-control-render>
+        </ng-container>
+      </p>
+    </ng-container>
+  </mat-card-content>
+  <mat-card-actions *ngIf="control.controlProperties.actions && control.controlProperties.actions.length>0">
+  </mat-card-actions>
+</mat-card>

@@ -1,0 +1,15 @@
+<h1>Control Dictionary</h1>
+<div class="container">
+  <ng-container *ngFor="let ct of dictionaryAllowedControl">
+    <div class="row directory-item">
+      <div class="col-10">
+        <app-control-render [control]="ct" [disabled]="true"></app-control-render>
+      </div>
+      <div class="col-2">
+        <button mat-icon-button *ngIf="pageDesignerService.selectedControl.value" matTooltip="ADD {{ct.controlProperties.controlType.toUpperCase()}}" (click)="addChildControl(ct)">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+    </div>
+  </ng-container>
+</div>

@@ -1,0 +1,11 @@
+<div *ngIf="menuAction">
+    <div *ngIf="menuAction.MenuOperation === cr.Add">
+        <button mat-button color="primary">Added</button>
+    </div>
+    <div *ngIf="menuAction.MenuOperation === cr.Update">
+        <button mat-button color="accent">Updated</button>
+    </div>
+    <div *ngIf="menuAction.MenuOperation === cr.Delete">
+        <button mat-button color="warn">Deleted</button>
+    </div>
+</div>

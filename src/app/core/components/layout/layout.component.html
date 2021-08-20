@@ -1,0 +1,16 @@
+<div class="container layout-container">
+    <div class="row layout-row">
+        <div class="col-2 directory-panel" *ngIf="designerMode">
+            <ng-content select="[layout-dictionary]"></ng-content>
+        </div>
+        <div class="col-8" [ngClass]="{
+            'col-8': designerMode,
+            'col-12': !designerMode
+        }">
+            <ng-content select="[layout-body]"></ng-content>
+        </div>
+        <div class="col-2 property-panel" *ngIf="designerMode">
+            <ng-content select="[layout-property]"></ng-content>
+        </div>
+    </div>
+</div>

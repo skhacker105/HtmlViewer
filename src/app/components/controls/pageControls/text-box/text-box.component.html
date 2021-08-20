@@ -1,0 +1,6 @@
+<mat-form-field appearance="fill" [ngClass]=" {'selected-control': control.selected && designMode}"
+    [style.width]="control.controlProperties.width"
+    (click)="pageDesignerService.clickSelectControl($event, control, disabled)">
+    <mat-label>{{control.controlProperties.labelName}}</mat-label>
+    <input matInput [placeholder]="control.controlProperties.placeHolder" value="">
+</mat-form-field>

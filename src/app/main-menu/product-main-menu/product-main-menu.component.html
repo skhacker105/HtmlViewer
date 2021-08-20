@@ -1,0 +1,51 @@
+<mat-tree *ngIf="menu" [dataSource]="dataSource" [treeControl]="treeControl">
+  <!-- This is the tree node template for leaf nodes -->
+  <mat-tree-node *matTreeNodeDef="let node" class="menu-item" matTreeNodePadding (click)="$event.stopPropagation();">
+    <!-- use a disabled button to provide padding for tree leaf -->
+    <button mat-icon-button disabled></button>
+
+    <span (click)="selectMenu(node)">{{node.name}}</span>
+    <button mat-icon-button matTooltip="Expand All" [disabled]="expanded" (click)="expandAll()"
+      *ngIf="node.level === 0">
+      <mat-icon>expand_more</mat-icon>
+    </button>
+    <button mat-icon-button matTooltip="Collapse All" [disabled]="!expanded" (click)="collapseAll()"
+      *ngIf="node.level === 0">
+      <mat-icon>expand_less</mat-icon>
+    </button>
+    <div class="example-spacer"></div>
+    <app-record-action  *ngIf="designMode" [record]="node" [showAdd]="true" [showDelete]="node.level > 0"
+      (addClick)="openDialog($event)" (editClick)="handleEdit($event)" (deleteClick)="handleDeleteMenu($event)">
+    </app-record-action>
+    &nbsp;&nbsp;
+
+  </mat-tree-node>
+  <!-- This is the tree node template for expandable nodes -->
+  <mat-tree-node *matTreeNodeDef="let node;when: hasChild" class="menu-item" matTreeNodePadding
+    (click)="$event.stopPropagation();">
+    <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.name">
+      <mat-icon class="mat-icon-rtl-mirror">
+        {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+      </mat-icon>
+    </button>
+
+    <span (click)="selectMenu(node)">{{node.name}}</span>
+    
+    <button mat-icon-button matTooltip="Expand All" [disabled]="expanded" (click)="expandAll()"
+      *ngIf="node.level === 0">
+      <mat-icon>expand_more</mat-icon>
+    </button>
+    <button mat-icon-button matTooltip="Collapse All" [disabled]="!expanded" (click)="collapseAll()"
+      *ngIf="node.level === 0">
+      <mat-icon>expand_less</mat-icon>
+    </button>
+    
+
+    <div class="example-spacer"></div>
+    <app-record-action *ngIf="designMode" [record]="node" [showAdd]="true" [showDelete]="node.level > 0"
+      (addClick)="openDialog($event)" (editClick)="handleEdit($event)" (deleteClick)="handleDeleteMenu($event)">
+    </app-record-action>
+    &nbsp;&nbsp;
+
+  </mat-tree-node>
+</mat-tree>

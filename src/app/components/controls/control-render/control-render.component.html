@@ -1,0 +1,14 @@
+<span *ngIf="control" class="spacer">
+    <!-- CONTAINER -->
+    <app-container *ngIf="control.controlProperties.controlType === cr.Controls.container" [control]="control"
+        [disabled]="disabled">
+    </app-container>
+
+    <!-- TEXT BOX -->
+    <app-text-box *ngIf="control.controlProperties.controlType === cr.Controls.textbox" [control]="control"
+        [disabled]="disabled"></app-text-box>
+
+    <!-- BUTTON -->
+    <app-button *ngIf="control.controlProperties.controlType === cr.Controls.button" [control]="control"
+        [disabled]="disabled"></app-button>
+</span>

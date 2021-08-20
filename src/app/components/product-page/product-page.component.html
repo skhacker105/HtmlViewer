@@ -1,0 +1,14 @@
+<app-layout>
+    <div layout-dictionary>
+        <app-directory-view></app-directory-view>
+    </div>
+    <div layout-body>
+        <br>
+        <ng-container *ngFor="let ct of pageDesignerService.containers.value; let i = index">
+            <app-control-render [control]="ct"></app-control-render>
+        </ng-container>
+    </div>
+    <div layout-property>
+        <app-property-view></app-property-view>
+    </div>
+</app-layout>

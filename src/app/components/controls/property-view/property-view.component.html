@@ -1,0 +1,64 @@
+<h1>Control Properties</h1>
+<div class="container" *ngIf="controlProperties">
+  <div class="row" *ngIf="controlProperties && controlProperties.length > 0">
+    <div class="col-12" style="text-align: right;">
+      <button mat-icon-button color="warn" (click)="deleteControl()" matTooltip="Delete Selected Control">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  </div>
+  <br>
+  <div class="row" *ngFor="let prop of controlProperties">
+    <div class="col-12">
+
+      <!-- POSITION -->
+      <ng-container *ngIf="getPropertyType(prop) === 'position'">
+        <mat-form-field appearance="fill" class="col-12">
+          <mat-label>Select {{getPropertyFormatedName(prop)}}</mat-label>
+          <mat-select [(value)]="pageDesignerService.selectedControl.value.controlProperties[prop]">
+            <mat-option *ngFor="let pos of positions" [value]="pos.key">{{ pos.value }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </ng-container>
+
+      <!-- CONTROL ALIGNMENTS -->
+      <ng-container *ngIf="getPropertyType(prop) === 'controlAlignment'">
+        <mat-form-field appearance="fill" class="col-12">
+          <mat-label>Select {{getPropertyFormatedName(prop)}}</mat-label>
+          <mat-select [(value)]="pageDesignerService.selectedControl.value.controlProperties[prop]">
+            <mat-option *ngFor="let pos of controlAlignments" [value]="pos.key">{{ pos.value }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </ng-container>
+
+      <!-- TRUE / FALSE -->
+      <ng-container *ngIf="getPropertyType(prop) === 'trueFalse'">
+        <mat-form-field appearance="fill" class="col-12">
+          <mat-label>Select {{getPropertyFormatedName(prop)}}</mat-label>
+          <mat-select [(value)]="pageDesignerService.selectedControl.value.controlProperties[prop]">
+            <mat-option value="true">TRUE</mat-option>
+            <mat-option value="false">FALSE</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </ng-container>
+
+
+      <!-- IDS uneditable -->
+      <ng-container *ngIf="getPropertyType(prop) === 'textDisabled'">
+        <mat-form-field appearance="fill" class="col-12">
+          <mat-label>{{getPropertyFormatedName(prop)}}</mat-label>
+          <input disabled matInput [(ngModel)]="pageDesignerService.selectedControl.value.controlProperties[prop]">
+        </mat-form-field>
+      </ng-container>
+
+
+      <!-- STRING, NUMBER -->
+      <ng-container *ngIf="getPropertyType(prop) === 'text'">
+        <mat-form-field appearance="fill" class="col-12">
+          <mat-label>{{getPropertyFormatedName(prop)}}</mat-label>
+          <input matInput [(ngModel)]="pageDesignerService.selectedControl.value.controlProperties[prop]">
+        </mat-form-field>
+      </ng-container>
+    </div>
+  </div>
+</div>

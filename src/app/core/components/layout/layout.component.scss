@@ -1,0 +1,28 @@
+@import "../../../../styles/variables";
+
+.layout-container {
+    height: calc(100% - 130px);
+    max-height: calc(100% - 130px);
+    overflow: auto;
+    padding-left: 25px;
+    padding-right: 10px;
+    margin: 0px;
+    min-width: 100%;
+
+    .layout-row {
+        width: 100%;
+        height: 100%;
+
+        .directory-panel {
+            border-right: solid 1px $border-color;
+            height: 100%;
+            overflow: auto;
+        }
+
+        .property-panel {
+            border-left: solid 1px $border-color;
+            height: 100%;
+            overflow: auto;
+        }
+    }
+}
