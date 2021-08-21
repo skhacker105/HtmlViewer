@@ -7,19 +7,12 @@ import { CoreResources } from '../../utilities/resources';
 @Component({
   selector: 'app-page-control-change-history',
   templateUrl: './page-control-change-history.component.html',
-  styleUrls: ['./page-control-change-history.component.scss'],
-  animations: [
-    trigger('detailExpand', [
-      state('collapsed', style({ height: '0px', minHeight: '0px', display: 'none' })),
-      state('expanded', style({ height: '*', display: 'table-cell' })),
-      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
-    ]),
-  ],
+  styleUrls: ['./page-control-change-history.component.scss']
 })
 export class PageControlChangeHistoryComponent implements OnInit {
 
   controlChangeList = new MatTableDataSource();
-  controlChangeHeaderList = ['row-action', 'control-name', 'details'];
+  controlChangeHeaderList = ['row-action', 'control-name'];
   cr = CoreResources;
 
   constructor(public pageDesignerService: PageDesignerService) { }

@@ -35,3 +35,16 @@ td.mat-column-details {
 .details-row {
     border-bottom: solid 1px #efefef;
 }
+
+.details-row-updated {
+    background-color: #efefef;
+    border-bottom: solid 1px #adadad;
+}
+
+.property-font {
+    font-style: italic !important;
+}
+
+.font-deleted {
+    color: #a0a0a0 !important;
+}

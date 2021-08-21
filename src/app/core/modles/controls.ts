@@ -15,11 +15,11 @@ export abstract class PageControl implements IPageControl {
     controlId: string;
     parentControlId: string;
 
-    constructor(controlId: string = CoreHelper.generateId(), menuId: string, parentControlId: string, controlName: string, order: number, controlProperties?: IPageControlProperties) {
+    constructor(controlId: string, menuId: string, parentControlId: string, controlName: string, order: number, controlProperties?: IPageControlProperties) {
         this.menuId = menuId;
         this.parentControlId = parentControlId;
         this.controlProperties = {
-            controlId: controlId,
+            controlId: controlId ? controlId : CoreHelper.generateId(),
             controlName: controlName,
             controlType: '',
             order: order,

@@ -21,6 +21,7 @@ export class PageDesignerService {
   public selectedControl = new BehaviorSubject<IPageControl>(null);
   public pageControlAction: IPageControlAction[] = [];
   private controlCountTracker = {};
+  private controlsFromDB: IPageControl[];
 
   constructor(private httpService: HttpWrapperService, private producMenuService: ProducMenuService) {
     this.producMenuService.selectedMenu.subscribe(menu => {
@@ -95,7 +96,18 @@ export class PageDesignerService {
       this.controlCountTracker[controlType] = 1;
     }
     newName = newName + this.controlCountTracker[controlType];
+    while (this.ifExistsFromDB(newName)) {
+      newName = this.getNewControlName(controlType);
+    }
     return newName;
+  }
+
+  ifExistsFromDB(name: string): boolean {
+    let found = false;
+    if (name) {
+      found = this.controlsFromDB.findIndex(c => c.controlProperties.controlName === name) >= 0;
+    }
+    return found;
   }
 
   getControlObjectByType(controleType: string, menuId: string, parentControlId: string, controlName: string, order: number): IPageControl {
@@ -157,8 +169,24 @@ export class PageDesignerService {
     return result;
   }
 
-  updateControl(control: IPageControl): void {
-    this.registerUpdatePageControlAction(control);
+  updateControl(): void {
+    const selectedControl = this.selectedControl.value;
+    if (selectedControl) {
+      this.registerUpdatePageControlAction(this.selectedControl.value);
+    }
+  }
+
+  hasSimilarProperties(control1: IPageControl, control2: IPageControl): boolean {
+    let same = true;
+    if (!control1 || !control2) {
+      return false;
+    }
+    Object.keys(control1.controlProperties).forEach(k => {
+      if (same && control1.controlProperties[k] != control2.controlProperties[k]) {
+        same = false;
+      }
+    });
+    return same;
   }
 
   private convertDBControlToObject(item: any): IPageControl {
@@ -166,7 +194,8 @@ export class PageDesignerService {
     const props = JSON.parse(item['controlProperties']);
     switch (props['controlType']) {
       case CoreResources.Controls.container:
-        newControl = new ContainerControl(item['controlId'], item['menuId'], item['parentControlId'], props['controlName'], props['order'], props); break;
+        newControl = new ContainerControl(item['controlId'], item['menuId'], item['parentControlId'], props['controlName'], props['order'], props);
+        break;
       case CoreResources.Controls.textbox:
         newControl = new TextBoxControl(item['controlId'], item['menuId'], item['parentControlId'], props['controlName'], props['order'], props); break;
       case CoreResources.Controls.button:
@@ -198,11 +227,18 @@ export class PageDesignerService {
   private registerUpdatePageControlAction(node: IPageControl) {
     const controlNode = (this.pageControlAction.find(ma => ma.ControlItem.controlProperties.controlId == node.controlProperties.controlId));
     if (controlNode) {
-      // record exists in action
-      // do not change action as actions ADD or UPDATE will not change once added in this list
-      controlNode.ControlItem = node;
+      // record exists in action list
+      if (this.hasSimilarProperties(controlNode.ControlItem, controlNode.StoreControlItem)) {
+        // all values are same in node from database and current node hence delete the update action
+        this.deletePageControlAction(node);
+      } else {
+        // update the new object that has been updated
+        // do not change action as actions ADD or UPDATE will not change once added in this list
+        controlNode.ControlItem = node;
+      }
     } else {
-      // yet to implement
+      const dbNode = this.controlsFromDB.find(cd => cd.controlId === node.controlId);
+      this.registerPageControlAction(node, CoreResources.MenuCrudActions.Update, dbNode);
     }
   }
 
@@ -219,10 +255,12 @@ export class PageDesignerService {
   public getFormControlsFromDB(menuId: string): Observable<IPageControl[]> {
     return this.httpService.getData(CoreResources.PageControlApiUrl.getAllMenuPageControls + '/' + menuId).pipe(
       map((d: any[]) => {
+        this.controlsFromDB = [];
         const convertedControls: IPageControl[] = [];
         d.forEach(item => {
           convertedControls.push(this.convertDBControlToObject(item));
         });
+        this.controlsFromDB = JSON.parse(JSON.stringify(convertedControls));
         return convertedControls;
       }),
       catchError((err) => {
@@ -258,10 +296,10 @@ export class PageDesignerService {
           arr.push(this.httpService.postData(CoreResources.PageControlApiUrl.addMenuPageControls, newItem));
         } else if (ma.ControlOperation === CoreResources.MenuCrudActions.Update) {
           // UPDATE
-          arr.push(this.httpService.putData(CoreResources.PageControlApiUrl.updateMenuPageControls + newItem.Id, newItem));
+          arr.push(this.httpService.putData(CoreResources.PageControlApiUrl.updateMenuPageControls + '/' + newItem.controlId, newItem));
         } else if (ma.ControlOperation === CoreResources.MenuCrudActions.Delete) {
           // DELETE
-          arr.push(this.httpService.deleteData(CoreResources.PageControlApiUrl.deleteMenuPageControls + newItem.Id));
+          arr.push(this.httpService.deleteData(CoreResources.PageControlApiUrl.deleteMenuPageControls + '/' + newItem.controlId));
         }
       });
     }

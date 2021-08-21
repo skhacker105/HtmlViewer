@@ -88,4 +88,8 @@ export class PropertyViewComponent implements OnInit {
     this.pageDesignerService.deleteControl(this.pageDesignerService.containers.value);
   }
 
+  updateControl() {
+    this.pageDesignerService.updateControl();
+  }
+
 }
