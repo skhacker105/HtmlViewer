@@ -1,10 +1,22 @@
-<h1 mat-dialog-title>Change History</h1>
-<div mat-dialog-content>
-    <mat-tab-group>
-        <mat-tab label="Menu Change History"> <app-menu-change-history></app-menu-change-history> </mat-tab>
-        <mat-tab label="Content Change History"> Content Change History </mat-tab>
-    </mat-tab-group>
+<div class="row">
+    <div class="col-11">
+        <h1 mat-dialog-title>Change History
+        </h1>
+    </div>
+    <div class="col-1">
+        <button mat-icon-button matTooltip="Close" (click)="onOkClick()">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
 </div>
-<div mat-dialog-actions>
-    <button mat-button cdkFocusInitial (click)="onOkClick()">Ok</button>
+
+<div mat-dialog-content>
+    <mat-tab-group [selectedIndex]="producMenuService.menuActions.length > 0 ? 0 : 1">
+        <mat-tab label="Menu Change History">
+            <app-menu-change-history></app-menu-change-history>
+        </mat-tab>
+        <mat-tab label="Content Change History">
+            <app-page-control-change-history></app-page-control-change-history>
+        </mat-tab>
+    </mat-tab-group>
 </div>

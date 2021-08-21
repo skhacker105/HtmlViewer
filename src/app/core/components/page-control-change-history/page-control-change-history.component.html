@@ -1,0 +1,92 @@
+<table mat-table [dataSource]="controlChangeList" class="page-control-change-history-table" multiTemplateDataRows>
+
+    <ng-container matColumnDef="control-name">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element">
+            <div *ngIf="element.ControlOperation === cr.MenuCrudActions.Add">
+                {{element.ControlItem.controlProperties.controlName}}
+            </div>
+            <div *ngIf="element.ControlOperation === cr.MenuCrudActions.Update">
+                UI develop ment pending
+            </div>
+            <div *ngIf="element.ControlOperation === cr.MenuCrudActions.Delete">
+                UI develop ment pending
+            </div>
+        </td>
+    </ng-container>
+
+    <ng-container matColumnDef="row-action">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element" [ngClass]="{
+            'control-added': element.ControlOperation === cr.MenuCrudActions.Add,
+            'control-updated': element.ControlOperation === cr.MenuCrudActions.Update,
+            'control-deleted': element.ControlOperation === cr.MenuCrudActions.Delete
+        }">
+            <div *ngIf="element.ControlOperation === cr.MenuCrudActions.Add">
+                Added
+            </div>
+            <div *ngIf="element.ControlOperation === cr.MenuCrudActions.Update">
+                Updated
+            </div>
+            <div *ngIf="element.ControlOperation === cr.MenuCrudActions.Delete">
+                Deleted
+            </div>
+        </td>
+    </ng-container>
+
+    <ng-container matColumnDef="details">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element">
+            <div *ngIf="element.ControlOperation === cr.MenuCrudActions.Update">
+            <a mat-button href="javascript:void()" *ngIf="!element.isExpanded" (click)="element.isExpanded = true">
+                <mat-icon>expand_more</mat-icon>
+            </a>
+            <a mat-button href="javascript:void()" *ngIf="element.isExpanded" (click)="element.isExpanded = false">
+                <mat-icon>expand_less</mat-icon>
+            </a>
+        </div>
+        </td>
+    </ng-container>
+
+    <ng-container matColumnDef="expandedDetail">
+        <td mat-cell *matCellDef="let element" [attr.colspan]="controlChangeHeaderList.length"
+            [@detailExpand]="element.isExpanded ? 'expanded' : 'collapsed'">
+
+            <div class="container">
+                <div class="row">
+                    <div class="col mat-header-cell">Poroperty</div>
+                    <div class="col mat-header-cell">Old Value</div>
+                    <div class="col mat-header-cell">New Value</div>
+                </div>
+
+                <div class="row details-row" *ngFor="let keys of element.ControlItem.getProperties()">
+                    <div class="col mat-cell">{{getPropertyFormatedName(keys)}}</div>
+                    <div class="col mat-cell">
+                        <div
+                            *ngIf="element.StoreControlItem && (element.ControlOperation === cr.MenuCrudActions.Update || element.ControlOperation === cr.MenuCrudActions.Delete)">
+                            {{element.StoreControlItem.controlProperties[keys]}}
+                        </div>
+                        <div *ngIf="!element.StoreControlItem || element.ControlOperation === cr.MenuCrudActions.Add">
+                            NA
+                        </div>
+                    </div>
+                    <div class="col mat-cell">
+                        <div
+                            *ngIf="element.ControlOperation === cr.MenuCrudActions.Update || element.ControlOperation === cr.MenuCrudActions.Add">
+                            {{element.ControlItem.controlProperties[keys]}}
+                        </div>
+                        <div *ngIf="element.ControlOperation === cr.MenuCrudActions.Delete">
+                            NA
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="controlChangeHeaderList;"></tr>
+    <tr mat-row *matRowDef="let element; columns: controlChangeHeaderList;"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['expandedDetail']"></tr>
+
+</table>

@@ -49,7 +49,7 @@ export class PropertyViewComponent implements OnInit {
     switch(prop) {
       case 'controlAlignment': type = 'controlAlignment'; break;
       case 'position': type = 'position'; break;
-      case 'controlId': type = 'textDisabled'; break;
+      case 'controlId': type = 'hidden'; break;
       case 'controlName': type = 'textDisabled'; break;
       case 'controlType': type = 'hidden'; break;
       case 'parentControlId': type = 'hidden'; break;
@@ -77,7 +77,6 @@ export class PropertyViewComponent implements OnInit {
     this.controlAlignments = [];
     let keys = Object.keys(ControlAlignment);
     keys.forEach(k => {
-      console.log('adding alignment = ', k);
       this.controlAlignments.push({
         key: ControlAlignment[k],
         value: (k[0].toUpperCase() + k.slice(1))

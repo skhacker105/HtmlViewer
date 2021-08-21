@@ -3,6 +3,8 @@ import { IContainerProperties } from "./ControlProperties";
 
 export interface IPageControl {
     menuId: string;
+    controlId: string;
+    parentControlId: string;
     controlProperties: IPageControlProperties;
     controlEvents?: IPageControlEvents;
     selected: boolean;
@@ -15,7 +17,6 @@ export interface IPageControlProperties {
     controlId: string;
     controlName: string;
     controlType: string;
-    parentControlId: string;
     order: number;
     width?: string;
     height?: string;

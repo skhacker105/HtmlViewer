@@ -73,7 +73,8 @@ export class ProductHeaderComponent implements OnInit {
 
   openChangeHistory(): void {
     this.dialog.open(ChangeHistoryComponent, {
-      width: '80%'
+      width: '80%',
+      height: '70%'
     });
   }
 
@@ -85,6 +86,13 @@ export class ProductHeaderComponent implements OnInit {
         message: CoreResources.MenuChangesSaveSuccess
       });
       this.loadProductMenu();
+    });
+    this.pageDesignerService.saveAllChanges().subscribe(res => {
+      this.pageDesignerService.pageControlAction = [];
+      this.messagingService.showSnackBar({
+        completed: true,
+        message: CoreResources.ControlsChangesSaveSuccess
+      });
     });
   }
 

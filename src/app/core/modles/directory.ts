@@ -11,6 +11,8 @@ export abstract class PageDirectory implements IPageControlDirectory {
     controlEvents?: IPageControlEvents;
     children?: IPageControl[];
     selected: boolean;
+    controlId: string;
+    parentControlId: string;
     constructor() {
         this.populateAllowedChildren();
     }
@@ -29,7 +31,6 @@ class ContainerDirectory extends PageDirectory {
         controlId: '',
         controlName: '',
         controlType: CoreResources.Controls.container,
-        parentControlId: null,
         order: 0
     };
     populateAllowedChildren(): void {
@@ -40,7 +41,7 @@ class ContainerDirectory extends PageDirectory {
         ];
     }
     getNewInstance(menuId: string, parentControlId: string, controlName: string, order: number): IPageControl {
-        return new ContainerControl(menuId, parentControlId, controlName, order);
+        return new ContainerControl(null, menuId, parentControlId, controlName, order);
     }
 }
 export const containerDirectoryObj = new ContainerDirectory();
@@ -50,7 +51,7 @@ class TextBoxDirectory extends PageDirectory {
         this.AllowedChildren = [];
     }
     getNewInstance(menuId: string, parentControlId: string, controlName: string, order: number): IPageControl {
-        return new TextBoxControl(menuId, parentControlId, controlName, order);
+        return new TextBoxControl(null, menuId, parentControlId, controlName, order);
     }
 }
 export const textBoxDirectoryObj = new TextBoxDirectory();
@@ -60,7 +61,7 @@ class ButtonDirectory extends PageDirectory {
         this.AllowedChildren = [];
     }
     getNewInstance(menuId: string, parentControlId: string, controlName: string, order: number): IPageControl {
-        return new ButtonControl(menuId, parentControlId, controlName, order);
+        return new ButtonControl(null, menuId, parentControlId, controlName, order);
     }
 }
 export const buttonDirectoryObj = new ButtonDirectory();

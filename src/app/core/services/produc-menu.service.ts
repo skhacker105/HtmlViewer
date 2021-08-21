@@ -7,6 +7,7 @@ import { CoreHelper } from '../utilities/helper';
 import { CoreResources } from '../utilities/resources';
 import { HttpWrapperService } from './http-wrapper.service';
 import { MessagingService } from './messaging.service';
+import { PageDesignerService } from './page-designer.service';
 
 @Injectable({
   providedIn: 'root'
@@ -30,7 +31,7 @@ export class ProducMenuService {
   constructor(private httpService: HttpWrapperService, private messagingService: MessagingService) { }
 
   selectMenu(menu: string) {
-    if (this.menuActions.length >0) {
+    if (this.menuActions.length > 0) {
       this.messagingService.showSnackBar({
         completed: false,
         message: CoreResources.MenuChangeSaveError
@@ -38,9 +39,9 @@ export class ProducMenuService {
       return;
     }
     if (menu) {
-      this.selectedMenu.next(menu);
       const menuNode = this.findNode(this.ProductMenuList, menu);
       this.selectedMenuId = menuNode.Id;
+      this.selectedMenu.next(menu);
     }
   }
 
@@ -59,10 +60,6 @@ export class ProducMenuService {
       });
     }
     return children;
-  }
-
-  public getMenuFromDB(): Observable<IProductMenuItem[]> {
-    return this.httpService.getData(CoreResources.MenuApiUrl.getAllMenu);
   }
 
   public addChildNode(parentName: string, newNodeName: string): IActionResult {
@@ -194,6 +191,7 @@ export class ProducMenuService {
     this.ProductMenuList = JSON.parse(JSON.stringify(this.ProductMenuList));
   }
 
+  // Menu Actions
   private registerMenuAction(node: IProductMenuItem, action: string) {
     this.menuActions.push({
       MenuItem: node,
@@ -228,6 +226,12 @@ export class ProducMenuService {
     if (!isNewNode) {
       this.registerMenuAction(node, CoreResources.MenuCrudActions.Delete);
     }
+  }
+
+  // APIs
+
+  public getMenuFromDB(): Observable<IProductMenuItem[]> {
+    return this.httpService.getData(CoreResources.MenuApiUrl.getAllMenu);
   }
 
   public saveAllChanges(): Observable<any> {

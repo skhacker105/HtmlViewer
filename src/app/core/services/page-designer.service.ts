@@ -1,11 +1,14 @@
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, forkJoin, Observable, of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { IActionResult } from '../interfaces/ActionResult';
 import { IPageControl } from '../interfaces/PageControl';
-import { ContainerControl } from '../modles/controls';
+import { IPageControlAction } from '../interfaces/PageControlAction';
+import { ButtonControl, ContainerControl, TextBoxControl } from '../modles/controls';
 import { buttonDirectoryObj, containerDirectoryObj, textBoxDirectoryObj } from '../modles/directory';
 import { CoreResources } from '../utilities/resources';
+import { HttpWrapperService } from './http-wrapper.service';
 import { ProducMenuService } from './produc-menu.service';
 
 @Injectable({
@@ -16,9 +19,51 @@ export class PageDesignerService {
   public designerMode = new BehaviorSubject<boolean>(true);
   public containers = new BehaviorSubject<ContainerControl[]>([]);
   public selectedControl = new BehaviorSubject<IPageControl>(null);
+  public pageControlAction: IPageControlAction[] = [];
   private controlCountTracker = {};
 
-  constructor(private producMenuService: ProducMenuService) {
+  constructor(private httpService: HttpWrapperService, private producMenuService: ProducMenuService) {
+    this.producMenuService.selectedMenu.subscribe(menu => {
+      this.loadPageControls(this.producMenuService.selectedMenuId);
+    });
+  }
+
+  loadPageControls(selectedMenuId: string) {
+    this.containers.next([]);
+    if (selectedMenuId) {
+      this.getFormControlsFromDB(selectedMenuId).subscribe(res => {
+        if (res) {
+          this.converFlatControlsToNested(res);
+        } else {
+          this.loadDefaultContainer();
+        }
+      });
+    }
+  }
+
+  converFlatControlsToNested(flatControls: IPageControl[]): void {
+    let parentControls: IPageControl[] = flatControls.filter(fc => !fc.parentControlId);
+    if (!parentControls || parentControls.length === 0) {
+      return;
+    }
+    parentControls.forEach(pc => {
+      pc.children = this.getChildren(pc, flatControls);
+    });
+    this.containers.next(parentControls);
+  }
+
+  private getChildren(node: IPageControl, flatMenu: IPageControl[]): IPageControl[] {
+    let children: IPageControl[] = flatMenu.filter(m => m.parentControlId === node.controlId);
+    if (children && children.length > 0) {
+      children.forEach(c => {
+        c.children = this.getChildren(c, flatMenu);
+      });
+    }
+    return children;
+  }
+
+  loadDefaultContainer() {
+    this.addPageContainer();
   }
 
   selectControl(control: IPageControl) {
@@ -28,6 +73,13 @@ export class PageDesignerService {
     this.selectedControl.next(control);
     if (control) {
       this.selectedControl.value.selected = true;
+    }
+  }
+
+  clickSelectControl(event, control: IPageControl, disabled: boolean = false) {
+    if (!disabled) {
+      event.stopPropagation();
+      this.selectControl(control);
     }
   }
 
@@ -46,15 +98,6 @@ export class PageDesignerService {
     return newName;
   }
 
-  addPageContainer() {
-    if (!this.containers.value) {
-      this.containers.next([]);
-    }
-    const newContainer: ContainerControl = new ContainerControl(this.producMenuService.selectedMenuId, null, this.getNewControlName(CoreResources.Controls.container), (this.containers.value.length + 1));
-    this.containers.value.push(newContainer);
-    this.selectControl(newContainer);
-  }
-
   getControlObjectByType(controleType: string, menuId: string, parentControlId: string, controlName: string, order: number): IPageControl {
     let control;
     switch (controleType) {
@@ -65,7 +108,17 @@ export class PageDesignerService {
     return control;
   }
 
-  addChildrenControl(control: IPageControl) {
+  addPageContainer() {
+    if (!this.containers.value) {
+      this.containers.next([]);
+    }
+    const newContainer: ContainerControl = new ContainerControl(null, this.producMenuService.selectedMenuId, null, this.getNewControlName(CoreResources.Controls.container), (this.containers.value.length + 1));
+    this.containers.value.push(newContainer);
+    this.selectControl(newContainer);
+    this.registerAddPageControlAction(newContainer);
+  }
+
+  addChildrenControl(control: IPageControl): void {
     if (!this.selectedControl.value.children) {
       this.selectedControl.value.children = [];
     }
@@ -73,13 +126,7 @@ export class PageDesignerService {
       this.getNewControlName(control.controlProperties.controlType), this.selectedControl.value.children.length + 1);
     this.selectedControl.value.children.push(newControl);
     this.selectControl(newControl);
-  }
-
-  clickSelectControl(event, control: IPageControl, disabled: boolean = false) {
-    if (!disabled) {
-      event.stopPropagation();
-      this.selectControl(control);
-    }
+    this.registerAddPageControlAction(newControl);
   }
 
   deleteControl(controls: IPageControl[]): IActionResult {
@@ -89,9 +136,10 @@ export class PageDesignerService {
     }
     if (this.selectedControl.value) {
       for (let i = 0; i < controls.length; i++) {
-        if (controls[i].controlProperties.controlId === this.selectedControl.value.controlProperties.controlId) {
+        if (!result.completed && controls[i].controlProperties.controlId === this.selectedControl.value.controlProperties.controlId) {
           result.completed = true;
           result.message = CoreResources.DeleteControlSuccessfully;
+          this.registerDeletePageControAction(controls[i]);
           controls.splice(i, 1);
           if (this.containers.value) {
             if (this.containers.value.length > 0) {
@@ -109,5 +157,114 @@ export class PageDesignerService {
     return result;
   }
 
-  hasChildControl() { }
+  updateControl(control: IPageControl): void {
+    this.registerUpdatePageControlAction(control);
+  }
+
+  private convertDBControlToObject(item: any): IPageControl {
+    let newControl: IPageControl;
+    const props = JSON.parse(item['controlProperties']);
+    switch (props['controlType']) {
+      case CoreResources.Controls.container:
+        newControl = new ContainerControl(item['controlId'], item['menuId'], item['parentControlId'], props['controlName'], props['order'], props); break;
+      case CoreResources.Controls.textbox:
+        newControl = new TextBoxControl(item['controlId'], item['menuId'], item['parentControlId'], props['controlName'], props['order'], props); break;
+      case CoreResources.Controls.button:
+        newControl = new ButtonControl(item['controlId'], item['menuId'], item['parentControlId'], props['controlName'], props['order'], props); break;
+    }
+    return newControl;
+  }
+
+  // Control Actions
+  private registerPageControlAction(node: IPageControl, action: string, nodeStore?: IPageControl) {
+    this.pageControlAction.push({
+      ControlItem: node,
+      ControlOperation: action,
+      StoreControlItem: nodeStore
+    });
+  }
+
+  private deletePageControlAction(node: IPageControl) {
+    const n = this.pageControlAction.findIndex(ma => ma.ControlItem.controlProperties.controlId === node.controlProperties.controlId);
+    if (n >= 0) {
+      this.pageControlAction.splice(n, 1);
+    }
+  }
+
+  private registerAddPageControlAction(node: IPageControl) {
+    this.registerPageControlAction(node, CoreResources.MenuCrudActions.Add);
+  }
+
+  private registerUpdatePageControlAction(node: IPageControl) {
+    const controlNode = (this.pageControlAction.find(ma => ma.ControlItem.controlProperties.controlId == node.controlProperties.controlId));
+    if (controlNode) {
+      // record exists in action
+      // do not change action as actions ADD or UPDATE will not change once added in this list
+      controlNode.ControlItem = node;
+    } else {
+      // yet to implement
+    }
+  }
+
+  private registerDeletePageControAction(node: IPageControl) {
+    const isNewNode = (this.pageControlAction.findIndex(ma => ma.ControlItem.controlProperties.controlId == node.controlProperties.controlId && ma.ControlOperation === CoreResources.MenuCrudActions.Add) >= 0);
+    this.deletePageControlAction(node);
+    if (!isNewNode) {
+      this.registerPageControlAction(node, CoreResources.MenuCrudActions.Delete);
+    }
+  }
+
+  // APIs
+
+  public getFormControlsFromDB(menuId: string): Observable<IPageControl[]> {
+    return this.httpService.getData(CoreResources.PageControlApiUrl.getAllMenuPageControls + '/' + menuId).pipe(
+      map((d: any[]) => {
+        const convertedControls: IPageControl[] = [];
+        d.forEach(item => {
+          convertedControls.push(this.convertDBControlToObject(item));
+        });
+        return convertedControls;
+      }),
+      catchError((err) => {
+        return of([] as IPageControl[])
+      })
+    );
+  }
+
+  public saveAllChanges(): Observable<any> {
+    const addedRecords: IPageControlAction[] = this.pageControlAction.filter(ma => ma.ControlOperation === CoreResources.MenuCrudActions.Add);
+    const updatedRecords: IPageControlAction[] = this.pageControlAction.filter(ma => ma.ControlOperation === CoreResources.MenuCrudActions.Update);
+    const deletedRecords: IPageControlAction[] = this.pageControlAction.filter(ma => ma.ControlOperation === CoreResources.MenuCrudActions.Delete);
+    let calls: Observable<any>[] = [];
+    calls = calls.concat(this.generateApiCalls(addedRecords));
+    calls = calls.concat(this.generateApiCalls(updatedRecords));
+    calls = calls.concat(this.generateApiCalls(deletedRecords));
+    return forkJoin(calls);
+  }
+
+  private generateApiCalls(menuActions: IPageControlAction[]): Observable<any>[] {
+    const arr: Observable<any>[] = [];
+    if (menuActions && menuActions.length > 0) {
+      menuActions.forEach(ma => {
+        const newItem: any = {
+          menuId: ma.ControlItem.menuId,
+          controlId: ma.ControlItem.controlId,
+          controlProperties: JSON.stringify(ma.ControlItem.controlProperties),
+          controlEvents: JSON.stringify(ma.ControlItem.controlEvents),
+          parentControlId: ma.ControlItem.parentControlId
+        };
+        if (ma.ControlOperation === CoreResources.MenuCrudActions.Add) {
+          // ADD
+          arr.push(this.httpService.postData(CoreResources.PageControlApiUrl.addMenuPageControls, newItem));
+        } else if (ma.ControlOperation === CoreResources.MenuCrudActions.Update) {
+          // UPDATE
+          arr.push(this.httpService.putData(CoreResources.PageControlApiUrl.updateMenuPageControls + newItem.Id, newItem));
+        } else if (ma.ControlOperation === CoreResources.MenuCrudActions.Delete) {
+          // DELETE
+          arr.push(this.httpService.deleteData(CoreResources.PageControlApiUrl.deleteMenuPageControls + newItem.Id));
+        }
+      });
+    }
+    return arr;
+  }
 }

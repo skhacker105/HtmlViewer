@@ -10,6 +10,7 @@ export class CoreResources {
     public static readonly MenuDeleteSuccess = "Menu deleted successfully";
     public static readonly MenuChangeSaveError = 'Save changes before selecting different Menu';
     public static readonly MenuChangesSaveSuccess = 'Menu changes saved successfully'
+    public static readonly ControlsChangesSaveSuccess = 'Controls changes saved successfully'
 
     public static readonly MenuCrudActions = {
         Add: 'A',
@@ -39,6 +40,14 @@ export class CoreResources {
 
 
     // PAGE DESIGNER resources
+
+    public static readonly PageControlApiUrl = {
+        getAllMenuPageControls: '/menu',
+        addMenuPageControls: '/controls',
+        updateMenuPageControls: '/controls',
+        deleteMenuPageControls: '/controls'
+    };
+
     public static readonly Controls = {
         container: 'container',
         textbox: 'textbox',

@@ -25,10 +25,13 @@ import { MenuActionComponent } from './components/menu-action/menu-action.compon
 import { MatCardModule } from '@angular/material/card';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSelectModule } from '@angular/material/select';
+import { PageControlChangeHistoryComponent } from './components/page-control-change-history/page-control-change-history.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @NgModule({
   declarations: [LayoutComponent, RecordActionComponent, SnackBarComponent, ConfirmationComponent, SiteMapComponent,
-    ChangeHistoryComponent, MenuChangeHistoryComponent, MenuActionComponent],
+    ChangeHistoryComponent, MenuChangeHistoryComponent, MenuActionComponent, PageControlChangeHistoryComponent],
   imports: [
     CommonModule,
     HttpClientModule,
@@ -47,7 +50,9 @@ import { MatSelectModule } from '@angular/material/select';
     MatGridListModule,
     MatCardModule,
     MatSlideToggleModule,
-    MatSelectModule
+    MatSelectModule,
+    MatTableModule,
+    MatExpansionModule
   ],
   exports: [
     MatToolbarModule,
@@ -70,7 +75,9 @@ import { MatSelectModule } from '@angular/material/select';
     MatGridListModule,
     MatCardModule,
     MatSlideToggleModule,
-    MatSelectModule
+    MatSelectModule,
+    MatTableModule,
+    MatExpansionModule
   ]
 })
 export class CoreModule { }

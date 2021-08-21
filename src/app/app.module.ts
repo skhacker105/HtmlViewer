@@ -28,6 +28,7 @@ import { ButtonComponent } from './components/controls/pageControls/button/butto
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     FormsModule,
     CoreModule,

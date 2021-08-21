@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
+import { ProducMenuService } from '../../services/produc-menu.service';
 
 @Component({
   selector: 'app-change-history',
@@ -8,7 +9,8 @@ import { MatDialogRef } from '@angular/material/dialog';
 })
 export class ChangeHistoryComponent implements OnInit {
 
-  constructor(public dialogRef: MatDialogRef<ChangeHistoryComponent>) { }
+  constructor(public dialogRef: MatDialogRef<ChangeHistoryComponent>,
+    public producMenuService: ProducMenuService) { }
 
   ngOnInit(): void {
   }
