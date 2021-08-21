@@ -51,6 +51,9 @@ export class PageDesignerService {
       pc.children = this.getChildren(pc, flatControls);
     });
     this.containers.next(parentControls);
+    if (parentControls.length > 0) {
+      this.selectControl(parentControls[0]);
+    }
   }
 
   private getChildren(node: IPageControl, flatMenu: IPageControl[]): IPageControl[] {

@@ -93,6 +93,7 @@ export class ProductHeaderComponent implements OnInit {
         completed: true,
         message: CoreResources.ControlsChangesSaveSuccess
       });
+      this.pageDesignerService.loadPageControls(this.producMenuService.selectedMenuId);
     });
   }
 
