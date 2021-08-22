@@ -16,6 +16,7 @@ export class RolesService {
 
   public parentRoles: IRoles[] = [new Roles('000', 'Organisation', null)];
   public RolesAction: IRoleAction[] = [];
+  public flatRoles: IRoles[];
 
   constructor(private httpService: HttpWrapperService) {
   }
@@ -64,7 +65,7 @@ export class RolesService {
   }
 
   // Roles Actions
-  private registerRolesAction(node: IRoles, action: string, nodeStore?: IRoles) {
+  private registerRolesAction(node: IRoles, action: string) {
     this.RolesAction.push({
       RoleItem: node,
       RoleOperation: action
@@ -109,6 +110,7 @@ export class RolesService {
         d.forEach(item => {
           convertedControls.push(new Roles(item['roleId'], item['roleName'], item['parentRoleId']));
         });
+        this.flatRoles = JSON.parse(JSON.stringify(convertedControls));
         return convertedControls;
       }),
       catchError((err) => {

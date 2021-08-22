@@ -16,6 +16,7 @@ export class TeamsService {
 
   public parentTeams: ITeams[] = [new Teams('000', 'Organisation', null)];
   public teamsActions: ITeamAction[] = [];
+  public flatTeams: ITeams[];
 
   constructor(private httpService: HttpWrapperService) {
   }
@@ -64,7 +65,7 @@ export class TeamsService {
   }
 
   // Teams Actions
-  private registerteamsActions(node: ITeams, action: string, nodeStore?: ITeams) {
+  private registerteamsActions(node: ITeams, action: string) {
     this.teamsActions.push({
       TeamItem: node,
       TeamOperation: action
@@ -109,6 +110,7 @@ export class TeamsService {
         d.forEach(item => {
           convertedControls.push(new Teams(item['teamId'], item['teamName'], item['parentTeamId']));
         });
+        this.flatTeams = JSON.parse(JSON.stringify(convertedControls));
         return convertedControls;
       }),
       catchError((err) => {

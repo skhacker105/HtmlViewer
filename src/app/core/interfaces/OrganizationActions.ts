@@ -1,4 +1,5 @@
 import { ITeams } from "./Teams";
+import { IUser } from "./Users";
 
 export interface ITeamAction {
     TeamItem: ITeams,
@@ -8,4 +9,9 @@ export interface ITeamAction {
 export interface IRoleAction {
     RoleItem: ITeams,
     RoleOperation: string
+}
+
+export interface IUserAction {
+    UserItem: IUser,
+    UserOperation: string
 }

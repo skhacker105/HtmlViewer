@@ -1,1 +1,35 @@
-<p>users works!</p>
+<br>
+<mat-grid-list cols="12" rowHeight="50px">
+    <mat-grid-tile [colspan]="1" class="mat-header-cell">Index</mat-grid-tile>
+    <mat-grid-tile [colspan]="2" class="mat-header-cell">User Name</mat-grid-tile>
+    <mat-grid-tile [colspan]="2" class="mat-header-cell">Role</mat-grid-tile>
+    <mat-grid-tile [colspan]="1"></mat-grid-tile>
+    <mat-grid-tile [colspan]="4" class="mat-header-cell">Teams</mat-grid-tile>
+    <mat-grid-tile [colspan]="2"></mat-grid-tile>
+    <ng-container *ngFor="let user of usersService.users; let i = index;">
+        <mat-grid-tile [colspan]="1">{{i}}.</mat-grid-tile>
+        <mat-grid-tile [colspan]="2">{{user.userName}}</mat-grid-tile>
+        <mat-grid-tile [colspan]="2">
+            <mat-form-field appearance="fill" class="full-width">
+                <mat-label>Role</mat-label>
+                <mat-select (selectionChange)="handleRoleChange(user, $event)" [value]="user.roleId">
+                  <mat-option *ngFor="let role of rolesService.flatRoles" [value]="role.Id">{{ role.name }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="1"></mat-grid-tile>
+        <mat-grid-tile [colspan]="4">
+            <mat-form-field appearance="fill" class="full-width">
+                <mat-label>Teams</mat-label>
+                <mat-select multiple (selectionChange)="handleTeamsChange(user, $event)" [value]="user.teamIds">
+                  <mat-option *ngFor="let team of teamsService.flatTeams" [value]="team.Id">{{ team.name }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="2">
+            <app-record-action *ngIf="designMode" [record]="user"
+            (editClick)="handleAddEdit(user)" (deleteClick)="handleDelete(user)">
+            </app-record-action>
+        </mat-grid-tile>
+    </ng-container>
+</mat-grid-list>

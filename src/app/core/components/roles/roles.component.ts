@@ -36,8 +36,18 @@ export class RolesComponent implements OnInit {
       const index = parentRole.children.findIndex(ta => ta.Id === node.Id);
       if (index >= 0) {
         this.rolesService.registerDeleteRolesAction(node);
+        this.registerAllChildForDelete(node);
         parentRole.children.splice(index, 1);
       }
+    }
+  }
+
+  registerAllChildForDelete(node: Roles) {
+    if (node.children) {
+      node.children.forEach(c => {
+        this.rolesService.registerDeleteRolesAction(c);
+        this.registerAllChildForDelete(c);
+      });
     }
   }
 

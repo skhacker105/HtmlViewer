@@ -1,9 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { forkJoin, Observable } from 'rxjs';
+import { PageDesignerService } from '../../services/page-designer.service';
 import { RolesService } from '../../services/roles.service';
 import { TeamsService } from '../../services/teams.service';
+import { UsersService } from '../../services/users.service';
+import { UsersComponent } from '../users/users.component';
 
 @Component({
   selector: 'app-organization-team-user-roles',
@@ -13,10 +16,19 @@ import { TeamsService } from '../../services/teams.service';
 export class OrganizationTeamUserRolesComponent implements OnInit {
 
   selectedIndex = 0;
+  designMode: boolean;
+  @ViewChild(UsersComponent) userComponent: UsersComponent;
 
-  constructor(public dialogRef: MatDialogRef<OrganizationTeamUserRolesComponent>,
+  constructor(
+    public dialogRef: MatDialogRef<OrganizationTeamUserRolesComponent>,
+    private pageDesignerService: PageDesignerService,
     public teamsService: TeamsService,
-    public rolesService: RolesService) { }
+    public rolesService: RolesService,
+    public usersService: UsersService) { 
+      this.pageDesignerService.designerMode.subscribe(mode => {
+        this.designMode = mode;
+      });
+    }
 
   ngOnInit(): void {
     this.loadOrganizationStructure();
@@ -30,6 +42,9 @@ export class OrganizationTeamUserRolesComponent implements OnInit {
     });
     this.rolesService.getRoles().subscribe(res => {
       this.rolesService.converFlatRolesToNested(res);
+    });
+    this.usersService.getUsers().subscribe(res => {
+      this.usersService.users = res;
     });
   }
 
@@ -49,11 +64,19 @@ export class OrganizationTeamUserRolesComponent implements OnInit {
     if (this.rolesService.RolesAction.length > 0) {
       arr.push(this.rolesService.saveAllChanges());
     }
+    if (this.usersService.userActions.length > 0) {
+      arr.push(this.usersService.saveAllChanges());
+    }
     forkJoin(arr).subscribe(res => {
       this.teamsService.teamsActions = [];
       this.rolesService.RolesAction = [];
+      this.usersService.userActions = [];
       this.loadOrganizationStructure();
     })
+  }
+
+  handleAddRole() {
+    this.userComponent.handleAdd();
   }
 
 }

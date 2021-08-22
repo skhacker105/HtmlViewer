@@ -1,6 +1,9 @@
 <div class="align-right">
+    <button mat-icon-button matTooltip="Add User" *ngIf="selectedIndex === 2" (click)="handleAddRole()">
+        <mat-icon>add</mat-icon>
+    </button>
     <button mat-icon-button matTooltip="Save"
-    [disabled]="teamsService.teamsActions.length === 0 && rolesService.RolesAction.length === 0" (click)="saveChanges()">
+    [disabled]="teamsService.teamsActions.length === 0 && rolesService.RolesAction.length === 0 && usersService.userActions.length === 0" (click)="saveChanges()">
         <mat-icon>save</mat-icon>
     </button>
     <button mat-icon-button matTooltip="Close" class="close-action" (click)="close()">
@@ -17,6 +20,9 @@
         </mat-tab>
         <mat-tab label="Users">
             <app-users></app-users>
+        </mat-tab>
+        <mat-tab label="Access" *ngIf="designMode">
+            access
         </mat-tab>
     </mat-tab-group>
 </div>

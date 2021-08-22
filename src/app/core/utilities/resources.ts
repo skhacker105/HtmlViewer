@@ -82,4 +82,14 @@ export class CoreResources {
         updateRole: '/roles',
         deleteTRole: '/roles'
     };
+
+
+    // Roles Resources
+
+    public static readonly UserApiUrl = {
+        getAllUsers: '/users',
+        addUser: '/users',
+        updateUser: '/users',
+        deleteUser: '/users'
+    };
 }

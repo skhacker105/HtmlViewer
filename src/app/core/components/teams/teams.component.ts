@@ -36,8 +36,18 @@ export class TeamsComponent implements OnInit {
       const index = parentTeam.children.findIndex(ta => ta.Id === node.Id);
       if (index >= 0) {
         this.teamsService.registerDeleteteamsAction(node);
+        this.registerAllChildForDelete(node);
         parentTeam.children.splice(index, 1);
       }
+    }
+  }
+
+  registerAllChildForDelete(node: Teams) {
+    if (node.children) {
+      node.children.forEach(c => {
+        this.teamsService.registerDeleteteamsAction(c);
+        this.registerAllChildForDelete(c);
+      });
     }
   }
 
