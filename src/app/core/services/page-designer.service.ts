@@ -9,6 +9,7 @@ import { ButtonControl, ContainerControl, TextBoxControl } from '../modles/contr
 import { buttonDirectoryObj, containerDirectoryObj, textBoxDirectoryObj } from '../modles/directory';
 import { CoreResources } from '../utilities/resources';
 import { HttpWrapperService } from './http-wrapper.service';
+import { MessagingService } from './messaging.service';
 import { ProducMenuService } from './produc-menu.service';
 
 @Injectable({
@@ -22,10 +23,22 @@ export class PageDesignerService {
   public pageControlAction: IPageControlAction[] = [];
   private controlCountTracker = {};
   private controlsFromDB: IPageControl[];
+  private selectedMenu: string;
 
-  constructor(private httpService: HttpWrapperService, private producMenuService: ProducMenuService) {
+  constructor(private httpService: HttpWrapperService, private producMenuService: ProducMenuService, private messagingService: MessagingService) {
     this.producMenuService.selectedMenu.subscribe(menu => {
-      this.loadPageControls(this.producMenuService.selectedMenuId);
+      if (this.pageControlAction.length > 0 && this.pageControlAction[0].ControlItem.menuId != this.producMenuService.selectedMenuId) {
+        this.producMenuService.selectMenu(this.selectedMenu);
+        this.messagingService.showSnackBar({
+          completed: false,
+          message: 'Save control changes before changing menu'
+        });
+      } else if (!this.selectedMenu || this.selectedMenu != menu) {
+        this.selectedMenu = menu;
+        this.controlCountTracker = {};
+        this.pageControlAction = [];
+        this.loadPageControls(this.producMenuService.selectedMenuId);
+      }
     });
   }
 
@@ -267,7 +280,7 @@ export class PageDesignerService {
         return convertedControls;
       }),
       catchError((err) => {
-        return of([] as IPageControl[])
+        return of([])
       })
     );
   }

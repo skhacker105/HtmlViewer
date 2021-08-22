@@ -56,4 +56,30 @@ export class CoreResources {
 
     public static readonly DeleteControlNotFound = 'Control not found';
     public static readonly DeleteControlSuccessfully = 'Control deleted successfully';
+
+
+    // Teams Resources
+    public static readonly TeamAlreadyExists = 'Team already exists with mentioned name';
+    public static readonly TeamIdNotFound = 'Team Id not found';
+    public static readonly TeamAddedSuccessfully = 'Team added successfully';
+
+    public static readonly TeamsApiUrl = {
+        getAllTeams: '/teams',
+        addTeam: '/teams',
+        updateTeam: '/teams',
+        deleteTeam: '/teams'
+    };
+
+
+    // Roles Resources
+    public static readonly RoleAlreadyExists = 'Team already exists with mentioned name';
+    public static readonly RoleIdNotFound = 'Team Id not found';
+    public static readonly RoleAddedSuccessfully = 'Team added successfully';
+
+    public static readonly RoleApiUrl = {
+        getAllRoles: '/roles',
+        addRole: '/roles',
+        updateRole: '/roles',
+        deleteTRole: '/roles'
+    };
 }

@@ -39,6 +39,7 @@
 
                 <ng-container *ngFor="let keys of element.ControlItem.getProperties()">
                     <div class="row details-row"
+                        *ngIf="keys != 'controlId' && keys != 'controlName' && keys != 'controlType'"
                         [ngClass]="{'details-row-updated': element.StoreControlItem.controlProperties[keys] != element.ControlItem.controlProperties[keys]}">
                         <div class="col mat-cell">{{getPropertyFormatedName(keys)}}</div>
                         <div class="col mat-cell">
@@ -60,10 +61,11 @@
                 </div>
 
                 <ng-container *ngFor="let keys of element.ControlItem.getProperties()">
-                    <div class="row details-row">
+                    <div class="row details-row"
+                        *ngIf="keys != 'controlId' && keys != 'controlName' && keys != 'controlType'">
                         <div class="col mat-cell">{{getPropertyFormatedName(keys)}}</div>
                         <div class="col mat-cell">
-                            
+
                         </div>
                         <div class="col mat-cell">
                             {{element.ControlItem.controlProperties[keys]}}
@@ -74,7 +76,7 @@
 
             <!-- DELETED ITEMS -->
             <div class="container" *ngIf="element.ControlOperation === cr.MenuCrudActions.Delete">
-                <div class="row">
+                <div class="row" *ngIf="keys != 'controlId' && keys != 'controlName' && keys != 'controlType'">
                     <div class="col mat-header-cell font-deleted">Poroperty {{element.isExpanded}}</div>
                     <div class="col mat-header-cell font-deleted">Old Value</div>
                     <div class="col mat-header-cell font-deleted">New Value (Not Applicable)</div>
@@ -87,7 +89,7 @@
                             {{element.ControlItem.controlProperties[keys]}}
                         </div>
                         <div class="col mat-cell">
-                            
+
                         </div>
                     </div>
                 </ng-container>

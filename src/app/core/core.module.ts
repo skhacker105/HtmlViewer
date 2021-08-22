@@ -28,10 +28,15 @@ import { MatSelectModule } from '@angular/material/select';
 import { PageControlChangeHistoryComponent } from './components/page-control-change-history/page-control-change-history.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { OrganizationTeamUserRolesComponent } from './components/organization-team-user-roles/organization-team-user-roles.component';
+import { TeamsComponent } from './components/teams/teams.component';
+import { RolesComponent } from './components/roles/roles.component';
+import { UsersComponent } from './components/users/users.component';
+import { TreeViewComponent } from './components/tree-view/tree-view.component';
 
 @NgModule({
   declarations: [LayoutComponent, RecordActionComponent, SnackBarComponent, ConfirmationComponent, SiteMapComponent,
-    ChangeHistoryComponent, MenuChangeHistoryComponent, MenuActionComponent, PageControlChangeHistoryComponent],
+    ChangeHistoryComponent, MenuChangeHistoryComponent, MenuActionComponent, PageControlChangeHistoryComponent, OrganizationTeamUserRolesComponent, TeamsComponent, RolesComponent, UsersComponent, TreeViewComponent],
   imports: [
     CommonModule,
     HttpClientModule,

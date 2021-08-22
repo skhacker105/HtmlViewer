@@ -14,6 +14,9 @@
         <span class="example-spacer"></span>
         <mat-slide-toggle color="warn" [checked]="designerMode" (change)="toggle($event)" matTooltip="Preview Mode">
         </mat-slide-toggle>
+        <button mat-icon-button matTooltip="Organization Structure" (click)="openOrganization()">
+            <mat-icon>supervised_user_circle</mat-icon>
+        </button>
         <button mat-icon-button matTooltip="Change History"
             [disabled]="producMenuService.menuActions.length === 0 && pageDesignerService.pageControlAction.length === 0"
             (click)="openChangeHistory()">

@@ -1,0 +1,22 @@
+<div class="align-right">
+    <button mat-icon-button matTooltip="Save"
+    [disabled]="teamsService.teamsActions.length === 0 && rolesService.RolesAction.length === 0" (click)="saveChanges()">
+        <mat-icon>save</mat-icon>
+    </button>
+    <button mat-icon-button matTooltip="Close" class="close-action" (click)="close()">
+        <mat-icon>close</mat-icon>
+    </button>
+</div>
+<div mat-dialog-content>
+    <mat-tab-group dynamicHeight (selectedTabChange)="tabChanged($event)">
+        <mat-tab label="Teams">
+            <app-teams></app-teams>
+        </mat-tab>
+        <mat-tab label="Roles">
+            <app-roles></app-roles>
+        </mat-tab>
+        <mat-tab label="Users">
+            <app-users></app-users>
+        </mat-tab>
+    </mat-tab-group>
+</div>

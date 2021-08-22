@@ -1,0 +1,25 @@
+<ng-container *ngTemplateOutlet="tree; context:{ node: data, class: 'tree' }">
+</ng-container>
+
+<ng-template #tree let-arr="node" let-class="class">
+    <ul [class]="class">
+        <li *ngFor="let d of arr" class="">
+            <ng-container *ngTemplateOutlet="listItem; context: { item: d }"></ng-container>
+            <ng-container *ngTemplateOutlet="tree; context:{ node: d.children, class: '' }">
+            </ng-container>
+        </li>
+    </ul>
+</ng-template>
+
+<ng-template #listItem let-item="item">
+    <div class="row list-item">
+        <div class="col-10">
+            <a>{{item.name}}</a>
+        </div>
+        <div class="col-2">
+            <app-record-action *ngIf="designMode" [record]="item" [showAdd]="true" [showEdit]="item.Id !== '000'" [showDelete]="item.Id !== '000'"
+            (addClick)="openDialog(item, null)" (editClick)="openDialog(null, item)" (deleteClick)="deleteClicked(item)">
+            </app-record-action>
+        </div>
+    </div>
+</ng-template>

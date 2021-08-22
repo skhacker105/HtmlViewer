@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { ChangeHistoryComponent } from 'src/app/core/components/change-history/change-history.component';
+import { OrganizationTeamUserRolesComponent } from 'src/app/core/components/organization-team-user-roles/organization-team-user-roles.component';
 import { MessagingService } from 'src/app/core/services/messaging.service';
 import { PageDesignerService } from 'src/app/core/services/page-designer.service';
 import { ProducMenuService } from 'src/app/core/services/produc-menu.service';
@@ -104,6 +105,13 @@ export class ProductHeaderComponent implements OnInit {
   toggle(event: MatSlideToggleChange) {
     this.designerMode = event.checked;
     this.pageDesignerService.setDesignerMode(event.checked);
+  }
+
+  openOrganization(): void {
+    this.dialog.open(OrganizationTeamUserRolesComponent, {
+      width: '100%',
+      height: '90%'
+    });
   }
 
 }
