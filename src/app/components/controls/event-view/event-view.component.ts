@@ -26,6 +26,8 @@ export class EventViewComponent implements OnInit {
       this.controlEvents = [];
       if (control) {
         this.getAllProperties();
+      } else {
+        this.controlEvents = []
       }
     });
   }

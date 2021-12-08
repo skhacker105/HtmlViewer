@@ -22,6 +22,8 @@ export class PropertyViewComponent implements OnInit {
       this.controlProperties = [];
       if (control) {
         this.getAllProperties();
+      } else {
+        this.controlProperties = [];
       }
     });
   }
@@ -54,6 +56,7 @@ export class PropertyViewComponent implements OnInit {
       case 'controlAlignment': type = 'controlAlignment'; break;
       case 'position': type = 'position'; break;
       case 'controlId': type = 'hidden'; break;
+      case 'controlName': type = 'controlName'; break;
       case 'controlType': type = 'hidden'; break;
       case 'pageInput': type = 'pageInput'; break;
       case 'parentControlId': type = 'hidden'; break;

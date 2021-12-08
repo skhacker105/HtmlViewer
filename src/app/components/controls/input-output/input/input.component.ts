@@ -64,10 +64,12 @@ export class InputComponent implements OnInit, OnDestroy {
   }
 
   deleteInput(io: IPageIO) {
-    if (this.inputUsedInControl(io, this.pageDesignerService.containers.value)) {
+    const controlUsingIO = this.inputUsedInControl(io, this.pageDesignerService.containers.value);
+    if (controlUsingIO) {
+      const msg = CoreResources.DeleteInputError.replace('[[control_name]]', controlUsingIO.controlProperties.controlName)
       this.messagingService.showSnackBar({
         completed: false,
-        message: CoreResources.DeleteInputError
+        message: msg
       });
     } else {
       const dialogRef = this.dialog.open(ConfirmationComponent, {
@@ -82,12 +84,12 @@ export class InputComponent implements OnInit, OnDestroy {
     }
   }
 
-  inputUsedInControl(io: IPageIO, controls: IPageControl[]): boolean {
-    let found = false;
+  inputUsedInControl(io: IPageIO, controls: IPageControl[]): IPageControl {
+    let found: IPageControl;
     if (controls) {
       controls.forEach(c => {
         if (c.controlProperties.pageInput && c.controlProperties.pageInput === io.eventId && !found) {
-          found = true;
+          found = c;
         }
         if (c.children && !found) {
           found = this.inputUsedInControl(io, c.children);

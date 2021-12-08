@@ -101,5 +101,5 @@ export class CoreResources {
         deleteEvent: '/events'
     };
     public static readonly ResetEventError = 'Event cannot be reoved as it being used. Please check input output page for selected control event';
-    public static readonly DeleteInputError = 'Input is being used in control. Reset Control property to delete this.';
+    public static readonly DeleteInputError = 'Input is being used in control [[control_name]]. Reset Control property to delete this.';
 }

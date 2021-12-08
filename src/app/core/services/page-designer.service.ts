@@ -38,6 +38,7 @@ export class PageDesignerService {
         this.selectedMenu = menu;
         this.controlCountTracker = {};
         this.pageControlAction = [];
+        this.selectedControl.next(null);
         this.loadPageControls(this.producMenuService.selectedMenuId);
       }
     });

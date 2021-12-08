@@ -77,6 +77,15 @@
             (change)="updateControl()">
         </mat-form-field>
       </ng-container>
+
+
+      <!-- Control Name -->
+      <ng-container *ngIf="getPropertyType(prop) === 'controlName'">
+        <mat-form-field appearance="fill" class="col-12">
+          <mat-label>{{getPropertyFormatedName(prop)}}</mat-label>
+          <input matInput [(ngModel)]="pageDesignerService.selectedControl.value.controlProperties[prop]" [disabled]="true">
+        </mat-form-field>
+      </ng-container>
     </div>
   </div>
 </div>
