@@ -25,6 +25,7 @@ export class PageDesignerService {
   private controlCountTracker = {};
   private controlsFromDB: IPageControl[];
   private selectedMenu: string;
+  isComponentActive = true;
 
   constructor(private httpService: HttpWrapperService, private producMenuService: ProducMenuService, private messagingService: MessagingService) {
     this.producMenuService.selectedMenu.subscribe(menu => {

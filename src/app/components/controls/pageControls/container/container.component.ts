@@ -1,4 +1,5 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, SimpleChanges, ViewChild, ViewContainerRef } from '@angular/core';
+import { takeWhile } from 'rxjs/operators';
 import { IPageControl } from 'src/app/core/interfaces/PageControl';
 import { ContainerControl } from 'src/app/core/modles/controls';
 import { PageDesignerService } from 'src/app/core/services/page-designer.service';
@@ -8,20 +9,23 @@ import { PageDesignerService } from 'src/app/core/services/page-designer.service
   templateUrl: './container.component.html',
   styleUrls: ['./container.component.scss']
 })
-export class ContainerComponent implements OnInit, OnChanges {
+export class ContainerComponent implements OnInit, OnDestroy {
 
   @Input() control: ContainerControl;
   @Input() disabled: boolean;
+  isComponentActive = true;
   designMode: boolean;
   constructor(public pageDesignerService: PageDesignerService) {}
 
   ngOnInit(): void {
-    this.pageDesignerService.designerMode.subscribe(mode => {
+    this.pageDesignerService.designerMode.pipe(takeWhile(() => this.isComponentActive))
+    .subscribe(mode => {
       this.designMode = mode;
     });
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnDestroy(): void {
+    this.isComponentActive = false;
   }
 
   getSortedChildren(controls: IPageControl[]): IPageControl[] {

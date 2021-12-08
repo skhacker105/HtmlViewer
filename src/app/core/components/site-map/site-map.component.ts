@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { takeWhile } from 'rxjs/operators';
 import { IProductMenuItem } from '../../interfaces/ProductMenuItem';
 import { ProducMenuService } from '../../services/produc-menu.service';
 
@@ -7,14 +8,19 @@ import { ProducMenuService } from '../../services/produc-menu.service';
   templateUrl: './site-map.component.html',
   styleUrls: ['./site-map.component.scss']
 })
-export class SiteMapComponent implements OnInit {
+export class SiteMapComponent implements OnInit, OnDestroy {
 
   siteMap: string[] = [];
-
+  isComponentActive = true;
   constructor(private producMenuService: ProducMenuService) { }
 
   ngOnInit(): void {
-    this.producMenuService.selectedMenu.subscribe(menu => { this.generateSiteMapData() });
+    this.producMenuService.selectedMenu.pipe(takeWhile(() => this.isComponentActive))
+    .subscribe(menu => { this.generateSiteMapData() });
+  }
+
+  ngOnDestroy(): void {
+    this.isComponentActive = false;
   }
 
   generateSiteMapData(): void {

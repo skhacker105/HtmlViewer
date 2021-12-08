@@ -1,7 +1,8 @@
 import { FlatTreeControl } from '@angular/cdk/tree';
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
+import { takeWhile } from 'rxjs/operators';
 import { ConfirmationComponent } from 'src/app/core/components/confirmation/confirmation.component';
 import { IFlatNode } from 'src/app/core/interfaces/FlatNode';
 import { IProductMenuItem } from 'src/app/core/interfaces/ProductMenuItem';
@@ -14,7 +15,7 @@ import { AddProductMenuComponent } from '../add-product-menu/add-product-menu.co
   templateUrl: './product-main-menu.component.html',
   styleUrls: ['./product-main-menu.component.scss']
 })
-export class ProductMainMenuComponent implements OnInit, OnChanges {
+export class ProductMainMenuComponent implements OnInit, OnChanges, OnDestroy {
 
   @Input() menu: IProductMenuItem[];
   @Output() selectedMenu = new EventEmitter();
@@ -25,6 +26,7 @@ export class ProductMainMenuComponent implements OnInit, OnChanges {
 
   expanded = false;
   designMode: boolean;
+  isComponentActive = true;
 
   treeControl = new FlatTreeControl<IFlatNode>(
     node => node.level, node => node.expandable);
@@ -49,9 +51,14 @@ export class ProductMainMenuComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    this.pageDesignerService.designerMode.subscribe(mode => {
+    this.pageDesignerService.designerMode.pipe(takeWhile(() => this.isComponentActive))
+    .subscribe(mode => {
       this.designMode = mode;
     });
+  }
+
+  ngOnDestroy(): void {
+    this.isComponentActive = false;
   }
 
   hasChild = (_: number, node: IFlatNode) => node.expandable;
@@ -63,7 +70,8 @@ export class ProductMainMenuComponent implements OnInit, OnChanges {
       data: { newMenu: '', title: 'Menu', action: CoreResources.MenuCrudActions.Add }
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().pipe(takeWhile(() => this.isComponentActive))
+    .subscribe(result => {
       node.selected = false;
       if (result && result.newMenu) {
         this.addMenu.emit(result.newMenu);
@@ -77,7 +85,8 @@ export class ProductMainMenuComponent implements OnInit, OnChanges {
     const dialogRef = this.dialog.open(ConfirmationComponent, {
       data: CoreResources.DeleteConfirmationData
     });
-    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+    dialogRef.afterClosed().pipe(takeWhile(() => this.isComponentActive))
+    .subscribe((confirmed: boolean) => {
       node.selected = false;
       if (confirmed) {
         this.deleteMenu.emit();
@@ -92,7 +101,8 @@ export class ProductMainMenuComponent implements OnInit, OnChanges {
       data: { newMenu: node.name, title: 'Menu', action: CoreResources.MenuCrudActions.Update }
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().pipe(takeWhile(() => this.isComponentActive))
+    .subscribe(result => {
       node.selected = false;
       if (result && result.newMenu) {
         this.updateMenu.emit(result.newMenu);

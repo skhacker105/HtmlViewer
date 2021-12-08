@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { ChangeHistoryComponent } from 'src/app/core/components/change-history/change-history.component';
@@ -10,16 +10,18 @@ import { CoreResources } from 'src/app/core/utilities/resources';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { InputOutputComponent } from 'src/app/components/controls/input-output/input-output.component';
 import { PageIOService } from 'src/app/core/services/page-io.service';
+import { takeWhile } from 'rxjs/operators';
 
 @Component({
   selector: 'app-product-header',
   templateUrl: './product-header.component.html',
   styleUrls: ['./product-header.component.scss']
 })
-export class ProductHeaderComponent implements OnInit {
+export class ProductHeaderComponent implements OnInit, OnDestroy {
 
   selectedMenu: string;
   designerMode: boolean;
+  isComponentActive = true;
   constructor(
     public producMenuService: ProducMenuService,
     private messagingService: MessagingService,
@@ -33,8 +35,13 @@ export class ProductHeaderComponent implements OnInit {
     this.loadProductMenu();
   }
 
+  ngOnDestroy(): void {
+    this.isComponentActive = false;
+  }
+
   loadProductMenu() {
-    this.producMenuService.getMenuFromDB().subscribe(res => {
+    this.producMenuService.getMenuFromDB().pipe(takeWhile(() => this.isComponentActive))
+    .subscribe(res => {
       if (res) {
         this.producMenuService.flatMenu = res;
         if (res.length > 0) {
@@ -86,7 +93,8 @@ export class ProductHeaderComponent implements OnInit {
   }
 
   saveChanges() {
-    this.producMenuService.saveAllChanges().subscribe(res => {
+    this.producMenuService.saveAllChanges().pipe(takeWhile(() => this.isComponentActive))
+    .subscribe(res => {
       this.producMenuService.menuActions = [];
       this.messagingService.showSnackBar({
         completed: true,
@@ -94,7 +102,8 @@ export class ProductHeaderComponent implements OnInit {
       });
       this.loadProductMenu();
     });
-    this.pageDesignerService.saveAllChanges().subscribe(res => {
+    this.pageDesignerService.saveAllChanges().pipe(takeWhile(() => this.isComponentActive))
+    .subscribe(res => {
       this.pageDesignerService.pageControlAction = [];
       this.messagingService.showSnackBar({
         completed: true,
@@ -102,7 +111,8 @@ export class ProductHeaderComponent implements OnInit {
       });
       this.pageDesignerService.loadPageControls(this.producMenuService.selectedMenuId);
     });
-    this.pageIOService.saveAllChanges().subscribe(res => {
+    this.pageIOService.saveAllChanges().pipe(takeWhile(() => this.isComponentActive))
+    .subscribe(res => {
       this.pageIOService.ioActions = [];
       this.pageIOService.loadPageIO(this.producMenuService.selectedMenuId);
     });

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { takeWhile } from 'rxjs/operators';
 import { PageDesignerService } from 'src/app/core/services/page-designer.service';
 import { PageIOService } from 'src/app/core/services/page-io.service';
 import { ControlAlignment, ControlPosition } from 'src/app/core/utilities/enumerations';
@@ -8,17 +9,19 @@ import { ControlAlignment, ControlPosition } from 'src/app/core/utilities/enumer
   templateUrl: './property-view.component.html',
   styleUrls: ['./property-view.component.scss']
 })
-export class PropertyViewComponent implements OnInit {
+export class PropertyViewComponent implements OnInit, OnDestroy {
 
   controlProperties: string[];
   positions: { key: number, value: string }[];
   controlAlignments: { key: number, value: string }[];
+  isComponentActive = true;
   constructor(public pageDesignerService: PageDesignerService, public pageIOService: PageIOService) { }
 
   ngOnInit(): void {
     this.generatePositions();
     this.generateControlAlignments();
-    this.pageDesignerService.selectedControl.subscribe(control => {
+    this.pageDesignerService.selectedControl.pipe(takeWhile(() => this.isComponentActive))
+    .subscribe(control => {
       this.controlProperties = [];
       if (control) {
         this.getAllProperties();
@@ -26,6 +29,10 @@ export class PropertyViewComponent implements OnInit {
         this.controlProperties = [];
       }
     });
+  }
+
+  ngOnDestroy(): void {
+    this.isComponentActive = false;
   }
 
   getAllProperties(): void {

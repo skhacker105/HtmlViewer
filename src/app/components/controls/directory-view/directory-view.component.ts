@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { takeWhile } from 'rxjs/operators';
 import { IPageControl } from 'src/app/core/interfaces/PageControl';
 import { PageDesignerService } from 'src/app/core/services/page-designer.service';
 
@@ -7,19 +8,25 @@ import { PageDesignerService } from 'src/app/core/services/page-designer.service
   templateUrl: './directory-view.component.html',
   styleUrls: ['./directory-view.component.scss']
 })
-export class DirectoryViewComponent implements OnInit {
+export class DirectoryViewComponent implements OnInit, OnDestroy {
 
   selectedControl: IPageControl;
+  isComponentActive = true;
   dictionaryAllowedControl: IPageControl[];
 
   constructor(public pageDesignerService: PageDesignerService) { }
 
   ngOnInit(): void {
-    this.pageDesignerService.selectedControl.subscribe(control => {
+    this.pageDesignerService.selectedControl.pipe(takeWhile(() => this.isComponentActive))
+    .subscribe(control => {
       this.selectedControl = control;
       this.dictionaryAllowedControl = [];
       this.reloadDictionaryList();
     });
+  }
+
+  ngOnDestroy(): void {
+    this.isComponentActive = false;
   }
 
   reloadDictionaryList() {

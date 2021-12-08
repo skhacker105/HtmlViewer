@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
+import { takeWhile } from 'rxjs/operators';
 import { MessagingService } from 'src/app/core/services/messaging.service';
 import { PageDesignerService } from 'src/app/core/services/page-designer.service';
 import { PageIOService } from 'src/app/core/services/page-io.service';
@@ -12,9 +13,10 @@ import { CoreResources } from 'src/app/core/utilities/resources';
   templateUrl: './event-view.component.html',
   styleUrls: ['./event-view.component.scss']
 })
-export class EventViewComponent implements OnInit {
+export class EventViewComponent implements OnInit, OnDestroy {
 
   controlEvents: string[];
+  isComponentActive = true;
   constructor(
     public pageDesignerService: PageDesignerService,
     private pageIOService: PageIOService,
@@ -22,7 +24,8 @@ export class EventViewComponent implements OnInit {
     private messagingService: MessagingService) { }
 
   ngOnInit(): void {
-    this.pageDesignerService.selectedControl.subscribe(control => {
+    this.pageDesignerService.selectedControl.pipe(takeWhile(() => this.isComponentActive))
+    .subscribe(control => {
       this.controlEvents = [];
       if (control) {
         this.getAllProperties();
@@ -30,6 +33,10 @@ export class EventViewComponent implements OnInit {
         this.controlEvents = []
       }
     });
+  }
+
+  ngOnDestroy(): void {
+    this.isComponentActive = false;
   }
 
   getAllProperties(): void {
