@@ -1,7 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { takeWhile } from 'rxjs/operators';
+import { ConfirmationComponent } from 'src/app/core/components/confirmation/confirmation.component';
 import { IPageIO } from 'src/app/core/interfaces/InputOutput';
+import { IPageControl } from 'src/app/core/interfaces/PageControl';
+import { MessagingService } from 'src/app/core/services/messaging.service';
 import { PageDesignerService } from 'src/app/core/services/page-designer.service';
 import { PageIOService } from 'src/app/core/services/page-io.service';
 import { ProducMenuService } from 'src/app/core/services/produc-menu.service';
@@ -23,7 +26,8 @@ export class InputComponent implements OnInit, OnDestroy {
     public dialog: MatDialog,
     public pageIOService: PageIOService,
     private pageDesignerService: PageDesignerService,
-    private producMenuService: ProducMenuService) { }
+    private producMenuService: ProducMenuService,
+    private messagingService: MessagingService) { }
 
   ngOnInit(): void {
     Object.keys(IODataTypes).forEach(k => {
@@ -44,21 +48,53 @@ export class InputComponent implements OnInit, OnDestroy {
     });
 
     dialogRef.afterClosed().pipe(takeWhile(() => this.isComponentActive))
-    .subscribe(result => {
-      if (result && result.newMenu) {
-        if (io) {
-          // edit mode
-          io.eventName = result.newMenu;
-          this.pageIOService.saveIO(io);
-        } else {
-          // add mode
-          const newio = this.pageIOService.getIOEvent(result.newMenu, this.pageDesignerService.selectedControl.value.controlProperties.controlName, IODataTypes.None, false, this.producMenuService.selectedMenuId, null);
-          this.pageIOService.saveIO(newio);
+      .subscribe(result => {
+        if (result && result.newMenu) {
+          if (io) {
+            // edit mode
+            io.eventName = result.newMenu;
+            this.pageIOService.saveIO(io);
+          } else {
+            // add mode
+            const newio = this.pageIOService.getIOEvent(result.newMenu, this.pageDesignerService.selectedControl.value.controlProperties.controlName, IODataTypes.None, false, this.producMenuService.selectedMenuId, null);
+            this.pageIOService.saveIO(newio);
+          }
         }
-      }
-    });
+      });
   }
 
-  deleteInput(io: IPageIO) {}
+  deleteInput(io: IPageIO) {
+    if (this.inputUsedInControl(io, this.pageDesignerService.containers.value)) {
+      this.messagingService.showSnackBar({
+        completed: false,
+        message: CoreResources.DeleteInputError
+      });
+    } else {
+      const dialogRef = this.dialog.open(ConfirmationComponent, {
+        data: CoreResources.DeleteConfirmationData
+      });
+      dialogRef.afterClosed().pipe(takeWhile(() => this.isComponentActive))
+        .subscribe((confirmed: boolean) => {
+          if (confirmed) {
+            this.pageIOService.deleteIO(io);
+          }
+        });
+    }
+  }
+
+  inputUsedInControl(io: IPageIO, controls: IPageControl[]): boolean {
+    let found = false;
+    if (controls) {
+      controls.forEach(c => {
+        if (c.controlProperties.pageInput && c.controlProperties.pageInput === io.eventId && !found) {
+          found = true;
+        }
+        if (c.children && !found) {
+          found = this.inputUsedInControl(io, c.children);
+        }
+      });
+    }
+    return found;
+  }
 
 }

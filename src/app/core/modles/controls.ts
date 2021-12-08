@@ -25,7 +25,8 @@ export abstract class PageControl implements IPageControl {
             order: order,
             height: '',
             position: ControlPosition.normal,
-            width: ''
+            width: '',
+            pageInput: ''
         };
         this.controlEvents = {
             click: false,

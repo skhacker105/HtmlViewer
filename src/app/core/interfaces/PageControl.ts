@@ -22,6 +22,7 @@ export interface IPageControlProperties {
     width?: string;
     height?: string;
     position?: ControlPosition;
+    pageInput?: string;
 }
 
 export interface IPageControlEvents {

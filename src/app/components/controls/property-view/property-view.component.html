@@ -54,6 +54,21 @@
       </ng-container>
 
 
+      <!-- Page Input uneditable -->
+      <ng-container *ngIf="getPropertyType(prop) === 'pageInput'">
+        <mat-form-field appearance="fill" class="col-12">
+          <mat-label>Select {{getPropertyFormatedName(prop)}}</mat-label>
+          <mat-select [(value)]="pageDesignerService.selectedControl.value.controlProperties[prop]"
+            (selectionChange)="updateControl()">
+            <mat-option value="0">None</mat-option>
+            <ng-container *ngFor="let io of pageIOService.pageInputOutputs.value">
+            <mat-option *ngIf="!io.isOutput" [value]="io.eventId">{{ io.eventName }}</mat-option>
+          </ng-container>
+          </mat-select>
+        </mat-form-field>
+      </ng-container>
+
+
       <!-- STRING, NUMBER -->
       <ng-container *ngIf="getPropertyType(prop) === 'text'">
         <mat-form-field appearance="fill" class="col-12">

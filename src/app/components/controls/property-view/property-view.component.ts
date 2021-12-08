@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PageDesignerService } from 'src/app/core/services/page-designer.service';
+import { PageIOService } from 'src/app/core/services/page-io.service';
 import { ControlAlignment, ControlPosition } from 'src/app/core/utilities/enumerations';
 
 @Component({
@@ -12,7 +13,7 @@ export class PropertyViewComponent implements OnInit {
   controlProperties: string[];
   positions: { key: number, value: string }[];
   controlAlignments: { key: number, value: string }[];
-  constructor(public pageDesignerService: PageDesignerService) { }
+  constructor(public pageDesignerService: PageDesignerService, public pageIOService: PageIOService) { }
 
   ngOnInit(): void {
     this.generatePositions();
@@ -54,6 +55,7 @@ export class PropertyViewComponent implements OnInit {
       case 'position': type = 'position'; break;
       case 'controlId': type = 'hidden'; break;
       case 'controlType': type = 'hidden'; break;
+      case 'pageInput': type = 'pageInput'; break;
       case 'parentControlId': type = 'hidden'; break;
       default: type = 'text'; break;
     }
