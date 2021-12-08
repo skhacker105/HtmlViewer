@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatTabChangeEvent } from '@angular/material/tabs';
 import { PageDesignerService } from 'src/app/core/services/page-designer.service';
 
 @Component({
@@ -12,5 +13,8 @@ export class ProductPageComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  
+
+  tabChanged(tabChangeEvent: MatTabChangeEvent): void {}
 
 }

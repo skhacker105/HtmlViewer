@@ -15,7 +15,7 @@ export abstract class PageControl implements IPageControl {
     controlId: string;
     parentControlId: string;
 
-    constructor(controlId: string, menuId: string, parentControlId: string, controlName: string, order: number, controlProperties?: IPageControlProperties) {
+    constructor(controlId: string, menuId: string, parentControlId: string, controlName: string, order: number) {
         this.menuId = menuId;
         this.parentControlId = parentControlId;
         this.controlProperties = {
@@ -27,17 +27,27 @@ export abstract class PageControl implements IPageControl {
             position: ControlPosition.normal,
             width: ''
         };
+        this.controlEvents = {
+            click: false,
+            keyDown: false,
+            keyUp: false,
+            mouseOut: false,
+            mouseOver: false
+        };
         this.controlId = this.controlProperties.controlId;
     }
     abstract getDirectory(): IPageControlDirectory;
     getProperties(): string[] {
         return Object.keys(this.controlProperties);
     };
+    getEvents(): string[] {
+        return Object.keys(this.controlEvents);
+    };
 }
 
 export class ContainerControl extends PageControl {
     controlProperties: IContainerProperties;
-    constructor(controlId: string, menuId: string, parentControlId: string, controlName: string, order: number, controlProperties?: IPageControlProperties) {
+    constructor(controlId: string, menuId: string, parentControlId: string, controlName: string, order: number, controlProperties?: IPageControlProperties, controlEvents?: IPageControlEvents) {
         super(controlId, menuId, parentControlId, controlName, order);
         if (!controlProperties) {
             this.controlProperties.controlType = CoreResources.Controls.container;
@@ -50,6 +60,9 @@ export class ContainerControl extends PageControl {
         } else {
             this.controlProperties = controlProperties;
         }
+        if (controlEvents) {
+            this.controlEvents = controlEvents;
+        }
     }
     getDirectory(): IPageControlDirectory {
         return containerDirectoryObj;
@@ -58,7 +71,7 @@ export class ContainerControl extends PageControl {
 
 export class TextBoxControl extends PageControl {
     controlProperties: ILabledControlProperties;
-    constructor(controlId: string, menuId: string, parentControlId: string, controlName: string, order: number, controlProperties?: ILabledControlProperties) {
+    constructor(controlId: string, menuId: string, parentControlId: string, controlName: string, order: number, controlProperties?: ILabledControlProperties, controlEvents?: IPageControlEvents) {
         super(controlId, menuId, parentControlId, controlName, order);
         if (!controlProperties) {
             this.controlProperties.controlType = CoreResources.Controls.textbox;
@@ -66,6 +79,9 @@ export class TextBoxControl extends PageControl {
             this.controlProperties.placeHolder = 'TEXT';
         } else {
             this.controlProperties = controlProperties;
+        }
+        if (controlEvents) {
+            this.controlEvents = controlEvents;
         }
     }
     getDirectory(): IPageControlDirectory {
@@ -75,13 +91,16 @@ export class TextBoxControl extends PageControl {
 
 export class ButtonControl extends PageControl {
     controlProperties: ILabledControlProperties;
-    constructor(controlId: string, menuId: string, parentControlId: string, controlName: string, order: number, controlProperties?: ILabledControlProperties) {
+    constructor(controlId: string, menuId: string, parentControlId: string, controlName: string, order: number, controlProperties?: ILabledControlProperties, controlEvents?: IPageControlEvents) {
         super(controlId, menuId, parentControlId, controlName, order);
         if (!controlProperties) {
             this.controlProperties.controlType = CoreResources.Controls.button;
             this.controlProperties.labelName = controlName ? controlName : 'Button';
         } else {
             this.controlProperties = controlProperties;
+        }
+        if (controlEvents) {
+            this.controlEvents = controlEvents;
         }
     }
     getDirectory(): IPageControlDirectory {

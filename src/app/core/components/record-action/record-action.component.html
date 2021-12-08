@@ -1,9 +1,12 @@
-<button mat-icon-button color="primary" class="add-menu" (click)="handleAddClick()" *ngIf="showAdd">
+<button mat-icon-button color="primary" class="add-menu" (click)="handleAddClick()" *ngIf="showAdd" matTooltip="Add">
     <mat-icon>add</mat-icon>
 </button>
-<button mat-icon-button color="primary" class="add-menu" (click)="handleEditClick()" *ngIf="showEdit">
+<button mat-icon-button color="primary" class="add-menu" (click)="handleEditClick()" *ngIf="showEdit" matTooltip="Edit">
     <mat-icon>edit</mat-icon>
 </button>
-<button mat-icon-button color="primary" class="add-menu" (click)="handleDeleteClick()" *ngIf="showDelete">
+<button mat-icon-button color="primary" class="add-menu" (click)="handleDeleteClick()" *ngIf="showDelete" matTooltip="Delete">
     <mat-icon>delete</mat-icon>
+</button>
+<button mat-icon-button color="primary" class="add-menu" (click)="handleHideUnhide()" *ngIf="showHide" matTooltip="Hide">
+    <mat-icon>block</mat-icon>
 </button>

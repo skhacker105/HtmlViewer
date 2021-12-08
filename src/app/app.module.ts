@@ -14,6 +14,10 @@ import { ControlRenderComponent } from './components/controls/control-render/con
 import { DirectoryViewComponent } from './components/controls/directory-view/directory-view.component';
 import { PropertyViewComponent } from './components/controls/property-view/property-view.component';
 import { ButtonComponent } from './components/controls/pageControls/button/button.component';
+import { EventViewComponent } from './components/controls/event-view/event-view.component';
+import { InputOutputComponent } from './components/controls/input-output/input-output.component';
+import { InputComponent } from './components/controls/input-output/input/input.component';
+import { OutputComponent } from './components/controls/input-output/output/output.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +28,11 @@ import { ButtonComponent } from './components/controls/pageControls/button/butto
     ControlRenderComponent,
     DirectoryViewComponent,
     PropertyViewComponent,
-    ButtonComponent
+    ButtonComponent,
+    EventViewComponent,
+    InputOutputComponent,
+    InputComponent,
+    OutputComponent
   ],
   imports: [
     BrowserModule,

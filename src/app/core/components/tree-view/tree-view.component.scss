@@ -3,3 +3,15 @@
 .list-item:hover {
     background-color: #efefef;
 }
+
+.selectable {
+    cursor: pointer;
+}
+
+.selected-item {
+    background-color: #ccc;
+}
+
+.selected-item:hover {
+    background-color: #ccc;
+}

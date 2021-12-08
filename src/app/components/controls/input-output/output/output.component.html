@@ -1,0 +1,21 @@
+<br>
+<div class="container scroll-wrapper">
+    <div class="row scroll-wrapper">
+        <ng-container *ngFor="let io of pageIOService.pageInputOutputs.value">
+            <ng-container *ngIf="io.isOutput">
+                <div class="row">
+                    <div class="col-12">
+                        <mat-form-field appearance="fill">
+                            <mat-label>{{io.eventName}}</mat-label>
+                            <mat-select [ngModel]="io.eventType" (selectionChange)="updateOutput(io, $event)">
+                                <mat-option *ngFor="let dt of dataTypes" [value]="dt.value">
+                                    {{dt.key}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </ng-container>
+        </ng-container>
+    </div>
+</div>

@@ -1,0 +1,12 @@
+<div class="container" *ngIf="controlEvents">
+    <div class="row" *ngFor="let prop of controlEvents">
+        <div class="col-12" class="event-row">
+            <ng-container>
+                <mat-checkbox matInput [checked]="pageDesignerService.selectedControl.value.controlEvents[prop]"
+                    [color]="Primary" (change)="updateControlEvent(prop, $event.checked)">
+                    {{getPropertyFormatedName(prop)}}
+                </mat-checkbox>
+            </ng-container>
+        </div>
+    </div>
+</div>

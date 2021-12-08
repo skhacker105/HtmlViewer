@@ -1,0 +1,32 @@
+<mat-toolbar class="product-subheader">
+    <span class="example-spacer"></span>
+    <button mat-icon-button matTooltip="Add Input" (click)="addInput(null, actions.Add)">
+        <mat-icon>add</mat-icon>
+    </button>
+</mat-toolbar>
+<br>
+<div class="container scroll-wrapper">
+    <div class="row scroll-wrapper">
+        <ng-container *ngFor="let io of pageIOService.pageInputOutputs.value">
+            <ng-container *ngIf="!io.isOutput">
+                <div class="row">
+                    <div class="col-9">
+                        <mat-form-field appearance="fill">
+                            <mat-label>{{io.eventName}}</mat-label>
+                            <mat-select [ngModel]="io.eventType" (selectionChange)="addInput(io, actions.Update)">
+                                <mat-option *ngFor="let dt of dataTypes" [value]="dt.value">
+                                    {{dt.key}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-3">
+                        <app-record-action [record]="io" (editClick)="addInput(io, actions.Update)"
+                            (deleteClick)="deleteInput(io)">
+                        </app-record-action>
+                    </div>
+                </div>
+            </ng-container>
+        </ng-container>
+    </div>
+</div>

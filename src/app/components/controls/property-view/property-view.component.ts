@@ -25,7 +25,7 @@ export class PropertyViewComponent implements OnInit {
     });
   }
 
-  getAllProperties() {
+  getAllProperties(): void {
     this.controlProperties = this.pageDesignerService.selectedControl.value.getProperties().sort((p1, p2) => {
       if (p1 === 'controlName') {
         return -1;
@@ -38,6 +38,9 @@ export class PropertyViewComponent implements OnInit {
   }
 
   getPropertyFormatedName(prop: string): string {
+    if (prop === 'controlName') {
+      return 'Control Id';
+    }
     const broken: string[] = prop.split(/(?=[A-Z])/);
     broken[0] = broken[0].charAt(0).toUpperCase() + broken[0].slice(1);
     return broken.join(' ');
@@ -50,7 +53,6 @@ export class PropertyViewComponent implements OnInit {
       case 'controlAlignment': type = 'controlAlignment'; break;
       case 'position': type = 'position'; break;
       case 'controlId': type = 'hidden'; break;
-      case 'controlName': type = 'textDisabled'; break;
       case 'controlType': type = 'hidden'; break;
       case 'parentControlId': type = 'hidden'; break;
       default: type = 'text'; break;

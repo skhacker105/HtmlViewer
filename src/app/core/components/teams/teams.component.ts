@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { IActionResult } from '../../interfaces/ActionResult';
 import { Teams } from '../../modles/teams';
 import { TeamsService } from '../../services/teams.service';
@@ -15,6 +15,8 @@ interface TeamCrudAction {
 })
 export class TeamsComponent implements OnInit {
 
+  @Input() showActions = true;
+  @Output() nodeClick = new EventEmitter();
   constructor(public teamsService: TeamsService) { }
 
   ngOnInit(): void {
@@ -49,6 +51,10 @@ export class TeamsComponent implements OnInit {
         this.registerAllChildForDelete(c);
       });
     }
+  }
+
+  handleClick(node: Teams) {
+    this.nodeClick.emit(node);
   }
 
 }

@@ -7,6 +7,9 @@ import { MessagingService } from 'src/app/core/services/messaging.service';
 import { PageDesignerService } from 'src/app/core/services/page-designer.service';
 import { ProducMenuService } from 'src/app/core/services/produc-menu.service';
 import { CoreResources } from 'src/app/core/utilities/resources';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import { InputOutputComponent } from 'src/app/components/controls/input-output/input-output.component';
+import { PageIOService } from 'src/app/core/services/page-io.service';
 
 @Component({
   selector: 'app-product-header',
@@ -18,10 +21,12 @@ export class ProductHeaderComponent implements OnInit {
   selectedMenu: string;
   designerMode: boolean;
   constructor(
-    public producMenuService: ProducMenuService, 
+    public producMenuService: ProducMenuService,
     private messagingService: MessagingService,
     public dialog: MatDialog,
-    public pageDesignerService: PageDesignerService) { }
+    public pageDesignerService: PageDesignerService,
+    private bottomSheet: MatBottomSheet,
+    public pageIOService: PageIOService) { }
 
   ngOnInit(): void {
     this.designerMode = this.pageDesignerService.designerMode.value;
@@ -31,6 +36,7 @@ export class ProductHeaderComponent implements OnInit {
   loadProductMenu() {
     this.producMenuService.getMenuFromDB().subscribe(res => {
       if (res) {
+        this.producMenuService.flatMenu = res;
         if (res.length > 0) {
           this.producMenuService.converFlatMenuToNested(res);
           this.producMenuService.menuActions = [];
@@ -96,6 +102,10 @@ export class ProductHeaderComponent implements OnInit {
       });
       this.pageDesignerService.loadPageControls(this.producMenuService.selectedMenuId);
     });
+    this.pageIOService.saveAllChanges().subscribe(res => {
+      this.pageIOService.ioActions = [];
+      this.pageIOService.loadPageIO(this.producMenuService.selectedMenuId);
+    });
   }
 
   addPageContainer() {
@@ -111,6 +121,19 @@ export class ProductHeaderComponent implements OnInit {
     this.dialog.open(OrganizationTeamUserRolesComponent, {
       width: '100%',
       height: '90%'
+    });
+  }
+
+  openDataFlow() {
+    this.dialog.open(OrganizationTeamUserRolesComponent, {
+      width: '100%',
+      height: '90%'
+    });
+  }
+
+  openInputOutput() {
+    this.bottomSheet.open(InputOutputComponent, {
+      panelClass: 'io-bottom-sheet'
     });
   }
 

@@ -9,6 +9,32 @@
         </ng-container>
     </div>
     <div layout-property>
-        <app-property-view></app-property-view>
+        <span id="property-view">
+            <mat-tab-group dynamicHeight (selectedTabChange)="tabChanged($event)">
+                <mat-tab>
+                    <ng-template mat-tab-label class="tab-header-icon">
+                        <button mat-icon-button matTooltip="Properties">
+                            <mat-icon>settings</mat-icon>
+                        </button>
+                     </ng-template>
+                    <app-property-view></app-property-view>
+                </mat-tab>
+                <mat-tab>
+                    <ng-template mat-tab-label class="tab-header-icon">
+                        <button mat-icon-button matTooltip="Events">
+                            <mat-icon>event</mat-icon>
+                        </button>
+                    </ng-template>
+                    <app-event-view></app-event-view>
+                </mat-tab>
+                <mat-tab label="R">
+                    <ng-template mat-tab-label class="tab-header-icon">
+                        <button mat-icon-button matTooltip="Rules">
+                            <mat-icon>playlist_add</mat-icon>
+                        </button>
+                    </ng-template>
+                </mat-tab>
+            </mat-tab-group>
+        </span>
     </div>
 </app-layout>

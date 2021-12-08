@@ -1,0 +1,30 @@
+<div class="container scroll-wrapper">
+    <div class="row scroll-wrapper">
+        <div class="col-4 menu-access-teams">
+            <app-teams [showActions]="false" (nodeClick)="handleSelectTeam($event)"></app-teams>
+        </div>
+        <div class="col-8" *ngIf="selectedTeam; else noTeam">
+            <h2>Setting "{{producMenuService.selectedMenu.value}}" page access for team - {{selectedTeam.name}}</h2>
+            <table class="container mat-table" *ngIf="pageDesignerService.flatControl">
+                <tr>
+                    <th></th>
+                    <th class="mat-header-cell">Read</th>
+                    <th class="mat-header-cell">Write</th>
+                </tr>
+                <tr *ngFor="let control of pageDesignerService.flatControl" class="menu-access-data">
+                    <td class="mat-cell">
+                        {{control.controlProperties.controlName}}
+                    </td>
+                    <td>
+                        <mat-checkbox></mat-checkbox>
+                    </td>
+                    <td>
+                        <mat-checkbox></mat-checkbox>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<ng-template #noTeam>
+</ng-template>

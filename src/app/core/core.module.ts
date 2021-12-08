@@ -33,10 +33,13 @@ import { TeamsComponent } from './components/teams/teams.component';
 import { RolesComponent } from './components/roles/roles.component';
 import { UsersComponent } from './components/users/users.component';
 import { TreeViewComponent } from './components/tree-view/tree-view.component';
+import { MenuAccessComponent } from './components/menu-access/menu-access.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 
 @NgModule({
   declarations: [LayoutComponent, RecordActionComponent, SnackBarComponent, ConfirmationComponent, SiteMapComponent,
-    ChangeHistoryComponent, MenuChangeHistoryComponent, MenuActionComponent, PageControlChangeHistoryComponent, OrganizationTeamUserRolesComponent, TeamsComponent, RolesComponent, UsersComponent, TreeViewComponent],
+    ChangeHistoryComponent, MenuChangeHistoryComponent, MenuActionComponent, PageControlChangeHistoryComponent, OrganizationTeamUserRolesComponent, TeamsComponent, RolesComponent, UsersComponent, TreeViewComponent, MenuAccessComponent],
   imports: [
     CommonModule,
     HttpClientModule,
@@ -57,7 +60,9 @@ import { TreeViewComponent } from './components/tree-view/tree-view.component';
     MatSlideToggleModule,
     MatSelectModule,
     MatTableModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatCheckboxModule,
+    MatBottomSheetModule
   ],
   exports: [
     MatToolbarModule,
@@ -82,7 +87,9 @@ import { TreeViewComponent } from './components/tree-view/tree-view.component';
     MatSlideToggleModule,
     MatSelectModule,
     MatTableModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatCheckboxModule,
+    MatBottomSheetModule
   ]
 })
 export class CoreModule { }

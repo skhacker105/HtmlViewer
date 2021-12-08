@@ -8,6 +8,7 @@ import { CoreResources } from '../utilities/resources';
 import { HttpWrapperService } from './http-wrapper.service';
 import { MessagingService } from './messaging.service';
 import { PageDesignerService } from './page-designer.service';
+import { PageIOService } from './page-io.service';
 
 @Injectable({
   providedIn: 'root'
@@ -27,11 +28,12 @@ export class ProducMenuService {
   }];
   selectedMenu = new BehaviorSubject<string>(null);
   selectedMenuId: string;
+  flatMenu: IProductMenuItem[];
 
-  constructor(private httpService: HttpWrapperService, private messagingService: MessagingService) { }
+  constructor(private httpService: HttpWrapperService, private messagingService: MessagingService, private pageIOService: PageIOService) { }
 
   selectMenu(menu: string) {
-    if (this.menuActions.length > 0) {
+    if (this.menuActions.length > 0 || this.pageIOService.ioActions.length > 0) {
       this.messagingService.showSnackBar({
         completed: false,
         message: CoreResources.MenuChangeSaveError
@@ -42,6 +44,7 @@ export class ProducMenuService {
       const menuNode = this.findNode(this.ProductMenuList, menu);
       this.selectedMenuId = menuNode.Id;
       this.selectedMenu.next(menu);
+      this.pageIOService.loadPageIO(menuNode.Id);
     }
   }
 

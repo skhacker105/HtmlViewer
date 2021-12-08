@@ -20,6 +20,7 @@ export class PageDesignerService {
   public designerMode = new BehaviorSubject<boolean>(true);
   public containers = new BehaviorSubject<ContainerControl[]>([]);
   public selectedControl = new BehaviorSubject<IPageControl>(null);
+  public flatControl: IPageControl[];
   public pageControlAction: IPageControlAction[] = [];
   private controlCountTracker = {};
   private controlsFromDB: IPageControl[];
@@ -46,6 +47,7 @@ export class PageDesignerService {
     this.containers.next([]);
     if (selectedMenuId) {
       this.getFormControlsFromDB(selectedMenuId).subscribe(res => {
+        this.flatControl = res;
         if (res) {
           this.converFlatControlsToNested(res);
         } else {
@@ -202,20 +204,26 @@ export class PageDesignerService {
         same = false;
       }
     });
+    Object.keys(control1.controlEvents).forEach(k => {
+      if (same && control1.controlEvents[k] != control2.controlEvents[k]) {
+        same = false;
+      }
+    });
     return same;
   }
 
   private convertDBControlToObject(item: any): IPageControl {
     let newControl: IPageControl;
     const props = JSON.parse(item['controlProperties']);
+    const events = item['controlEvents'] ? JSON.parse(item['controlEvents']) : null;
     switch (props['controlType']) {
       case CoreResources.Controls.container:
-        newControl = new ContainerControl(item['controlId'], item['menuId'], item['parentControlId'], props['controlName'], props['order'], props);
+        newControl = new ContainerControl(item['controlId'], item['menuId'], item['parentControlId'], props['controlName'], props['order'], props, events);
         break;
       case CoreResources.Controls.textbox:
-        newControl = new TextBoxControl(item['controlId'], item['menuId'], item['parentControlId'], props['controlName'], props['order'], props); break;
+        newControl = new TextBoxControl(item['controlId'], item['menuId'], item['parentControlId'], props['controlName'], props['order'], props, events); break;
       case CoreResources.Controls.button:
-        newControl = new ButtonControl(item['controlId'], item['menuId'], item['parentControlId'], props['controlName'], props['order'], props); break;
+        newControl = new ButtonControl(item['controlId'], item['menuId'], item['parentControlId'], props['controlName'], props['order'], props, events); break;
     }
     return newControl;
   }

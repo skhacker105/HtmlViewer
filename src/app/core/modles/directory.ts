@@ -19,6 +19,9 @@ export abstract class PageDirectory implements IPageControlDirectory {
     getProperties(): string[] {
         throw new Error("Method not implemented.");
     }
+    getEvents(): string[] {
+        throw new Error("Method not implemented.");
+    }
     getDirectory(): IPageControlDirectory {
         throw new Error("Method not implemented.");
     }

@@ -10,11 +10,14 @@ export class RecordActionComponent implements OnInit {
   @Input() showAdd = false;
   @Input() showEdit = true;
   @Input() showDelete = true;
+  @Input() showHide = false;
+  @Input() hidden = false;
   @Input() record: any;
 
   @Output() addClick = new EventEmitter();
   @Output() editClick = new EventEmitter();
   @Output() deleteClick = new EventEmitter();
+  @Output() hideUnhideClick = new EventEmitter();
 
   constructor() { }
 
@@ -31,6 +34,10 @@ export class RecordActionComponent implements OnInit {
 
   handleDeleteClick() {
     this.deleteClick.emit(this.record);
+  }
+
+  handleHideUnhide() {
+    this.hideUnhideClick.emit(this.record);
   }
 
 }

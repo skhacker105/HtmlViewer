@@ -28,7 +28,7 @@
         </mat-grid-tile>
         <mat-grid-tile [colspan]="2">
             <app-record-action *ngIf="designMode" [record]="user"
-            (editClick)="handleAddEdit(user)" (deleteClick)="handleDelete(user)">
+            (editClick)="handleAddEdit(user, cr.MenuCrudActions.Update)" (deleteClick)="handleDelete(user)">
             </app-record-action>
         </mat-grid-tile>
     </ng-container>

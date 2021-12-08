@@ -37,16 +37,16 @@
                     <div class="col mat-header-cell">New Value</div>
                 </div>
 
-                <ng-container *ngFor="let keys of element.ControlItem.getProperties()">
+                <ng-container *ngFor="let keys of getAttributes(element)">
                     <div class="row details-row"
-                        *ngIf="keys != 'controlId' && keys != 'controlName' && keys != 'controlType'"
-                        [ngClass]="{'details-row-updated': element.StoreControlItem.controlProperties[keys] != element.ControlItem.controlProperties[keys]}">
+                        *ngIf="keys != 'controlId' && keys != 'controlType' && (element.StoreControlItem.controlProperties[keys] != element.ControlItem.controlProperties[keys] || element.StoreControlItem.controlEvents[keys] != element.ControlItem.controlEvents[keys])"
+                        >
                         <div class="col mat-cell">{{getPropertyFormatedName(keys)}}</div>
                         <div class="col mat-cell">
-                            {{element.StoreControlItem.controlProperties[keys]}}
+                            {{element.StoreControlItem.controlEvents[keys] ? element.StoreControlItem.controlEvents[keys] : element.StoreControlItem.controlProperties[keys]}}
                         </div>
                         <div class="col mat-cell">
-                            {{element.ControlItem.controlProperties[keys]}}
+                            {{element.ControlItem.controlEvents[keys] ? element.ControlItem.controlEvents[keys] : element.ControlItem.controlProperties[keys]}}
                         </div>
                     </div>
                 </ng-container>
@@ -60,7 +60,7 @@
                     <div class="col mat-header-cell">New Value</div>
                 </div>
 
-                <ng-container *ngFor="let keys of element.ControlItem.getProperties()">
+                <ng-container *ngFor="let keys of getAttributes(element)">
                     <div class="row details-row"
                         *ngIf="keys != 'controlId' && keys != 'controlName' && keys != 'controlType'">
                         <div class="col mat-cell">{{getPropertyFormatedName(keys)}}</div>
@@ -68,7 +68,7 @@
 
                         </div>
                         <div class="col mat-cell">
-                            {{element.ControlItem.controlProperties[keys]}}
+                            {{element.ControlItem.controlEvents[keys] ? element.ControlItem.controlEvents[keys] : element.ControlItem.controlProperties[keys]}}
                         </div>
                     </div>
                 </ng-container>
@@ -76,23 +76,9 @@
 
             <!-- DELETED ITEMS -->
             <div class="container" *ngIf="element.ControlOperation === cr.MenuCrudActions.Delete">
-                <div class="row" *ngIf="keys != 'controlId' && keys != 'controlName' && keys != 'controlType'">
-                    <div class="col mat-header-cell font-deleted">Poroperty {{element.isExpanded}}</div>
-                    <div class="col mat-header-cell font-deleted">Old Value</div>
-                    <div class="col mat-header-cell font-deleted">New Value (Not Applicable)</div>
+                <div class="row">
+                    <div class="col mat-header-cell font-deleted"> ---- no details available</div>
                 </div>
-
-                <ng-container *ngFor="let keys of element.ControlItem.getProperties()">
-                    <div class="row details-row">
-                        <div class="col mat-cell font-deleted">{{getPropertyFormatedName(keys)}}</div>
-                        <div class="col mat-cell font-deleted">
-                            {{element.ControlItem.controlProperties[keys]}}
-                        </div>
-                        <div class="col mat-cell">
-
-                        </div>
-                    </div>
-                </ng-container>
             </div>
         </td>
     </ng-container>

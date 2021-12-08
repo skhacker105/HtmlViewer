@@ -1,4 +1,3 @@
-<h1>Control Properties</h1>
 <div class="container" *ngIf="controlProperties">
   <div class="row" *ngIf="controlProperties && controlProperties.length > 0">
     <div class="col-12" style="text-align: right;">
@@ -15,7 +14,8 @@
       <ng-container *ngIf="getPropertyType(prop) === 'position'">
         <mat-form-field appearance="fill" class="col-12">
           <mat-label>Select {{getPropertyFormatedName(prop)}}</mat-label>
-          <mat-select [(value)]="pageDesignerService.selectedControl.value.controlProperties[prop]" (selectionChange)="updateControl()">
+          <mat-select [(value)]="pageDesignerService.selectedControl.value.controlProperties[prop]"
+            (selectionChange)="updateControl()">
             <mat-option *ngFor="let pos of positions" [value]="pos.key">{{ pos.value }}</mat-option>
           </mat-select>
         </mat-form-field>
@@ -25,7 +25,8 @@
       <ng-container *ngIf="getPropertyType(prop) === 'controlAlignment'">
         <mat-form-field appearance="fill" class="col-12">
           <mat-label>Select {{getPropertyFormatedName(prop)}}</mat-label>
-          <mat-select [(value)]="pageDesignerService.selectedControl.value.controlProperties[prop]" (selectionChange)="updateControl()">
+          <mat-select [(value)]="pageDesignerService.selectedControl.value.controlProperties[prop]"
+            (selectionChange)="updateControl()">
             <mat-option *ngFor="let pos of controlAlignments" [value]="pos.key">{{ pos.value }}</mat-option>
           </mat-select>
         </mat-form-field>
@@ -35,7 +36,8 @@
       <ng-container *ngIf="getPropertyType(prop) === 'trueFalse'">
         <mat-form-field appearance="fill" class="col-12">
           <mat-label>Select {{getPropertyFormatedName(prop)}}</mat-label>
-          <mat-select [(value)]="pageDesignerService.selectedControl.value.controlProperties[prop]" (selectionChange)="updateControl()">
+          <mat-select [(value)]="pageDesignerService.selectedControl.value.controlProperties[prop]"
+            (selectionChange)="updateControl()">
             <mat-option value="true">TRUE</mat-option>
             <mat-option value="false">FALSE</mat-option>
           </mat-select>
@@ -56,7 +58,8 @@
       <ng-container *ngIf="getPropertyType(prop) === 'text'">
         <mat-form-field appearance="fill" class="col-12">
           <mat-label>{{getPropertyFormatedName(prop)}}</mat-label>
-          <input matInput [(ngModel)]="pageDesignerService.selectedControl.value.controlProperties[prop]" (change)="updateControl()">
+          <input matInput [(ngModel)]="pageDesignerService.selectedControl.value.controlProperties[prop]"
+            (change)="updateControl()">
         </mat-form-field>
       </ng-container>
     </div>

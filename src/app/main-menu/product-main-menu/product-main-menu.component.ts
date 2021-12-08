@@ -33,6 +33,7 @@ export class ProductMainMenuComponent implements OnInit, OnChanges {
       expandable: !!node.children && node.children.length > 0,
       name: node.name,
       level: level,
+      selected: false
     };
   }
 
@@ -56,12 +57,14 @@ export class ProductMainMenuComponent implements OnInit, OnChanges {
   hasChild = (_: number, node: IFlatNode) => node.expandable;
 
   openDialog(node: IFlatNode): void {
+    node.selected = true;
     this.clickedMenu.emit(node.name);
     const dialogRef = this.dialog.open(AddProductMenuComponent, {
-      data: { newMenu: '' }
+      data: { newMenu: '', title: 'Menu', action: CoreResources.MenuCrudActions.Add }
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      node.selected = false;
       if (result && result.newMenu) {
         this.addMenu.emit(result.newMenu);
       }
@@ -69,11 +72,13 @@ export class ProductMainMenuComponent implements OnInit, OnChanges {
   }
 
   handleDeleteMenu(node: IFlatNode): void {
+    node.selected = true;
     this.clickedMenu.emit(node.name);
     const dialogRef = this.dialog.open(ConfirmationComponent, {
       data: CoreResources.DeleteConfirmationData
     });
     dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+      node.selected = false;
       if (confirmed) {
         this.deleteMenu.emit();
       }
@@ -81,12 +86,14 @@ export class ProductMainMenuComponent implements OnInit, OnChanges {
   }
 
   handleEdit(node: IFlatNode): void {
+    node.selected = true;
     this.clickedMenu.emit(node.name);
     const dialogRef = this.dialog.open(AddProductMenuComponent, {
-      data: { newMenu: node.name }
+      data: { newMenu: node.name, title: 'Menu', action: CoreResources.MenuCrudActions.Update }
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      node.selected = false;
       if (result && result.newMenu) {
         this.updateMenu.emit(result.newMenu);
       }

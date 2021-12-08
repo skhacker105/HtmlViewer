@@ -1,5 +1,5 @@
 import { ControlPosition } from "../utilities/enumerations";
-import { IContainerProperties } from "./ControlProperties";
+import { IPageInput, IPageOutput } from "./InputOutput";
 
 export interface IPageControl {
     menuId: string;
@@ -11,6 +11,7 @@ export interface IPageControl {
     children?: IPageControl[];
     getDirectory(): IPageControlDirectory;
     getProperties(): string[];
+    getEvents(): string[];
 }
 
 export interface IPageControlProperties {
@@ -24,11 +25,11 @@ export interface IPageControlProperties {
 }
 
 export interface IPageControlEvents {
-    click?: string;
-    mouseOver?: string;
-    mouseOut?: string;
-    keyUp?: string;
-    keyDown?: string;
+    click?: boolean;
+    mouseOver?: boolean;
+    mouseOut?: boolean;
+    keyUp?: boolean;
+    keyDown?: boolean;
 }
 
 export interface IPageControlDirectory extends IPageControl {

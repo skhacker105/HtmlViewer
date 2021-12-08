@@ -84,12 +84,21 @@ export class CoreResources {
     };
 
 
-    // Roles Resources
-
+    // Users Resources
     public static readonly UserApiUrl = {
         getAllUsers: '/users',
         addUser: '/users',
         updateUser: '/users',
         deleteUser: '/users'
     };
+
+
+    // IO Resources
+    public static readonly PageIOApiUrl = {
+        getAllEvents: '/events',
+        addEvent: '/events',
+        updateEvent: '/events',
+        deleteEvent: '/events'
+    };
+    public static readonly ResetEventError = 'Event cannot be reoved as it being used. Please check input output page for selected control event';
 }

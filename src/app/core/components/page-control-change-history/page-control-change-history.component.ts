@@ -1,6 +1,7 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
+import { IPageControlAction } from '../../interfaces/PageControlAction';
 import { PageDesignerService } from '../../services/page-designer.service';
 import { CoreResources } from '../../utilities/resources';
 
@@ -25,6 +26,13 @@ export class PageControlChangeHistoryComponent implements OnInit {
     const broken: string[] = prop.split(/(?=[A-Z])/);
     broken[0] = broken[0].charAt(0).toUpperCase() + broken[0].slice(1);
     return broken.join(' ');
+  }
+
+  getAttributes(pageControlAction: IPageControlAction): string[] {
+    let result = [];
+    result = result.concat(pageControlAction.ControlItem.getProperties());
+    result = result.concat(pageControlAction.ControlItem.getEvents());
+    return result;
   }
 
 }

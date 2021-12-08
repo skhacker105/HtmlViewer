@@ -1,2 +1,2 @@
-<app-tree-view [data]="rolesService.parentRoles" (addClick)="handleAdd($event)" (editClick)="handleUpdate($event)"
+<app-tree-view [data]="rolesService.parentRoles" [title]="'Role'" (addClick)="handleAdd($event)" (editClick)="handleUpdate($event)"
     (deleteClick)="handleDelete($event)"></app-tree-view>

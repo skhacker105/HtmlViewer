@@ -1,7 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { forkJoin, Observable } from 'rxjs';
+import { takeWhile } from 'rxjs/operators';
 import { PageDesignerService } from '../../services/page-designer.service';
 import { RolesService } from '../../services/roles.service';
 import { TeamsService } from '../../services/teams.service';
@@ -13,8 +14,9 @@ import { UsersComponent } from '../users/users.component';
   templateUrl: './organization-team-user-roles.component.html',
   styleUrls: ['./organization-team-user-roles.component.scss']
 })
-export class OrganizationTeamUserRolesComponent implements OnInit {
+export class OrganizationTeamUserRolesComponent implements OnInit, OnDestroy {
 
+  isComponentActive = true;
   selectedIndex = 0;
   designMode: boolean;
   @ViewChild(UsersComponent) userComponent: UsersComponent;
@@ -25,7 +27,8 @@ export class OrganizationTeamUserRolesComponent implements OnInit {
     public teamsService: TeamsService,
     public rolesService: RolesService,
     public usersService: UsersService) { 
-      this.pageDesignerService.designerMode.subscribe(mode => {
+      this.pageDesignerService.designerMode.pipe(takeWhile(() => this.isComponentActive))
+      .subscribe(mode => {
         this.designMode = mode;
       });
     }
@@ -34,16 +37,23 @@ export class OrganizationTeamUserRolesComponent implements OnInit {
     this.loadOrganizationStructure();
   }
 
+  ngOnDestroy(): void {
+    this.isComponentActive = false;
+  }
+
   loadOrganizationStructure() {
     this.teamsService.parentTeams[0].children = [];
     this.rolesService.parentRoles[0].children = [];
-    this.teamsService.getTeams().subscribe(res => {
+    this.teamsService.getTeams().pipe(takeWhile(() => this.isComponentActive))
+    .subscribe(res => {
       this.teamsService.converFlatTeamsToNested(res);
     });
-    this.rolesService.getRoles().subscribe(res => {
+    this.rolesService.getRoles().pipe(takeWhile(() => this.isComponentActive))
+    .subscribe(res => {
       this.rolesService.converFlatRolesToNested(res);
     });
-    this.usersService.getUsers().subscribe(res => {
+    this.usersService.getUsers().pipe(takeWhile(() => this.isComponentActive))
+    .subscribe(res => {
       this.usersService.users = res;
     });
   }
@@ -67,7 +77,8 @@ export class OrganizationTeamUserRolesComponent implements OnInit {
     if (this.usersService.userActions.length > 0) {
       arr.push(this.usersService.saveAllChanges());
     }
-    forkJoin(arr).subscribe(res => {
+    forkJoin(arr).pipe(takeWhile(() => this.isComponentActive))
+    .subscribe(res => {
       this.teamsService.teamsActions = [];
       this.rolesService.RolesAction = [];
       this.usersService.userActions = [];
