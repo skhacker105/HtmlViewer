@@ -4,10 +4,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
 import { takeWhile } from 'rxjs/operators';
 import { ConfirmationComponent } from 'src/app/core/components/confirmation/confirmation.component';
-import { IFlatNode } from 'src/app/core/interfaces/FlatNode';
-import { IProductMenuItem } from 'src/app/core/interfaces/ProductMenuItem';
-import { PageDesignerService } from 'src/app/core/services/page-designer.service';
-import { CoreResources } from 'src/app/core/utilities/resources';
+import { IFlatNode } from 'src/app/core/shared/interfaces/FlatNode';
+import { IProductMenuItem } from 'src/app/core/shared/interfaces/ProductMenuItem';
+import { CoreResources } from 'src/app/core/shared/utilities/resources';
+import { PageDesignerService } from 'src/app/page/shared/services/page-designer.service';
 import { AddProductMenuComponent } from '../add-product-menu/add-product-menu.component';
 
 @Component({
@@ -67,7 +67,7 @@ export class ProductMainMenuComponent implements OnInit, OnChanges, OnDestroy {
     node.selected = true;
     this.clickedMenu.emit(node.name);
     const dialogRef = this.dialog.open(AddProductMenuComponent, {
-      data: { newMenu: '', title: 'Menu', action: CoreResources.MenuCrudActions.Add }
+      data: { newMenu: '', title: 'Menu', action: CoreResources.CrudActions.Add }
     });
 
     dialogRef.afterClosed().pipe(takeWhile(() => this.isComponentActive))
@@ -98,7 +98,7 @@ export class ProductMainMenuComponent implements OnInit, OnChanges, OnDestroy {
     node.selected = true;
     this.clickedMenu.emit(node.name);
     const dialogRef = this.dialog.open(AddProductMenuComponent, {
-      data: { newMenu: node.name, title: 'Menu', action: CoreResources.MenuCrudActions.Update }
+      data: { newMenu: node.name, title: 'Menu', action: CoreResources.CrudActions.Update }
     });
 
     dialogRef.afterClosed().pipe(takeWhile(() => this.isComponentActive))

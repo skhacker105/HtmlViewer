@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { takeWhile } from 'rxjs/operators';
-import { PageDesignerService } from '../../services/page-designer.service';
-import { ProducMenuService } from '../../services/produc-menu.service';
+import { PageDesignerService } from 'src/app/page/shared/services/page-designer.service';
 
 @Component({
   selector: 'app-layout',
@@ -12,7 +11,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
 
   designerMode: boolean;
   isComponentActive = true;
-  constructor(public producMenuService: ProducMenuService, public pageDesignerService: PageDesignerService) { }
+  constructor(public pageDesignerService: PageDesignerService) { }
 
   ngOnInit(): void {
     this.pageDesignerService.designerMode.pipe(takeWhile(() => this.isComponentActive))

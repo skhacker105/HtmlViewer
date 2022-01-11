@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IMenuAction } from '../../interfaces/MenuActions';
-import { CoreResources } from '../../utilities/resources';
+import { IMenuAction } from '../../shared/models/MenuActions';
+import { CoreResources } from '../../shared/utilities/resources';
 
 @Component({
   selector: 'app-menu-action',
@@ -10,7 +10,7 @@ import { CoreResources } from '../../utilities/resources';
 export class MenuActionComponent implements OnInit {
 
   @Input() menuAction: IMenuAction;
-  cr = CoreResources.MenuCrudActions;
+  cr = CoreResources.CrudActions;
 
   constructor() { }
 

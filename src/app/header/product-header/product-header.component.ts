@@ -1,16 +1,16 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
-import { ChangeHistoryComponent } from 'src/app/core/components/change-history/change-history.component';
-import { OrganizationTeamUserRolesComponent } from 'src/app/core/components/organization-team-user-roles/organization-team-user-roles.component';
-import { MessagingService } from 'src/app/core/services/messaging.service';
-import { PageDesignerService } from 'src/app/core/services/page-designer.service';
-import { ProducMenuService } from 'src/app/core/services/produc-menu.service';
-import { CoreResources } from 'src/app/core/utilities/resources';
-import { MatBottomSheet } from '@angular/material/bottom-sheet';
-import { InputOutputComponent } from 'src/app/components/controls/input-output/input-output.component';
-import { PageIOService } from 'src/app/core/services/page-io.service';
 import { takeWhile } from 'rxjs/operators';
+import { ChangeHistoryComponent } from 'src/app/core/components/change-history/change-history.component';
+import { MessagingService } from 'src/app/core/shared/services/messaging.service';
+import { ProducMenuService } from 'src/app/core/shared/services/product-menu.service';
+import { CoreResources } from 'src/app/core/shared/utilities/resources';
+import { OrganizationTeamUserRolesComponent } from 'src/app/organization/components/organization-team-user-roles/organization-team-user-roles.component';
+import { InputOutputComponent } from 'src/app/page/components/designer-panel/input-output/input-output.component';
+import { PageDesignerService } from 'src/app/page/shared/services/page-designer.service';
+import { PageIOService } from 'src/app/page/shared/services/page-io.service';
 
 @Component({
   selector: 'app-product-header',

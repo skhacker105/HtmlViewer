@@ -10,17 +10,17 @@
     <ng-container matColumnDef="row-action">
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let element" [ngClass]="{
-            'control-added': element.ControlOperation === cr.MenuCrudActions.Add,
-            'control-updated': element.ControlOperation === cr.MenuCrudActions.Update,
-            'control-deleted': element.ControlOperation === cr.MenuCrudActions.Delete
+            'control-added': element.ControlOperation === cr.CrudActions.Add,
+            'control-updated': element.ControlOperation === cr.CrudActions.Update,
+            'control-deleted': element.ControlOperation === cr.CrudActions.Delete
         }">
-            <div *ngIf="element.ControlOperation === cr.MenuCrudActions.Add">
+            <div *ngIf="element.ControlOperation === cr.CrudActions.Add">
                 Added
             </div>
-            <div *ngIf="element.ControlOperation === cr.MenuCrudActions.Update">
+            <div *ngIf="element.ControlOperation === cr.CrudActions.Update">
                 Updated
             </div>
-            <div *ngIf="element.ControlOperation === cr.MenuCrudActions.Delete">
+            <div *ngIf="element.ControlOperation === cr.CrudActions.Delete">
                 Deleted
             </div>
         </td>
@@ -53,7 +53,7 @@
             </div>
 
             <!-- ADDED ITEMS -->
-            <div class="container" *ngIf="element.ControlOperation === cr.MenuCrudActions.Add">
+            <div class="container" *ngIf="element.ControlOperation === cr.CrudActions.Add">
                 <div class="row">
                     <div class="col mat-header-cell">Poroperty {{element.isExpanded}}</div>
                     <div class="col mat-header-cell">Old Value (Not Applicable)</div>
@@ -75,7 +75,7 @@
             </div>
 
             <!-- DELETED ITEMS -->
-            <div class="container" *ngIf="element.ControlOperation === cr.MenuCrudActions.Delete">
+            <div class="container" *ngIf="element.ControlOperation === cr.CrudActions.Delete">
                 <div class="row">
                     <div class="col mat-header-cell font-deleted"> ---- no details available</div>
                 </div>
