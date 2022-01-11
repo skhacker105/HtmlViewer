@@ -8,6 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { PageModule } from './page/page.module';
 import { OrganizationModule } from './organization/organization.module';
+import { ChangeHistoryModule } from './change-history/change-history.module';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { OrganizationModule } from './organization/organization.module';
     FooterModule,
     BrowserAnimationsModule,
     PageModule,
-    OrganizationModule
+    OrganizationModule,
+    ChangeHistoryModule
   ],
   providers: [],
   bootstrap: [AppComponent]

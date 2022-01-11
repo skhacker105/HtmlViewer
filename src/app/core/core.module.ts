@@ -17,15 +17,12 @@ import { SiteMapComponent } from './components/site-map/site-map.component';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { HttpClientModule } from '@angular/common/http';
-import { ChangeHistoryComponent } from './components/change-history/change-history.component';
 import { MatTabsModule } from '@angular/material/tabs';
-import { MenuChangeHistoryComponent } from './components/menu-change-history/menu-change-history.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MenuActionComponent } from './components/menu-action/menu-action.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSelectModule } from '@angular/material/select';
-import { PageControlChangeHistoryComponent } from './components/page-control-change-history/page-control-change-history.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -33,7 +30,7 @@ import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 
 @NgModule({
   declarations: [LayoutComponent, RecordActionComponent, SnackBarComponent, ConfirmationComponent, SiteMapComponent,
-    ChangeHistoryComponent, MenuChangeHistoryComponent, MenuActionComponent, PageControlChangeHistoryComponent],
+    MenuActionComponent],
   imports: [
     CommonModule,
     HttpClientModule,
@@ -61,7 +58,6 @@ import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
   exports: [
     MatToolbarModule,
     HttpClientModule,
-    ChangeHistoryComponent,
     MatIconModule,
     LayoutComponent,
     RecordActionComponent,
@@ -86,9 +82,7 @@ import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
     MatBottomSheetModule,
     SnackBarComponent,
     ConfirmationComponent,
-    MenuChangeHistoryComponent,
-    MenuActionComponent,
-    PageControlChangeHistoryComponent
+    MenuActionComponent
   ]
 })
 export class CoreModule { }

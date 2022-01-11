@@ -3,7 +3,7 @@ import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { takeWhile } from 'rxjs/operators';
-import { ChangeHistoryComponent } from 'src/app/core/components/change-history/change-history.component';
+import { ChangeHistoryComponent } from 'src/app/change-history/components/change-history/change-history.component';
 import { MessagingService } from 'src/app/core/shared/services/messaging.service';
 import { ProducMenuService } from 'src/app/core/shared/services/product-menu.service';
 import { CoreResources } from 'src/app/core/shared/utilities/resources';
