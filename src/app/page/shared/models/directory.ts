@@ -1,6 +1,6 @@
 import { IContainerProperties } from "../interfaces/ControlProperties";
-import { PageResources } from "../utilities/resources";
-import { ButtonControl, ContainerControl, TextBoxControl } from "./controls";
+import { PageResources } from "../utilities/page-resources";
+import { ContainerControl, TextBoxControl, ButtonControl } from "./controls";
 import { IPageControlDirectory, IPageControlProperties, IPageControlEvents, IPageControl } from "./PageControl";
 
 export abstract class PageDirectory implements IPageControlDirectory {

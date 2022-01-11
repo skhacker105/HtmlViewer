@@ -1,7 +1,7 @@
-import { IActionResult } from "src/app/core/shared/interfaces/ActionResult";
-import { CoreHelper } from "src/app/core/shared/utilities/helper";
-import { CoreResources } from "src/app/core/shared/utilities/resources";
+import { IActionResult } from "@core/shared/interfaces/ActionResult";
+import { CoreHelper } from "@core/shared/utilities/helper";
 import { ITeams } from "../interfaces/Teams";
+import { OriganizationResources } from "../utilities/organization-resources";
 
 export class Teams implements ITeams {
     Id: string;
@@ -20,7 +20,7 @@ export class Teams implements ITeams {
             completed: false
         };
         if (this.children.findIndex(t => t.name === teamName) >= 0) {
-            result.message = CoreResources.TeamAlreadyExists;
+            result.message = OriganizationResources.TeamAlreadyExists;
         } else {
             const newChild = new Teams(teamId, teamName, this.Id);
             this.children.push(newChild);
@@ -39,7 +39,7 @@ export class Teams implements ITeams {
             this.children.splice(index, 1);
             result.completed = true;
         } else {
-            result.message = CoreResources.TeamIdNotFound;
+            result.message = OriganizationResources.TeamIdNotFound;
         }
         return result;
     }

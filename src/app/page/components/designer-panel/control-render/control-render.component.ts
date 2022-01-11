@@ -1,7 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { CoreResources } from 'src/app/core/shared/utilities/resources';
-import { IPageControl } from '../../../shared/models/PageControl';
-import { PageDesignerService } from '../../../shared/services/page-designer.service';
+import { Component, OnInit, Input } from "@angular/core";
+import { CoreResources } from "@core/shared/utilities/resources";
+import { IPageControl } from "@page/shared/models/PageControl";
+import { PageDesignerService } from "@page/shared/services/page-designer.service";
 
 @Component({
   selector: 'app-control-render',

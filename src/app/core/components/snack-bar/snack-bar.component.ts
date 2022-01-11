@@ -1,6 +1,6 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_SNACK_BAR_DATA } from '@angular/material/snack-bar';
-import { IActionResult } from '../../shared/interfaces/ActionResult';
+import { Component, OnInit, Inject } from "@angular/core";
+import { MAT_SNACK_BAR_DATA } from "@angular/material/snack-bar";
+import { IActionResult } from "@core/shared/interfaces/ActionResult";
 
 @Component({
   selector: 'app-snack-bar',

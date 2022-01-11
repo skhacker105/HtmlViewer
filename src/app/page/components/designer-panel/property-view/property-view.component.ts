@@ -1,8 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { takeWhile } from 'rxjs/operators';
-import { ControlAlignment, ControlPosition } from '../../../shared/interfaces/enumerations';
-import { PageDesignerService } from '../../../shared/services/page-designer.service';
-import { PageIOService } from '../../../shared/services/page-io.service';
+import { Component, OnInit, OnDestroy } from "@angular/core";
+import { ControlPosition, ControlAlignment } from "@page/shared/interfaces/enumerations";
+import { PageDesignerService } from "@page/shared/services/page-designer.service";
+import { PageIOService } from "@page/shared/services/page-io.service";
+import { takeWhile } from "rxjs/operators";
 
 @Component({
   selector: 'app-property-view',

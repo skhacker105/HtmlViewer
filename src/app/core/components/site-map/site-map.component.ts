@@ -1,7 +1,7 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { takeWhile } from 'rxjs/operators';
-import { IProductMenuItem } from '../../shared/interfaces/ProductMenuItem';
-import { ProducMenuService } from '../../shared/services/product-menu.service';
+import { Component, OnInit, OnDestroy } from "@angular/core";
+import { IProductMenuItem } from "@header/shared/interfaces/ProductMenuItem";
+import { ProducMenuService } from "@header/shared/services/product-menu.service";
+import { takeWhile } from "rxjs/operators";
 
 @Component({
   selector: 'app-site-map',

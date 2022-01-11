@@ -1,9 +1,8 @@
-import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Component, OnInit } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
-import { IPageControlAction } from 'src/app/page/shared/models/PageControlAction';
-import { PageDesignerService } from 'src/app/page/shared/services/page-designer.service';
-import { CoreResources } from '../../../core/shared/utilities/resources';
+import { Component, OnInit } from "@angular/core";
+import { MatTableDataSource } from "@angular/material/table";
+import { CoreResources } from "@core/shared/utilities/resources";
+import { IPageControlAction } from "@page/shared/models/PageControlAction";
+import { PageDesignerService } from "@page/shared/services/page-designer.service";
 
 @Component({
   selector: 'app-page-control-change-history',

@@ -1,8 +1,7 @@
-import { IActionResult } from "src/app/core/shared/interfaces/ActionResult";
-import { CoreHelper } from "src/app/core/shared/utilities/helper";
-import { CoreResources } from "src/app/core/shared/utilities/resources";
+import { IActionResult } from "@core/shared/interfaces/ActionResult";
+import { CoreHelper } from "@core/shared/utilities/helper";
 import { IRoles } from "../interfaces/Roles";
-
+import { OriganizationResources } from "../utilities/organization-resources";
 
 export class Roles implements IRoles {
     Id: string;
@@ -21,7 +20,7 @@ export class Roles implements IRoles {
             completed: false
         };
         if (this.children.findIndex(t => t.name === roleName) >= 0) {
-            result.message = CoreResources.RoleAlreadyExists;
+            result.message = OriganizationResources.RoleAlreadyExists;
         } else {
             const newChild = new Roles(roleId, roleName, this.Id);
             this.children.push(newChild);
@@ -40,7 +39,7 @@ export class Roles implements IRoles {
             this.children.splice(index, 1);
             result.completed = true;
         } else {
-            result.message = CoreResources.RoleIdNotFound;
+            result.message = OriganizationResources.RoleIdNotFound;
         }
         return result;
     }

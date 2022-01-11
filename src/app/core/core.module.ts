@@ -19,7 +19,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { HttpClientModule } from '@angular/common/http';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatGridListModule } from '@angular/material/grid-list';
-import { MenuActionComponent } from './components/menu-action/menu-action.component';
+import { MenuActionComponent } from '../change-history/components/menu-action/menu-action.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSelectModule } from '@angular/material/select';
@@ -29,8 +29,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 
 @NgModule({
-  declarations: [LayoutComponent, RecordActionComponent, SnackBarComponent, ConfirmationComponent, SiteMapComponent,
-    MenuActionComponent],
+  declarations: [LayoutComponent, RecordActionComponent, SnackBarComponent, ConfirmationComponent, SiteMapComponent],
   imports: [
     CommonModule,
     HttpClientModule,
@@ -81,8 +80,7 @@ import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
     MatCheckboxModule,
     MatBottomSheetModule,
     SnackBarComponent,
-    ConfirmationComponent,
-    MenuActionComponent
+    ConfirmationComponent
   ]
 })
 export class CoreModule { }

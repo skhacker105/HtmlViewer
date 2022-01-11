@@ -17,6 +17,12 @@
       "dom"
     ],
     "paths": {
+      "@core/*": ["src/app/core/*"],
+      "@change-history/*": ["src/app/change-history/*"],
+      "@footer/*": ["src/app/footer/*"],
+      "@header/*": ["src/app/header/*"],
+      "@organization/*": ["src/app/organization/*"],
+      "@page/*": ["src/app/page/*"]
     }
   }
 }

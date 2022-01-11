@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { SnackBarComponent } from '../../components/snack-bar/snack-bar.component';
-import { IActionResult } from '../interfaces/ActionResult';
-import { CoreResources } from '../utilities/resources';
+import { Injectable } from "@angular/core";
+import { MatSnackBar } from "@angular/material/snack-bar";
+import { SnackBarComponent } from "@core/components/snack-bar/snack-bar.component";
+import { IActionResult } from "../interfaces/ActionResult";
+import { CoreResources } from "../utilities/resources";
 
 @Injectable({
   providedIn: 'root'

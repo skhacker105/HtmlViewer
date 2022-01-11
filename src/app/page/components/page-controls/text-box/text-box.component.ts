@@ -1,7 +1,7 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { takeWhile } from 'rxjs/operators';
-import { TextBoxControl } from '../../../shared/models/controls';
-import { PageDesignerService } from '../../../shared/services/page-designer.service';
+import { Component, OnInit, OnDestroy, Input } from "@angular/core";
+import { TextBoxControl } from "@page/shared/models/controls";
+import { PageDesignerService } from "@page/shared/services/page-designer.service";
+import { takeWhile } from "rxjs/operators";
 
 @Component({
   selector: 'app-text-box',

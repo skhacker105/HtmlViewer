@@ -1,7 +1,7 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { takeWhile } from 'rxjs/operators';
-import { IPageControl } from '../../../shared/models/PageControl';
-import { PageDesignerService } from '../../../shared/services/page-designer.service';
+import { Component, OnInit, OnDestroy } from "@angular/core";
+import { IPageControl } from "@page/shared/models/PageControl";
+import { PageDesignerService } from "@page/shared/services/page-designer.service";
+import { takeWhile } from "rxjs/operators";
 
 @Component({
   selector: 'app-directory-view',

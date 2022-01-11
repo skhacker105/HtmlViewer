@@ -1,15 +1,15 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, forkJoin, Observable, of } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
-import { IActionResult } from 'src/app/core/shared/interfaces/ActionResult';
-import { HttpWrapperService } from 'src/app/core/shared/services/http-wrapper.service';
-import { MessagingService } from 'src/app/core/shared/services/messaging.service';
-import { ProducMenuService } from 'src/app/core/shared/services/product-menu.service';
-import { ContainerControl, TextBoxControl, ButtonControl } from '../models/controls';
-import { containerDirectoryObj, textBoxDirectoryObj, buttonDirectoryObj } from '../models/directory';
-import { IPageControl } from '../models/PageControl';
-import { IPageControlAction } from '../models/PageControlAction';
-import { PageResources } from '../utilities/resources';
+import { Injectable } from "@angular/core";
+import { IActionResult } from "@core/shared/interfaces/ActionResult";
+import { HttpWrapperService } from "@core/shared/services/http-wrapper.service";
+import { MessagingService } from "@core/shared/services/messaging.service";
+import { ProducMenuService } from "@header/shared/services/product-menu.service";
+import { BehaviorSubject, Observable, of, forkJoin } from "rxjs";
+import { map, catchError } from "rxjs/operators";
+import { ContainerControl, TextBoxControl, ButtonControl } from "../models/controls";
+import { containerDirectoryObj, textBoxDirectoryObj, buttonDirectoryObj } from "../models/directory";
+import { IPageControl } from "../models/PageControl";
+import { IPageControlAction } from "../models/PageControlAction";
+import { PageResources } from "../utilities/page-resources";
 
 @Injectable({
   providedIn: 'root'

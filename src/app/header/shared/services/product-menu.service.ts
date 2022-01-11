@@ -1,13 +1,14 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, forkJoin, Observable } from 'rxjs';
-import { PageIOService } from 'src/app/page/shared/services/page-io.service';
-import { IActionResult } from '../interfaces/ActionResult';;
-import { IProductMenuItem } from '../interfaces/ProductMenuItem';
-import { IMenuAction } from '../models/MenuActions';
-import { CoreHelper } from '../utilities/helper';
-import { CoreResources } from '../utilities/resources';
-import { HttpWrapperService } from './http-wrapper.service';
-import { MessagingService } from './messaging.service';
+import { Injectable } from "@angular/core";
+import { IMenuAction } from "@change-history/shared/models/MenuActions";
+import { IActionResult } from "@core/shared/interfaces/ActionResult";
+import { HttpWrapperService } from "@core/shared/services/http-wrapper.service";
+import { MessagingService } from "@core/shared/services/messaging.service";
+import { CoreHelper } from "@core/shared/utilities/helper";
+import { CoreResources } from "@core/shared/utilities/resources";
+import { PageIOService } from "@page/shared/services/page-io.service";
+import { BehaviorSubject, Observable, forkJoin } from "rxjs";
+import { IProductMenuItem } from "../interfaces/ProductMenuItem";
+import { HeaderResources } from "../utilities/header-resources";
 
 @Injectable({
   providedIn: 'root'
@@ -35,7 +36,7 @@ export class ProducMenuService {
     if (this.menuActions.length > 0 || this.pageIOService.ioActions.length > 0) {
       this.messagingService.showSnackBar({
         completed: false,
-        message: CoreResources.MenuChangeSaveError
+        message: HeaderResources.MenuChangeSaveError
       });
       return;
     }
@@ -69,7 +70,7 @@ export class ProducMenuService {
       // dont add if node already exists
       return {
         completed: false,
-        message: CoreResources.MenuAlreadyExists
+        message: HeaderResources.MenuAlreadyExists
       };
     } else {
       const parentNode = this.findNode(this.ProductMenuList, parentName);
@@ -77,7 +78,7 @@ export class ProducMenuService {
         // dont add if parent node is not found
         return {
           completed: false,
-          message: CoreResources.ParentNodeNotFound
+          message: HeaderResources.ParentNodeNotFound
         }
       } else {
         // add node to parent node
@@ -98,7 +99,7 @@ export class ProducMenuService {
         this.refreshListReference();
         return {
           completed: true,
-          message: CoreResources.MenuAdded
+          message: HeaderResources.MenuAdded
         }
       }
     }
@@ -110,7 +111,7 @@ export class ProducMenuService {
       // if no node found raise error
       return {
         completed: false,
-        message: CoreResources.MenuNotFound
+        message: HeaderResources.MenuNotFound
       };
     } else {
       // delete all children if exists for current node
@@ -133,7 +134,7 @@ export class ProducMenuService {
       this.refreshListReference();
       return {
         completed: true,
-        message: CoreResources.MenuDeleteSuccess
+        message: HeaderResources.MenuDeleteSuccess
       };
     }
   }
@@ -156,12 +157,12 @@ export class ProducMenuService {
       this.refreshListReference();
       return {
         completed: true,
-        message: CoreResources.NodeUpdateSuccess
+        message: HeaderResources.NodeUpdateSuccess
       };
     } else {
       return {
         completed: false,
-        message: CoreResources.MenuUpdateFail_AlreadyExists
+        message: HeaderResources.MenuUpdateFail_AlreadyExists
       };
     }
   }
@@ -233,7 +234,7 @@ export class ProducMenuService {
   // APIs
 
   public getMenuFromDB(): Observable<IProductMenuItem[]> {
-    return this.httpService.getData(CoreResources.MenuApiUrl.getAllMenu);
+    return this.httpService.getData(HeaderResources.MenuApiUrl.getAllMenu);
   }
 
   public saveAllChanges(): Observable<any> {
@@ -259,13 +260,13 @@ export class ProducMenuService {
         };
         if (ma.MenuOperation === CoreResources.CrudActions.Add) {
           // ADD
-          arr.push(this.httpService.postData(CoreResources.MenuApiUrl.addMenu, newItem));
+          arr.push(this.httpService.postData(HeaderResources.MenuApiUrl.addMenu, newItem));
         } else if (ma.MenuOperation === CoreResources.CrudActions.Update) {
           // UPDATE
-          arr.push(this.httpService.putData(CoreResources.MenuApiUrl.updateMenu + newItem.Id, newItem));
+          arr.push(this.httpService.putData(HeaderResources.MenuApiUrl.updateMenu + newItem.Id, newItem));
         } else if (ma.MenuOperation === CoreResources.CrudActions.Delete) {
           // DELETE
-          arr.push(this.httpService.deleteData(CoreResources.MenuApiUrl.deleteMenu + newItem.Id));
+          arr.push(this.httpService.deleteData(HeaderResources.MenuApiUrl.deleteMenu + newItem.Id));
         }
       });
     }

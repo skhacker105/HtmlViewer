@@ -1,14 +1,14 @@
-import { FlatTreeControl } from '@angular/cdk/tree';
-import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
-import { takeWhile } from 'rxjs/operators';
-import { ConfirmationComponent } from 'src/app/core/components/confirmation/confirmation.component';
-import { IFlatNode } from 'src/app/core/shared/interfaces/FlatNode';
-import { IProductMenuItem } from 'src/app/core/shared/interfaces/ProductMenuItem';
-import { CoreResources } from 'src/app/core/shared/utilities/resources';
-import { PageDesignerService } from 'src/app/page/shared/services/page-designer.service';
-import { AddProductMenuComponent } from '../add-product-menu/add-product-menu.component';
+import { FlatTreeControl } from "@angular/cdk/tree";
+import { Component, OnInit, OnChanges, OnDestroy, Input, Output, SimpleChanges, EventEmitter } from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
+import { MatTreeFlattener, MatTreeFlatDataSource } from "@angular/material/tree";
+import { ConfirmationComponent } from "@core/components/confirmation/confirmation.component";
+import { IFlatNode } from "@core/shared/interfaces/FlatNode";
+import { CoreResources } from "@core/shared/utilities/resources";
+import { IProductMenuItem } from "@header/shared/interfaces/ProductMenuItem";
+import { PageDesignerService } from "@page/shared/services/page-designer.service";
+import { takeWhile } from "rxjs/operators";
+import { AddProductMenuComponent } from "./add-product-menu/add-product-menu.component";
 
 @Component({
   selector: 'app-product-main-menu',

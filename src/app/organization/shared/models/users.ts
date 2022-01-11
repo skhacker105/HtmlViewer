@@ -1,4 +1,4 @@
-import { CoreHelper } from "src/app/core/shared/utilities/helper";
+import { CoreHelper } from "@core/shared/utilities/helper";
 import { IUser } from "../interfaces/Users";
 
 export class Users implements IUser {

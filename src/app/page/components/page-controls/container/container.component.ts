@@ -1,8 +1,8 @@
-import { Component, Input, OnDestroy, OnInit, SimpleChanges, ViewChild, ViewContainerRef } from '@angular/core';
-import { takeWhile } from 'rxjs/operators';
-import { ContainerControl } from '../../../shared/models/controls';
-import { IPageControl } from '../../../shared/models/PageControl';
-import { PageDesignerService } from '../../../shared/services/page-designer.service';
+import { Component, OnInit, OnDestroy, Input } from "@angular/core";
+import { ContainerControl } from "@page/shared/models/controls";
+import { IPageControl } from "@page/shared/models/PageControl";
+import { PageDesignerService } from "@page/shared/services/page-designer.service";
+import { takeWhile } from "rxjs/operators";
 
 @Component({
   selector: 'app-container',

@@ -1,7 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { IActionResult } from 'src/app/core/shared/interfaces/ActionResult';
-import { Teams } from '../../shared/models/teams';
-import { TeamsService } from '../../shared/services/teams.service';
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+import { IActionResult } from "@core/shared/interfaces/ActionResult";
+import { Teams } from "@organization/shared/models/teams";
+import { TeamsService } from "@organization/shared/services/teams.service";
 
 interface TeamCrudAction {
   node: Teams,

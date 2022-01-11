@@ -1,10 +1,9 @@
+import { CoreHelper } from "@core/shared/utilities/helper";
 import { IContainerProperties, ILabledControlProperties } from "../interfaces/ControlProperties";
 import { ControlPosition, ControlAlignment } from "../interfaces/enumerations";
-import { CoreHelper } from "../../../core/shared/utilities/helper";
+import { PageResources } from "../utilities/page-resources";
 import { containerDirectoryObj, textBoxDirectoryObj, buttonDirectoryObj } from "./directory";
-import { IPageControl, IPageControlDirectory, IPageControlEvents, IPageControlProperties } from "./PageControl";
-import { PageResources } from "../utilities/resources";
-
+import { IPageControl, IPageControlEvents, IPageControlProperties, IPageControlDirectory } from "./PageControl";
 
 
 export abstract class PageControl implements IPageControl {

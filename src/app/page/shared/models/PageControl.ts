@@ -1,6 +1,5 @@
 import { ControlPosition } from "../interfaces/enumerations";
 
-
 export interface IPageControl {
     menuId: string;
     controlId: string;

@@ -1,6 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { takeWhile } from 'rxjs/operators';
-import { PageDesignerService } from 'src/app/page/shared/services/page-designer.service';
+import { Component, OnInit, OnDestroy } from "@angular/core";
+import { PageDesignerService } from "@page/shared/services/page-designer.service";
+import { takeWhile } from "rxjs/operators";
 
 @Component({
   selector: 'app-layout',

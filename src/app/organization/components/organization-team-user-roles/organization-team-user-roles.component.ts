@@ -1,13 +1,13 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
-import { MatTabChangeEvent } from '@angular/material/tabs';
-import { forkJoin, Observable } from 'rxjs';
-import { takeWhile } from 'rxjs/operators';
-import { PageDesignerService } from 'src/app/page/shared/services/page-designer.service';
-import { RolesService } from '../../shared/services/roles.service';
-import { TeamsService } from '../../shared/services/teams.service';
-import { UsersService } from '../../shared/services/users.service';
-import { UsersComponent } from '../users/users.component';
+import { Component, OnInit, OnDestroy, ViewChild } from "@angular/core";
+import { MatDialogRef } from "@angular/material/dialog";
+import { MatTabChangeEvent } from "@angular/material/tabs";
+import { RolesService } from "@organization/shared/services/roles.service";
+import { TeamsService } from "@organization/shared/services/teams.service";
+import { UsersService } from "@organization/shared/services/users.service";
+import { PageDesignerService } from "@page/shared/services/page-designer.service";
+import { Observable, forkJoin } from "rxjs";
+import { takeWhile } from "rxjs/operators";
+import { UsersComponent } from "../users/users.component";
 
 @Component({
   selector: 'app-organization-team-user-roles',

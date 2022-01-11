@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, forkJoin, Observable } from 'rxjs';
-import { HttpWrapperService } from 'src/app/core/shared/services/http-wrapper.service';
-import { CoreHelper } from 'src/app/core/shared/utilities/helper';
-import { IODataTypes } from '../interfaces/enumerations';
-import { IPageIO } from '../models/InputOutput';
-import { IPageIOAction } from '../models/PageIOActions';
-import { PageResources } from '../utilities/resources';
+import { Injectable } from "@angular/core";
+import { HttpWrapperService } from "@core/shared/services/http-wrapper.service";
+import { CoreHelper } from "@core/shared/utilities/helper";
+import { BehaviorSubject, Observable, forkJoin } from "rxjs";
+import { IODataTypes } from "../interfaces/enumerations";
+import { IPageIO } from "../models/InputOutput";
+import { IPageIOAction } from "../models/PageIOActions";
+import { PageResources } from "../utilities/page-resources";
 
 @Injectable({
   providedIn: 'root'

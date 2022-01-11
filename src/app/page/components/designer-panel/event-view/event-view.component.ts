@@ -1,11 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { takeWhile } from 'rxjs/operators';
-import { MessagingService } from 'src/app/core/shared/services/messaging.service';
-import { ProducMenuService } from 'src/app/core/shared/services/product-menu.service';
-import { IODataTypes } from '../../../shared/interfaces/enumerations';
-import { PageDesignerService } from '../../../shared/services/page-designer.service';
-import { PageIOService } from '../../../shared/services/page-io.service';
-import { PageResources } from '../../../shared/utilities/resources';
+import { Component, OnInit, OnDestroy } from "@angular/core";
+import { MessagingService } from "@core/shared/services/messaging.service";
+import { ProducMenuService } from "@header/shared/services/product-menu.service";
+import { IODataTypes } from "@page/shared/interfaces/enumerations";
+import { PageDesignerService } from "@page/shared/services/page-designer.service";
+import { PageIOService } from "@page/shared/services/page-io.service";
+import { PageResources } from "@page/shared/utilities/page-resources";
+import { takeWhile } from "rxjs/operators";
 
 @Component({
   selector: 'app-event-view',

@@ -1,13 +1,13 @@
-import { Injectable } from '@angular/core';
-import { forkJoin, Observable, of } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
-import { IUserAction } from '../interfaces/OrganizationActions';
-import { Users } from '../models/users';
-import { HttpWrapperService } from '../../../core/shared/services/http-wrapper.service';
-import { RolesService } from './roles.service';
-import { TeamsService } from './teams.service';
-import { IUser } from '../interfaces/Users';
-import { OriganizationResources } from '../utilities/organization-resources';
+import { Injectable } from "@angular/core";
+import { HttpWrapperService } from "@core/shared/services/http-wrapper.service";
+import { Observable, of, forkJoin } from "rxjs";
+import { map, catchError } from "rxjs/operators";
+import { IUserAction } from "../interfaces/OrganizationActions";
+import { IUser } from "../interfaces/Users";
+import { Users } from "../models/users";
+import { OriganizationResources } from "../utilities/organization-resources";
+import { RolesService } from "./roles.service";
+import { TeamsService } from "./teams.service";
 
 @Injectable({
   providedIn: 'root'

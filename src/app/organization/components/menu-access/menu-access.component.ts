@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { takeWhile } from 'rxjs/operators';
-import { ProducMenuService } from 'src/app/core/shared/services/product-menu.service';
+import { ProducMenuService } from 'src/app/header/shared/services/product-menu.service';
 import { PageDesignerService } from 'src/app/page/shared/services/page-designer.service';
 import { ITeams } from '../../shared/interfaces/Teams';
 import { TeamsService } from '../../shared/services/teams.service';

@@ -1,4 +1,4 @@
-import { IActionResult } from "src/app/core/shared/interfaces/ActionResult";
+import { IActionResult } from "@core/shared/interfaces/ActionResult";
 
 export interface IRoles {
     Id: string;

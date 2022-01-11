@@ -1,16 +1,16 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { MatBottomSheet } from '@angular/material/bottom-sheet';
-import { MatDialog } from '@angular/material/dialog';
-import { MatSlideToggleChange } from '@angular/material/slide-toggle';
-import { takeWhile } from 'rxjs/operators';
-import { ChangeHistoryComponent } from 'src/app/change-history/components/change-history/change-history.component';
-import { MessagingService } from 'src/app/core/shared/services/messaging.service';
-import { ProducMenuService } from 'src/app/core/shared/services/product-menu.service';
-import { CoreResources } from 'src/app/core/shared/utilities/resources';
-import { OrganizationTeamUserRolesComponent } from 'src/app/organization/components/organization-team-user-roles/organization-team-user-roles.component';
-import { InputOutputComponent } from 'src/app/page/components/designer-panel/input-output/input-output.component';
-import { PageDesignerService } from 'src/app/page/shared/services/page-designer.service';
-import { PageIOService } from 'src/app/page/shared/services/page-io.service';
+import { Component, OnInit, OnDestroy } from "@angular/core";
+import { MatBottomSheet } from "@angular/material/bottom-sheet";
+import { MatDialog } from "@angular/material/dialog";
+import { MatSlideToggleChange } from "@angular/material/slide-toggle";
+import { ChangeHistoryComponent } from "@change-history/components/change-history/change-history.component";
+import { MessagingService } from "@core/shared/services/messaging.service";
+import { ProducMenuService } from "@header/shared/services/product-menu.service";
+import { HeaderResources } from "@header/shared/utilities/header-resources";
+import { OrganizationTeamUserRolesComponent } from "@organization/components/organization-team-user-roles/organization-team-user-roles.component";
+import { InputOutputComponent } from "@page/components/designer-panel/input-output/input-output.component";
+import { PageDesignerService } from "@page/shared/services/page-designer.service";
+import { PageIOService } from "@page/shared/services/page-io.service";
+import { takeWhile } from "rxjs/operators";
 
 @Component({
   selector: 'app-product-header',
@@ -98,7 +98,7 @@ export class ProductHeaderComponent implements OnInit, OnDestroy {
       this.producMenuService.menuActions = [];
       this.messagingService.showSnackBar({
         completed: true,
-        message: CoreResources.MenuChangesSaveSuccess
+        message: HeaderResources.MenuChangesSaveSuccess
       });
       this.loadProductMenu();
     });
@@ -107,7 +107,7 @@ export class ProductHeaderComponent implements OnInit, OnDestroy {
       this.pageDesignerService.pageControlAction = [];
       this.messagingService.showSnackBar({
         completed: true,
-        message: CoreResources.ControlsChangesSaveSuccess
+        message: HeaderResources.ControlsChangesSaveSuccess
       });
       this.pageDesignerService.loadPageControls(this.producMenuService.selectedMenuId);
     });

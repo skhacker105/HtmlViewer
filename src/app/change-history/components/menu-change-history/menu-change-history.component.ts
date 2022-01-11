@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ProducMenuService } from '../../../core/shared/services/product-menu.service';
+import { Component, OnInit } from "@angular/core";
+import { ProducMenuService } from "@header/shared/services/product-menu.service";
 
 @Component({
   selector: 'app-menu-change-history',

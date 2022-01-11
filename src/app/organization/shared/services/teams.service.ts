@@ -1,13 +1,12 @@
-import { Injectable } from '@angular/core';
-import { ITeams } from '../interfaces/Teams';
-import { ITeamAction } from '../interfaces/OrganizationActions';
-import { forkJoin, Observable } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
-import { of } from 'rxjs/internal/observable/of';
-import { IActionResult } from 'src/app/core/shared/interfaces/ActionResult';
-import { HttpWrapperService } from 'src/app/core/shared/services/http-wrapper.service';
-import { Teams } from '../models/teams';
-import { OriganizationResources } from '../utilities/organization-resources';
+import { Injectable } from "@angular/core";
+import { IActionResult } from "@core/shared/interfaces/ActionResult";
+import { HttpWrapperService } from "@core/shared/services/http-wrapper.service";
+import { Observable, of, forkJoin } from "rxjs";
+import { map, catchError } from "rxjs/operators";
+import { ITeamAction } from "../interfaces/OrganizationActions";
+import { ITeams } from "../interfaces/Teams";
+import { Teams } from "../models/teams";
+import { OriganizationResources } from "../utilities/organization-resources";
 
 @Injectable({
   providedIn: 'root'

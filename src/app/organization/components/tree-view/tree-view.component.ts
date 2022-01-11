@@ -1,10 +1,10 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { takeWhile } from 'rxjs/operators';
-import { ConfirmationComponent } from 'src/app/core/components/confirmation/confirmation.component';
-import { AddProductMenuComponent } from 'src/app/main-menu/add-product-menu/add-product-menu.component';
-import { PageDesignerService } from 'src/app/page/shared/services/page-designer.service';
-import { OriganizationResources } from '../../shared/utilities/organization-resources';
+import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
+import { ConfirmationComponent } from "@core/components/confirmation/confirmation.component";
+import { AddProductMenuComponent } from "@header/components/product-main-menu/add-product-menu/add-product-menu.component";
+import { OriganizationResources } from "@organization/shared/utilities/organization-resources";
+import { PageDesignerService } from "@page/shared/services/page-designer.service";
+import { takeWhile } from "rxjs/operators";
 
 @Component({
   selector: 'app-tree-view',
