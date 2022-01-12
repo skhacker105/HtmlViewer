@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from "@angular/core";
-import { CoreResources } from "@core/shared/utilities/resources";
 import { IPageControl } from "@page/shared/models/PageControl";
 import { PageDesignerService } from "@page/shared/services/page-designer.service";
+import { PageResources } from "@page/shared/utilities/page-resources";
 
 @Component({
   selector: 'app-control-render',
@@ -12,7 +12,7 @@ export class ControlRenderComponent implements OnInit {
 
   @Input() control: IPageControl;
   @Input() disabled: boolean;
-  cr = CoreResources;
+  cr = PageResources;
 
   constructor(public pageDesignerService: PageDesignerService) { }
 
