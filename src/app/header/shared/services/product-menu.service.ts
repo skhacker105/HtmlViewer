@@ -48,6 +48,30 @@ export class ProducMenuService {
     }
   }
 
+  loadProductMenu(callBack?: {(response): void}): any {
+    this.getMenuFromDB().subscribe(res => {
+      if (res) {
+        this.flatMenu = res;
+        if (res.length > 0) {
+          this.converFlatMenuToNested(res);
+          this.menuActions = [];
+          this.selectMenu(this.ProductMenuList[0].name);
+          return {
+            then: () => {
+              if (callBack) {
+                callBack(res);
+              }
+            }
+          };
+        } else {
+          return {
+            then: () => {}
+          };
+        }
+      }
+    });
+  }
+
   converFlatMenuToNested(flatMenu: IProductMenuItem[]): void {
     this.ProductMenuList = [flatMenu[0]];
     this.ProductMenuList[0].children = this.getChildren(this.ProductMenuList[0], flatMenu);

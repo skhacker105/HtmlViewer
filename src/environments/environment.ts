@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  menuApi: 'http://localhost:3000'
+  menuApi: 'http://localhost:3000',
+  shared_key: 'mnis105'
 };
 
 /*

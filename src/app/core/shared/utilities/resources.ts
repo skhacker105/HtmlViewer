@@ -18,4 +18,14 @@ export class CoreResources {
             cancel: 'Cancel'
         }
     };
+
+
+    // Login resources
+    public static readonly LoginApiUrl = {
+        Login: '/users/login',
+        Logout: '/users/logout'
+    };
+
+    public static readonly HTTPNoStatusError = 'There was no response from server. It may be slow or unavailable.';
+    public static readonly Forbidden = 'Access is denied for this user.';
 }

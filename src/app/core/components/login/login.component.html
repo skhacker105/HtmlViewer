@@ -1,0 +1,46 @@
+<app-layout>
+    <div layout-body class="login-body">
+        <mat-card class="login-card">
+            <mat-card-title>Login</mat-card-title>
+            <mat-card-content>
+                <form [formGroup]="pageForm">
+                    <br>
+                    <mat-form-field appearance="fill" class="login-input">
+                        <mat-label for="userName">User Name</mat-label>
+                        <input matInput formControlName="userName" [type]="'text'">
+                        <button *ngIf="pageForm.controls['userName'].value" mat-icon-button matSuffix
+                            (click)="clearControl('userName')" [attr.aria-label]="'Clear Password'" type="button">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                    </mat-form-field>
+                    <br>
+                    <mat-form-field appearance="fill" class="login-input">
+                        <mat-label for="password">Password</mat-label>
+                        <input matInput formControlName="password" [type]="hide ? 'password' : 'text'">
+                        <div matSuffix class="password-label-action">
+                            <button *ngIf="pageForm.controls['password'].value" mat-icon-button class="password-label-action-2"
+                                (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide" type="button">
+                                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                            </button>
+                            <button *ngIf="pageForm.controls['password'].value" mat-icon-button class="password-label-action-1"
+                                (click)="clearControl('password')" [attr.aria-label]="'Clear User Name'" type="button">
+                                <mat-icon>close</mat-icon>
+                            </button>
+                        </div>
+                    </mat-form-field>
+                </form>
+            </mat-card-content>
+            <mat-card-actions>
+                <div class="row">
+                    <div class="col-lg-5 col-sm-12 col-md-5 forgot-password">
+                        <a href="Forgot password">Forgot Password</a>
+                    </div>
+                    <div class="col-lg-7 col-sm-12 col-md-7 login-actions">
+                        <button mat-raised-button (click)="onClearClick()" type="reset">Clear</button>
+                        <button mat-raised-button color="primary" (click)="login()">Login</button>
+                    </div>
+                </div>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+</app-layout>

@@ -24,4 +24,15 @@ export class MessagingService {
       panelClass: [messageClass]
     });
   }
+
+  showError(errorMessage: string) {
+    this._snackBar.openFromComponent(SnackBarComponent, {
+      duration: 7000,
+      data: {
+        completed: false,
+        message: errorMessage
+      },
+      panelClass: CoreResources.SnackBarErrorClass
+    });
+  }
 }

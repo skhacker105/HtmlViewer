@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar'
 import { MatIconModule } from '@angular/material/icon';
-import { LayoutComponent } from './components/layout/layout.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTreeModule } from '@angular/material/tree';
@@ -19,7 +18,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { HttpClientModule } from '@angular/common/http';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatGridListModule } from '@angular/material/grid-list';
-import { MenuActionComponent } from '../change-history/components/menu-action/menu-action.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSelectModule } from '@angular/material/select';
@@ -27,9 +25,14 @@ import { MatTableModule } from '@angular/material/table';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LoginComponent } from './components/login/login.component';
+import { ErrorComponent } from './components/error/error.component';
+import { LayoutComponent } from './components/layout/layout.component';
 
 @NgModule({
-  declarations: [LayoutComponent, RecordActionComponent, SnackBarComponent, ConfirmationComponent, SiteMapComponent],
+  declarations: [RecordActionComponent, SnackBarComponent, ConfirmationComponent, SiteMapComponent,
+  LoginComponent, ErrorComponent, LayoutComponent],
   imports: [
     CommonModule,
     HttpClientModule,
@@ -52,13 +55,14 @@ import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
     MatTableModule,
     MatExpansionModule,
     MatCheckboxModule,
-    MatBottomSheetModule
+    MatBottomSheetModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   exports: [
     MatToolbarModule,
     HttpClientModule,
     MatIconModule,
-    LayoutComponent,
     RecordActionComponent,
     SiteMapComponent,
     MatMenuModule,
@@ -80,7 +84,10 @@ import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
     MatCheckboxModule,
     MatBottomSheetModule,
     SnackBarComponent,
-    ConfirmationComponent
+    ConfirmationComponent,
+    ReactiveFormsModule,
+    FormsModule,
+    LoginComponent, ErrorComponent, LayoutComponent
   ]
 })
 export class CoreModule { }
