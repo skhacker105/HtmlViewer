@@ -25,7 +25,6 @@
     "@ngx-loading-bar/http-client": "^5.1.2",
     "bootstrap": "^5.1.0",
     "jquery": "^3.6.0",
-    "ngx-cookie-service": "^13.1.2",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"

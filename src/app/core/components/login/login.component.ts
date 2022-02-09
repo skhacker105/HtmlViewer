@@ -3,7 +3,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from '@core/shared/services/user.service';
 import { ProducMenuService } from '@header/shared/services/product-menu.service';
-import { CookieService } from 'ngx-cookie-service';
 import { takeWhile } from 'rxjs/operators';
 
 @Component({
@@ -17,8 +16,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   pageForm: FormGroup;
   hide = true;
   isComponentActive = true
-  constructor(private userService: UserService, private router: Router, private producMenuService: ProducMenuService,
-    private cookieService: CookieService) { }
+  constructor(private userService: UserService, private router: Router, private producMenuService: ProducMenuService) { }
 
   ngOnInit(): void {
     this.configureForm(0);
