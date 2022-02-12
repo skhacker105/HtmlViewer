@@ -16,10 +16,10 @@ import { takeWhile } from 'rxjs/operators';
 })
 export class AppComponent implements OnDestroy {
   title = 'HTMLView';
-  foreverInterval = 1000 * 60 * 60 * 24 * 365;
-  standardInterval = 5000;
-  countDownInterval = 1000;
-  countDownStartAt = 40; // seconds
+  foreverInterval = 1000 * 60 * 60 * 24 * 365; // 1 year
+  standardInterval = 5000; // 5 seconds
+  countDownInterval = 1000; // 1 second
+  countDownStartAt = 300; // 40 seconds
   timeoutCheckInterval = this.foreverInterval;
   isComponentActive = true;
   loginPopupOpen = false;
