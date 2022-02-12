@@ -45,11 +45,13 @@ export class LoginComponent implements OnInit, OnDestroy {
     var ret = "";
 
     if (hrs > 0) {
-        ret += "" + hrs + ":" + (mins < 10 ? "0" : "");
+        ret += "" + hrs + (hrs > 1 ? ' hours ' : ' hour ');
     }
 
-    ret += "" + mins + ":" + (secs < 10 ? "0" : "");
-    ret += "" + secs;
+    if (mins > 0) {
+      ret += "" + mins + (mins > 1 ? ' minutes ' : ' minute ');
+    }
+    ret += "" + secs + (secs > 1 ? ' seconds ' : ' second ');
     this.timeRemaining = ret;
   }
 
