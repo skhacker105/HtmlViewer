@@ -12,6 +12,7 @@ import { CoreResources } from '../utilities/resources';
 export class UserService {
 
   public loggedInUser = new BehaviorSubject<IUserBasic>(null);
+  public secondsRemaining = new BehaviorSubject<number>(0);
   private localstorageUserKey = 'user';
 
   constructor(private httpService: HttpWrapperService, private router: Router) {
@@ -28,7 +29,6 @@ export class UserService {
     .pipe(
       tap(res => {
         this.setLoggedInUser(res);
-        this.router.navigateByUrl('/home');
       })
     );
   }
@@ -56,6 +56,18 @@ export class UserService {
     if (localStorage[this.localstorageUserKey]) {
       this.loggedInUser.next(JSON.parse(localStorage[this.localstorageUserKey]));
     }
+  }
+
+  loadUpdatedLoginInfo(): boolean {
+    let newUserFound = false;
+    if (localStorage[this.localstorageUserKey] && this.loggedInUser.value) {
+      const local_user: IUserBasic = JSON.parse(localStorage[this.localstorageUserKey]);
+      if (local_user.expiry != this.loggedInUser.value.expiry) {
+        this.resetLoggedInUser();
+        newUserFound = true;
+      }
+    }
+    return newUserFound;
   }
 
   resetLoggedInUser() {

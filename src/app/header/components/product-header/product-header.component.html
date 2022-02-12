@@ -2,7 +2,7 @@
 <p>
     <mat-toolbar color="primary" class="product-header">
         <!--  Menu Icon -->
-        <button mat-icon-button [matMenuTriggerFor]="menu" >
+        <button mat-icon-button [matMenuTriggerFor]="menu" *ngIf="userService.loggedInUser.value">
             <mat-icon>menu</mat-icon>
         </button>
         <!--  Menu dropdown -->
@@ -17,7 +17,7 @@
 
         <span class="example-spacer"></span>
         <!-- Right Panel -->
-        <ng-container >
+        <ng-container *ngIf="userService.loggedInUser.value">
             <mat-slide-toggle color="warn" [checked]="designerMode" (change)="toggle($event)"
                 matTooltip="Designer Mode">
             </mat-slide-toggle>
@@ -42,7 +42,7 @@
             </button>
         </ng-container>
     </mat-toolbar>
-    <mat-toolbar class="product-subheader" >
+    <mat-toolbar class="product-subheader" *ngIf="userService.loggedInUser.value">
         <app-site-map></app-site-map>
         <span class="example-spacer"></span>
         <button mat-icon-button *ngIf="designerMode" matTooltip="Input Output" (click)="openInputOutput()">

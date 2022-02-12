@@ -28,10 +28,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './components/login/login.component';
 import { ErrorComponent } from './components/error/error.component';
 import { LayoutComponent } from './components/layout/layout.component';
+import { PagePopupComponent } from './components/page-popup/page-popup.component';
 
 @NgModule({
   declarations: [RecordActionComponent, ConfirmationComponent, SiteMapComponent,
-  LoginComponent, ErrorComponent, LayoutComponent],
+  LoginComponent, ErrorComponent, LayoutComponent, PagePopupComponent],
   imports: [
     CommonModule,
     HttpClientModule,

@@ -2,7 +2,6 @@ import { Component, OnInit, OnDestroy } from "@angular/core";
 import { MatBottomSheet } from "@angular/material/bottom-sheet";
 import { MatDialog } from "@angular/material/dialog";
 import { MatSlideToggleChange } from "@angular/material/slide-toggle";
-import { Router } from "@angular/router";
 import { ChangeHistoryComponent } from "@change-history/components/change-history/change-history.component";
 import { MessagingService } from "@core/shared/services/messaging.service";
 import { UserService } from "@core/shared/services/user.service";
@@ -31,8 +30,7 @@ export class ProductHeaderComponent implements OnInit, OnDestroy {
     public pageDesignerService: PageDesignerService,
     private bottomSheet: MatBottomSheet,
     public pageIOService: PageIOService,
-    public userService: UserService,
-    private router: Router) { }
+    public userService: UserService) { }
 
   ngOnInit(): void {
     this.designerMode = this.pageDesignerService.designerMode.value;
@@ -140,7 +138,9 @@ export class ProductHeaderComponent implements OnInit, OnDestroy {
   }
 
   logout() {
-    this.userService.logoutUser().subscribe(res => { });
+    this.userService.logoutUser()
+    .pipe(takeWhile(() => this.isComponentActive))
+    .subscribe(res => { });
   }
 
 }

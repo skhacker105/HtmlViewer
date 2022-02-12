@@ -1,6 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { UserService } from '@core/shared/services/user.service';
+import { LoginPageForm } from '@core/shared/utilities/enumerations';
 import { takeWhile } from 'rxjs/operators';
 
 @Component({
@@ -10,24 +12,50 @@ import { takeWhile } from 'rxjs/operators';
 })
 export class LoginComponent implements OnInit, OnDestroy {
 
-  loadForm = 0; // 0 for login, 1 for register, 2 for forgot password
+  forms = LoginPageForm;
+  @Input() redirectOnLogin = true;
+  @Input() loadForm = this.forms.loginForm; // 0 for login, 1 for register, 2 for forgot password 3 for countdown
+  @Output() processComplete = new EventEmitter<any>();
   pageForm: FormGroup;
   hide = true;
   isComponentActive = true
-  constructor(private userService: UserService) { }
+  timeRemaining = '';
+  constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit(): void {
-    this.configureForm(0);
+    this.configureForm();
+    this.userService.secondsRemaining.subscribe(s => {
+      this.calculateRemainingTime(s);
+    });
   }
 
   ngOnDestroy(): void {
     this.isComponentActive = false;
   }
 
-  configureForm(form: number) {
-    this.loadForm = form;
-    switch (form) {
-      case 0: this.configureLoginForm(); break;
+  calculateRemainingTime(s: number): void {
+    if ((!s && s != 0) || s < 0) {
+      return;
+    }
+    var hrs = ~~(s / 3600);
+    var mins = ~~((s % 3600) / 60);
+    var secs = ~~s % 60;
+
+    // Output like "1:01" or "4:03:59" or "123:03:59"
+    var ret = "";
+
+    if (hrs > 0) {
+        ret += "" + hrs + ":" + (mins < 10 ? "0" : "");
+    }
+
+    ret += "" + mins + ":" + (secs < 10 ? "0" : "");
+    ret += "" + secs;
+    this.timeRemaining = ret;
+  }
+
+  configureForm() {
+    switch (this.forms.loginForm) {
+      case this.forms.loginForm: this.configureLoginForm(); break;
     }
   }
 
@@ -66,6 +94,11 @@ export class LoginComponent implements OnInit, OnDestroy {
       .subscribe(res => {
         if (res) {
           loginActive = false;
+          if (this.redirectOnLogin) {
+            this.router.navigateByUrl('/home');
+          } else {
+            this.processComplete.emit();
+          }
         }
       });
     }
