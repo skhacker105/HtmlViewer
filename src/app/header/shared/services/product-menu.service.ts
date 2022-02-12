@@ -3,6 +3,7 @@ import { IMenuAction } from "@change-history/shared/models/MenuActions";
 import { IActionResult } from "@core/shared/interfaces/ActionResult";
 import { HttpWrapperService } from "@core/shared/services/http-wrapper.service";
 import { MessagingService } from "@core/shared/services/messaging.service";
+import { UserService } from "@core/shared/services/user.service";
 import { CoreHelper } from "@core/shared/utilities/helper";
 import { CoreResources } from "@core/shared/utilities/resources";
 import { PageIOService } from "@page/shared/services/page-io.service";
@@ -30,7 +31,14 @@ export class ProducMenuService {
   selectedMenuId: string;
   flatMenu: IProductMenuItem[];
 
-  constructor(private httpService: HttpWrapperService, private messagingService: MessagingService, private pageIOService: PageIOService) { }
+  constructor(private httpService: HttpWrapperService, private messagingService: MessagingService, private pageIOService: PageIOService,
+    private userService: UserService ) {
+      this.userService.loggedInUser.subscribe(u => {
+        if (u) {
+          this.loadProductMenu();
+        }
+      });
+    }
 
   selectMenu(menu: string) {
     if (this.menuActions.length > 0 || this.pageIOService.ioActions.length > 0) {
@@ -46,6 +54,30 @@ export class ProducMenuService {
       this.selectedMenu.next(menu);
       this.pageIOService.loadPageIO(menuNode.Id);
     }
+  }
+
+  loadProductMenu(callBack?: {(response): void}): any {
+    this.getMenuFromDB().subscribe(res => {
+      if (res) {
+        this.flatMenu = res;
+        if (res.length > 0) {
+          this.converFlatMenuToNested(res);
+          this.menuActions = [];
+          this.selectMenu(this.ProductMenuList[0].name);
+          return {
+            then: () => {
+              if (callBack) {
+                callBack(res);
+              }
+            }
+          };
+        } else {
+          return {
+            then: () => {}
+          };
+        }
+      }
+    });
   }
 
   converFlatMenuToNested(flatMenu: IProductMenuItem[]): void {

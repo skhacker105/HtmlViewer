@@ -4,6 +4,7 @@ import { MatDialog } from "@angular/material/dialog";
 import { MatSlideToggleChange } from "@angular/material/slide-toggle";
 import { ChangeHistoryComponent } from "@change-history/components/change-history/change-history.component";
 import { MessagingService } from "@core/shared/services/messaging.service";
+import { UserService } from "@core/shared/services/user.service";
 import { ProducMenuService } from "@header/shared/services/product-menu.service";
 import { HeaderResources } from "@header/shared/utilities/header-resources";
 import { OrganizationTeamUserRolesComponent } from "@organization/components/organization-team-user-roles/organization-team-user-roles.component";
@@ -28,11 +29,11 @@ export class ProductHeaderComponent implements OnInit, OnDestroy {
     public dialog: MatDialog,
     public pageDesignerService: PageDesignerService,
     private bottomSheet: MatBottomSheet,
-    public pageIOService: PageIOService) { }
+    public pageIOService: PageIOService,
+    public userService: UserService) { }
 
   ngOnInit(): void {
     this.designerMode = this.pageDesignerService.designerMode.value;
-    this.loadProductMenu();
   }
 
   ngOnDestroy(): void {
@@ -40,18 +41,7 @@ export class ProductHeaderComponent implements OnInit, OnDestroy {
   }
 
   loadProductMenu() {
-    this.producMenuService.getMenuFromDB().pipe(takeWhile(() => this.isComponentActive))
-    .subscribe(res => {
-      if (res) {
-        this.producMenuService.flatMenu = res;
-        if (res.length > 0) {
-          this.producMenuService.converFlatMenuToNested(res);
-          this.producMenuService.menuActions = [];
-          this.handleMenuSelect(this.producMenuService.ProductMenuList[0].name);
-        } else {
-        }
-      }
-    });
+    this.producMenuService.loadProductMenu();
   }
 
   handleMenuClick(menu: string): void {
@@ -145,6 +135,12 @@ export class ProductHeaderComponent implements OnInit, OnDestroy {
     this.bottomSheet.open(InputOutputComponent, {
       panelClass: 'io-bottom-sheet'
     });
+  }
+
+  logout() {
+    this.userService.logoutUser()
+    .pipe(takeWhile(() => this.isComponentActive))
+    .subscribe(res => { });
   }
 
 }

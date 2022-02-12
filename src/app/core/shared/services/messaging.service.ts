@@ -1,6 +1,5 @@
 import { Injectable } from "@angular/core";
 import { MatSnackBar } from "@angular/material/snack-bar";
-import { SnackBarComponent } from "@core/components/snack-bar/snack-bar.component";
 import { IActionResult } from "../interfaces/ActionResult";
 import { CoreResources } from "../utilities/resources";
 
@@ -18,10 +17,20 @@ export class MessagingService {
     } else if (!result?.completed) {
       messageClass = CoreResources.SnackBarErrorClass;
     }
-    this._snackBar.openFromComponent(SnackBarComponent, {
-      duration: 3000,
-      data: result,
-      panelClass: [messageClass]
+    this._snackBar.open(result.message, 'X', {
+      panelClass: messageClass,
+      duration: 10000
     });
+  }
+
+  showError(errorMessage: string) {
+    this._snackBar.open(errorMessage, 'X', {
+      panelClass: CoreResources.SnackBarErrorClass,
+      duration: 10000
+    });
+  }
+
+  hideError() {
+    this._snackBar.dismiss();
   }
 }

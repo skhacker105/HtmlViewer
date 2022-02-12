@@ -22,7 +22,8 @@
       "@footer/*": ["src/app/footer/*"],
       "@header/*": ["src/app/header/*"],
       "@organization/*": ["src/app/organization/*"],
-      "@page/*": ["src/app/page/*"]
+      "@page/*": ["src/app/page/*"],
+      "@common/*": ["src/app/common/*"]
     }
   }
 }

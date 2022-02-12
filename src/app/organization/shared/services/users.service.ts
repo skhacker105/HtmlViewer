@@ -79,7 +79,6 @@ export class UsersService {
       map((d: any[]) => {
         const convertedUsers: IUser[] = [];
         d.forEach(item => {
-        //   convertedControls.push(new Teams(item['teamId'], item['teamName'], item['parentTeamId']));
         convertedUsers.push(new Users(item['userId'], item['userName'], item['roleId'], item['teamIds']))
         });
         return convertedUsers;

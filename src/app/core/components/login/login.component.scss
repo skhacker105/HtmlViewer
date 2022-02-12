@@ -1,0 +1,40 @@
+.login-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translate(0, 50%);
+}
+
+.login-card {
+    max-width: 400px;
+}
+
+.login-actions {
+    text-align: right;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.forgot-password {
+    white-space: nowrap;
+    transform: translate(0, 30%);
+}
+
+.login-input {
+    width: 100%;
+}
+
+.password-label-action {
+    width: 60px;
+}
+
+.password-label-action-1, .password-label-action-2 {
+    display: inline !important;
+}
+
+.login-footer {
+    width: 100%;
+    text-align: center;
+    color: red;
+    padding: 3px;
+}

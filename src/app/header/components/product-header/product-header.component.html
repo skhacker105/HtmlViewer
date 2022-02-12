@@ -1,40 +1,48 @@
 <ngx-loading-bar [includeSpinner]="false" [color]="'red'"></ngx-loading-bar>
 <p>
     <mat-toolbar color="primary" class="product-header">
-        <button mat-icon-button [matMenuTriggerFor]="menu">
+        <!--  Menu Icon -->
+        <button mat-icon-button [matMenuTriggerFor]="menu" *ngIf="userService.loggedInUser.value">
             <mat-icon>menu</mat-icon>
         </button>
+        <!--  Menu dropdown -->
         <mat-menu #menu="matMenu">
             <app-product-main-menu [menu]="producMenuService.ProductMenuList" (clickedMenu)="handleMenuClick($event)"
                 (addMenu)="handleMenuAdd($event)" (updateMenu)="handleMenuUpdate($event)"
                 (deleteMenu)="handleMenuDelete()" (selectedMenu)="handleMenuSelect($event)"></app-product-main-menu>
         </mat-menu>
 
+        <!-- Title -->
         <span>My App</span>
+
         <span class="example-spacer"></span>
-        <mat-slide-toggle color="warn" [checked]="designerMode" (change)="toggle($event)" matTooltip="Designer Mode">
-        </mat-slide-toggle>
-        <button mat-icon-button matTooltip="Data Flow" (click)="openDataFlow()">
-            <mat-icon>usb</mat-icon>
-        </button>
-        <button mat-icon-button matTooltip="Organization Structure" (click)="openOrganization()">
-            <mat-icon>supervised_user_circle</mat-icon>
-        </button>
-        <button mat-icon-button matTooltip="Change History"
-            [disabled]="producMenuService.menuActions.length === 0 && pageDesignerService.pageControlAction.length === 0 && pageIOService.ioActions.length === 0"
-            (click)="openChangeHistory()">
-            <mat-icon>track_changes</mat-icon>
-        </button>
-        <button mat-icon-button
-            [disabled]="producMenuService.menuActions.length === 0 && pageDesignerService.pageControlAction.length === 0 && pageIOService.ioActions.length === 0"
-            matTooltip="Save" (click)="saveChanges()">
-            <mat-icon>save</mat-icon>
-        </button>
-        <button mat-icon-button matTooltip="Logout">
-            <mat-icon>exit_to_app</mat-icon>
-        </button>
+        <!-- Right Panel -->
+        <ng-container *ngIf="userService.loggedInUser.value">
+            <mat-slide-toggle color="warn" [checked]="designerMode" (change)="toggle($event)"
+                matTooltip="Designer Mode">
+            </mat-slide-toggle>
+            <button mat-icon-button matTooltip="Data Flow" (click)="openDataFlow()">
+                <mat-icon>usb</mat-icon>
+            </button>
+            <button mat-icon-button matTooltip="Organization Structure" (click)="openOrganization()">
+                <mat-icon>supervised_user_circle</mat-icon>
+            </button>
+            <button mat-icon-button matTooltip="Change History"
+                [disabled]="producMenuService.menuActions.length === 0 && pageDesignerService.pageControlAction.length === 0 && pageIOService.ioActions.length === 0"
+                (click)="openChangeHistory()">
+                <mat-icon>track_changes</mat-icon>
+            </button>
+            <button mat-icon-button
+                [disabled]="producMenuService.menuActions.length === 0 && pageDesignerService.pageControlAction.length === 0 && pageIOService.ioActions.length === 0"
+                matTooltip="Save" (click)="saveChanges()">
+                <mat-icon>save</mat-icon>
+            </button>
+            <button mat-icon-button matTooltip="Logout" (click)="logout()">
+                <mat-icon>exit_to_app</mat-icon>
+            </button>
+        </ng-container>
     </mat-toolbar>
-    <mat-toolbar class="product-subheader">
+    <mat-toolbar class="product-subheader" *ngIf="userService.loggedInUser.value">
         <app-site-map></app-site-map>
         <span class="example-spacer"></span>
         <button mat-icon-button *ngIf="designerMode" matTooltip="Input Output" (click)="openInputOutput()">
