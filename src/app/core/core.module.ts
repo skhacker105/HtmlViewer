@@ -10,7 +10,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { RecordActionComponent } from './components/record-action/record-action.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { SnackBarComponent } from './components/snack-bar/snack-bar.component';
 import { ConfirmationComponent } from './components/confirmation/confirmation.component';
 import { SiteMapComponent } from './components/site-map/site-map.component';
 import { MatBadgeModule } from '@angular/material/badge';
@@ -31,7 +30,7 @@ import { ErrorComponent } from './components/error/error.component';
 import { LayoutComponent } from './components/layout/layout.component';
 
 @NgModule({
-  declarations: [RecordActionComponent, SnackBarComponent, ConfirmationComponent, SiteMapComponent,
+  declarations: [RecordActionComponent, ConfirmationComponent, SiteMapComponent,
   LoginComponent, ErrorComponent, LayoutComponent],
   imports: [
     CommonModule,
@@ -83,7 +82,6 @@ import { LayoutComponent } from './components/layout/layout.component';
     MatExpansionModule,
     MatCheckboxModule,
     MatBottomSheetModule,
-    SnackBarComponent,
     ConfirmationComponent,
     ReactiveFormsModule,
     FormsModule,

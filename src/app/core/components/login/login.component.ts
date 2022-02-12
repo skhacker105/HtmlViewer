@@ -1,8 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { UserService } from '@core/shared/services/user.service';
-import { ProducMenuService } from '@header/shared/services/product-menu.service';
 import { takeWhile } from 'rxjs/operators';
 
 @Component({
@@ -16,7 +14,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   pageForm: FormGroup;
   hide = true;
   isComponentActive = true
-  constructor(private userService: UserService, private router: Router, private producMenuService: ProducMenuService) { }
+  constructor(private userService: UserService) { }
 
   ngOnInit(): void {
     this.configureForm(0);
@@ -66,11 +64,9 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.userService.loginUser(this.pageForm.controls['userName'].value, this.pageForm.controls['password'].value)
       .pipe(takeWhile(() => loginActive))
       .subscribe(res => {
-        loginActive = false;
-        // res.token = this._cookieService.get('token');
-        this.userService.setLoggedInUser(res);
-        this.producMenuService.loadProductMenu();
-        this.router.navigateByUrl('/home');
+        if (res) {
+          loginActive = false;
+        }
       });
     }
   }

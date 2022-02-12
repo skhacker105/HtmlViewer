@@ -1,7 +1,6 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from "@angular/common/http";
+import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Router } from "@angular/router";
-import { BehaviorSubject, Observable, ObservableInput } from "rxjs";
+import { BehaviorSubject, Observable, ObservableInput, Subject } from "rxjs";
 import { catchError } from "rxjs/operators";
 import { environment } from "src/environments/environment";
 import { IHTTPOptions } from "../interfaces/HttpOptions";
@@ -14,8 +13,10 @@ import { MessagingService } from "./messaging.service";
 export class HttpWrapperService {
 
   private httpOptions: IHTTPOptions;
+  private _userForbidden = new Subject<boolean>();
+  public userForbidden = this._userForbidden.asObservable();
   public httpError = new BehaviorSubject<any>(null);
-  constructor(private httpClient: HttpClient, private router: Router, private messagingService: MessagingService) {
+  constructor(private httpClient: HttpClient, private messagingService: MessagingService) {
     this.httpOptions = this.geHttpHeaders();
   }
 
@@ -23,14 +24,14 @@ export class HttpWrapperService {
     if (error) {
       switch (error.status) {
         case 0:
-          this.messagingService.showError(CoreResources.HTTPNoStatusError)
+          this.messagingService.showError(CoreResources.HTTPNoStatusError);
           break;
-        case 403:
-          this.messagingService.showError(CoreResources.Forbidden)
+        case 404:
+          this.messagingService.showError(CoreResources.RecordNotFound);
           break;
         case 401:
-          this.httpError.next(error);
-          this.router.navigateByUrl('/login');
+          this._userForbidden.next(true);
+          this.messagingService.showError(CoreResources.Forbidden);
           break;
       }
     }
@@ -42,18 +43,11 @@ export class HttpWrapperService {
     return this;
   }
 
-  withCredentials(): HttpWrapperService {
-    return this;
-    // let newHeader = { ...this.httpOptions };
-    // newHeader.withCredentials = true;
-    // let newService = new HttpWrapperService(this.httpClient, this.router, this.messagingService).updateHttpOptions(newHeader);
-    // return newService;
-  }
-
   private geHttpHeaders(): IHTTPOptions {
     const h = new HttpHeaders();
     return {
-      headers: h
+      headers: h,
+      withCredentials: true
     };
   }
 

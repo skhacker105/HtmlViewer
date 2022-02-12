@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
+import { MessagingService } from '@core/shared/services/messaging.service';
 import { UserService } from '@core/shared/services/user.service';
 import { ProducMenuService } from '@header/shared/services/product-menu.service';
 
@@ -11,7 +12,8 @@ import { ProducMenuService } from '@header/shared/services/product-menu.service'
 export class AppComponent {
   title = 'HTMLView';
 
-  constructor(private userService: UserService, private router: Router, private producMenuService: ProducMenuService) {
+  constructor(private userService: UserService, private router: Router, private producMenuService: ProducMenuService,
+    private messagingService: MessagingService) {
     this.userService.restoreLoggedInUser();
     this.registerRouteChangeHandle();
   }
@@ -19,6 +21,7 @@ export class AppComponent {
   registerRouteChangeHandle() {
     this.router.events.subscribe(r => {
       if (r instanceof NavigationEnd && this.router.url !='/error') {
+        this.messagingService.hideError();
         if (this.router.url !='/login' && !this.userService.loggedInUser.value) {
           this.router.navigateByUrl('/login');
         }
@@ -28,9 +31,5 @@ export class AppComponent {
         }
       }
     })
-  }
-
-  onClick() {
-    this.router.navigateByUrl('/home');
   }
 }

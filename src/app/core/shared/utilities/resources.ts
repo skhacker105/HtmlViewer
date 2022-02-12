@@ -27,5 +27,6 @@ export class CoreResources {
     };
 
     public static readonly HTTPNoStatusError = 'There was no response from server. It may be slow or unavailable.';
+    public static readonly RecordNotFound = 'No record found.';
     public static readonly Forbidden = 'Access is denied for this user.';
 }

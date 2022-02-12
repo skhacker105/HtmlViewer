@@ -7,7 +7,7 @@ import { ProductPageComponent } from './page/components/product-page/product-pag
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'login',
     pathMatch: 'full'
   },
   {

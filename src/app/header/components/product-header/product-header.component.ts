@@ -140,10 +140,7 @@ export class ProductHeaderComponent implements OnInit, OnDestroy {
   }
 
   logout() {
-    this.userService.logoutUser().subscribe(res => {
-      this.userService.resetLoggedInUser();
-      this.router.navigateByUrl('/login');
-    });
+    this.userService.logoutUser().subscribe(res => { });
   }
 
 }
