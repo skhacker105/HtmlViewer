@@ -1,11 +1,11 @@
 import { Injectable } from "@angular/core";
-import { HttpWrapperService } from "@core/shared/services/http-wrapper.service";
+import { HttpWrapperService } from "@core/services/http-wrapper.service";
+import { OriganizationResources } from "@organization/utilities/organization-resources";
 import { Observable, of, forkJoin } from "rxjs";
 import { map, catchError } from "rxjs/operators";
 import { IUserAction } from "../interfaces/OrganizationActions";
 import { IUser } from "../interfaces/Users";
 import { Users } from "../models/users";
-import { OriganizationResources } from "../utilities/organization-resources";
 import { RolesService } from "./roles.service";
 import { TeamsService } from "./teams.service";
 

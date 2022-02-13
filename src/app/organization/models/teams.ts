@@ -1,7 +1,7 @@
-import { IActionResult } from "@core/shared/interfaces/ActionResult";
-import { CoreHelper } from "@core/shared/utilities/helper";
+import { IActionResult } from "@core/interfaces/ActionResult";
+import { CoreHelper } from "@core/utilities/helper";
+import { OriganizationResources } from "@organization/utilities/organization-resources";
 import { ITeams } from "../interfaces/Teams";
-import { OriganizationResources } from "../utilities/organization-resources";
 
 export class Teams implements ITeams {
     Id: string;

@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
-import { IActionResult } from "@core/shared/interfaces/ActionResult";
-import { HttpWrapperService } from "@core/shared/services/http-wrapper.service";
-import { MessagingService } from "@core/shared/services/messaging.service";
-import { ProducMenuService } from "@header/shared/services/product-menu.service";
+import { IActionResult } from "@core/interfaces/ActionResult";
+import { HttpWrapperService } from "@core/services/http-wrapper.service";
+import { MessagingService } from "@core/services/messaging.service";
+import { ProducMenuService } from "@header/services/product-menu.service";
 import { BehaviorSubject, Observable, of, forkJoin } from "rxjs";
 import { map, catchError } from "rxjs/operators";
 import { ContainerControl, TextBoxControl, ButtonControl } from "../models/controls";

@@ -2,14 +2,14 @@ import { Component, OnInit, OnDestroy } from "@angular/core";
 import { MatOptionSelectionChange } from "@angular/material/core";
 import { MatDialog } from "@angular/material/dialog";
 import { ConfirmationComponent } from "@core/components/confirmation/confirmation.component";
-import { CoreResources } from "@core/shared/utilities/resources";
+import { CoreResources } from "@core/utilities/resources";
 import { AddProductMenuComponent } from "@header/components/product-main-menu/add-product-menu/add-product-menu.component";
-import { IUser } from "@organization/shared/interfaces/Users";
-import { Users } from "@organization/shared/models/users";
-import { RolesService } from "@organization/shared/services/roles.service";
-import { TeamsService } from "@organization/shared/services/teams.service";
-import { UsersService } from "@organization/shared/services/users.service";
-import { PageDesignerService } from "@page/shared/services/page-designer.service";
+import { IUser } from "@organization/interfaces/Users";
+import { Users } from "@organization/models/users";
+import { RolesService } from "@organization/services/roles.service";
+import { TeamsService } from "@organization/services/teams.service";
+import { UsersService } from "@organization/services/users.service";
+import { PageDesignerService } from "@page/services/page-designer.service";
 import { takeWhile } from "rxjs/operators";
 
 @Component({

@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ProducMenuService } from '@header/services/product-menu.service';
+import { TeamsService } from '@organization/services/teams.service';
+import { UsersService } from '@organization/services/users.service';
+import { PageDesignerService } from '@page/services/page-designer.service';
 import { takeWhile } from 'rxjs/operators';
-import { ProducMenuService } from 'src/app/header/shared/services/product-menu.service';
-import { PageDesignerService } from 'src/app/page/shared/services/page-designer.service';
-import { ITeams } from '../../shared/interfaces/Teams';
-import { TeamsService } from '../../shared/services/teams.service';
-import { UsersService } from '../../shared/services/users.service';
+import { ITeams } from '../../interfaces/Teams';
 
 @Component({
   selector: 'app-menu-access',

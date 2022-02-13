@@ -1,8 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { MatTableDataSource } from "@angular/material/table";
-import { CoreResources } from "@core/shared/utilities/resources";
-import { IPageControlAction } from "@page/shared/models/PageControlAction";
-import { PageDesignerService } from "@page/shared/services/page-designer.service";
+import { CoreResources } from "@core/utilities/resources";
+import { IPageControlAction } from "@page/models/PageControlAction";
+import { PageDesignerService } from "@page/services/page-designer.service";
 
 @Component({
   selector: 'app-page-control-change-history',

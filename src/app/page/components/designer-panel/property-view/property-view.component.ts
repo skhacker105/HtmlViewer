@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
-import { ControlPosition, ControlAlignment } from "@page/shared/interfaces/enumerations";
-import { PageDesignerService } from "@page/shared/services/page-designer.service";
-import { PageIOService } from "@page/shared/services/page-io.service";
+import { ControlPosition, ControlAlignment } from "@page/interfaces/enumerations";
+import { PageDesignerService } from "@page/services/page-designer.service";
+import { PageIOService } from "@page/services/page-io.service";
 import { takeWhile } from "rxjs/operators";
 
 @Component({

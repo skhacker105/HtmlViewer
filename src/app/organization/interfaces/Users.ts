@@ -1,4 +1,4 @@
-import { IUserBasic } from "@core/shared/interfaces/User";
+import { IUserBasic } from "@core/interfaces/User";
 
 export interface IUser extends IUserBasic {
     roleId: string;

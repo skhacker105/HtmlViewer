@@ -1,4 +1,4 @@
-import { CoreHelper } from "@core/shared/utilities/helper";
+import { CoreHelper } from "@core/utilities/helper";
 import { IContainerProperties, ILabledControlProperties } from "../interfaces/ControlProperties";
 import { ControlPosition, ControlAlignment } from "../interfaces/enumerations";
 import { PageResources } from "../utilities/page-resources";

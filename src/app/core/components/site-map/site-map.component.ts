@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
-import { IProductMenuItem } from "@header/shared/interfaces/ProductMenuItem";
-import { ProducMenuService } from "@header/shared/services/product-menu.service";
+import { IProductMenuItem } from "@header/interfaces/ProductMenuItem";
+import { ProducMenuService } from "@header/services/product-menu.service";
 import { takeWhile } from "rxjs/operators";
 
 @Component({

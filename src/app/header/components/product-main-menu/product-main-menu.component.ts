@@ -3,10 +3,10 @@ import { Component, OnInit, OnChanges, OnDestroy, Input, Output, SimpleChanges, 
 import { MatDialog } from "@angular/material/dialog";
 import { MatTreeFlattener, MatTreeFlatDataSource } from "@angular/material/tree";
 import { ConfirmationComponent } from "@core/components/confirmation/confirmation.component";
-import { IFlatNode } from "@core/shared/interfaces/FlatNode";
-import { CoreResources } from "@core/shared/utilities/resources";
-import { IProductMenuItem } from "@header/shared/interfaces/ProductMenuItem";
-import { PageDesignerService } from "@page/shared/services/page-designer.service";
+import { IFlatNode } from "@core/interfaces/FlatNode";
+import { CoreResources } from "@core/utilities/resources";
+import { IProductMenuItem } from "@header/interfaces/ProductMenuItem";
+import { PageDesignerService } from "@page/services/page-designer.service";
 import { takeWhile } from "rxjs/operators";
 import { AddProductMenuComponent } from "./add-product-menu/add-product-menu.component";
 

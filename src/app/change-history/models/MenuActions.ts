@@ -1,4 +1,4 @@
-import { IProductMenuItem } from "@header/shared/interfaces/ProductMenuItem";
+import { IProductMenuItem } from "@header/interfaces/ProductMenuItem";
 
 export interface IMenuAction {
     MenuItem: IProductMenuItem,

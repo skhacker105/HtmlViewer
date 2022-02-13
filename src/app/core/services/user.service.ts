@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { IUserBasic } from '@core/shared/interfaces/User';
-import { HttpWrapperService } from '@core/shared/services/http-wrapper.service';
-import { BehaviorSubject, Observable, pipe } from 'rxjs';
+import { IUserBasic } from '@core/interfaces/User';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { CoreResources } from '../utilities/resources';
+import { HttpWrapperService } from './http-wrapper.service';
 
 @Injectable({
   providedIn: 'root'

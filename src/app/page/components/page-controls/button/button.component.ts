@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, Input } from "@angular/core";
-import { ContainerControl } from "@page/shared/models/controls";
-import { PageDesignerService } from "@page/shared/services/page-designer.service";
+import { ContainerControl } from "@page/models/controls";
+import { PageDesignerService } from "@page/services/page-designer.service";
 import { takeWhile } from "rxjs/operators";
 
 @Component({

@@ -1,12 +1,12 @@
 import { Injectable } from "@angular/core";
-import { IMenuAction } from "@change-history/shared/models/MenuActions";
-import { IActionResult } from "@core/shared/interfaces/ActionResult";
-import { HttpWrapperService } from "@core/shared/services/http-wrapper.service";
-import { MessagingService } from "@core/shared/services/messaging.service";
-import { UserService } from "@core/shared/services/user.service";
-import { CoreHelper } from "@core/shared/utilities/helper";
-import { CoreResources } from "@core/shared/utilities/resources";
-import { PageIOService } from "@page/shared/services/page-io.service";
+import { IMenuAction } from "@change-history/models/MenuActions";
+import { IActionResult } from "@core/interfaces/ActionResult";
+import { HttpWrapperService } from "@core/services/http-wrapper.service";
+import { MessagingService } from "@core/services/messaging.service";
+import { UserService } from "@core/services/user.service";
+import { CoreHelper } from "@core/utilities/helper";
+import { CoreResources } from "@core/utilities/resources";
+import { PageIOService } from "@page/services/page-io.service";
 import { BehaviorSubject, Observable, forkJoin } from "rxjs";
 import { IProductMenuItem } from "../interfaces/ProductMenuItem";
 import { HeaderResources } from "../utilities/header-resources";
@@ -31,7 +31,8 @@ export class ProducMenuService {
   selectedMenuId: string;
   flatMenu: IProductMenuItem[];
 
-  constructor(private httpService: HttpWrapperService, private messagingService: MessagingService, private pageIOService: PageIOService,
+  constructor(private httpService: HttpWrapperService, private messagingService: MessagingService,
+    private pageIOService: PageIOService,
     private userService: UserService ) {
       this.userService.loggedInUser.subscribe(u => {
         if (u) {

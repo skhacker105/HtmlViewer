@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
-import { HttpWrapperService } from "@core/shared/services/http-wrapper.service";
-import { CoreHelper } from "@core/shared/utilities/helper";
+import { HttpWrapperService } from "@core/services/http-wrapper.service";
+import { CoreHelper } from "@core/utilities/helper";
 import { BehaviorSubject, Observable, forkJoin } from "rxjs";
 import { IODataTypes } from "../interfaces/enumerations";
 import { IPageIO } from "../models/InputOutput";
