@@ -37,9 +37,15 @@
                 matTooltip="Save" (click)="saveChanges()">
                 <mat-icon>save</mat-icon>
             </button>
-            <button mat-icon-button matTooltip="Logout" (click)="logout()">
-                <mat-icon>exit_to_app</mat-icon>
+
+            <button mat-icon-button [matMenuTriggerFor]="accountMenu" *ngIf="userService.loggedInUser.value"
+            class="product-header-component">
+                    <mat-icon>account_circle</mat-icon>
+                    <mat-icon>keyboard_arrow_down</mat-icon>
             </button>
+            <mat-menu #accountMenu="matMenu">
+                <app-account-menu></app-account-menu>
+            </mat-menu>
         </ng-container>
     </mat-toolbar>
     <mat-toolbar class="product-subheader" *ngIf="userService.loggedInUser.value">

@@ -29,12 +29,15 @@ import { LoginComponent } from './components/login/login.component';
 import { ErrorComponent } from './components/error/error.component';
 import { LayoutComponent } from './components/layout/layout.component';
 import { PagePopupComponent } from './components/page-popup/page-popup.component';
+import { MatDividerModule } from '@angular/material/divider';
+import { CoreRoutingModule } from './core-routing.module';
 
 @NgModule({
   declarations: [RecordActionComponent, ConfirmationComponent, SiteMapComponent,
   LoginComponent, ErrorComponent, LayoutComponent, PagePopupComponent],
   imports: [
     CommonModule,
+    CoreRoutingModule,
     HttpClientModule,
     MatToolbarModule,
     MatIconModule,
@@ -57,7 +60,8 @@ import { PagePopupComponent } from './components/page-popup/page-popup.component
     MatCheckboxModule,
     MatBottomSheetModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    MatDividerModule
   ],
   exports: [
     MatToolbarModule,
@@ -86,6 +90,7 @@ import { PagePopupComponent } from './components/page-popup/page-popup.component
     ConfirmationComponent,
     ReactiveFormsModule,
     FormsModule,
+    MatDividerModule,
     LoginComponent, ErrorComponent, LayoutComponent
   ]
 })

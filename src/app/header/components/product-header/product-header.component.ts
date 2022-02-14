@@ -137,10 +137,4 @@ export class ProductHeaderComponent implements OnInit, OnDestroy {
     });
   }
 
-  logout() {
-    this.userService.logoutUser()
-    .pipe(takeWhile(() => this.isComponentActive))
-    .subscribe(res => { });
-  }
-
 }

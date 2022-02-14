@@ -10,6 +10,7 @@ import { OrganizationModule } from './organization/organization.module';
 import { ChangeHistoryModule } from './change-history/change-history.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpCallInterceptorsInterceptor } from '@core/interceptors/http-call-interceptors.interceptor';
+import { AccountModule } from './account/account.module';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { HttpCallInterceptorsInterceptor } from '@core/interceptors/http-call-in
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
+    AccountModule,
     HeaderModule,
     FooterModule,
     BrowserAnimationsModule,

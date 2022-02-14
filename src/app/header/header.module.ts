@@ -5,6 +5,7 @@ import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { ProductMainMenuComponent } from './components/product-main-menu/product-main-menu.component';
 import { AddProductMenuComponent } from './components/product-main-menu/add-product-menu/add-product-menu.component';
 import { CoreModule } from '@core/core.module';
+import { AccountModule } from '@account/account.module';
 
 
 @NgModule({
@@ -12,6 +13,7 @@ import { CoreModule } from '@core/core.module';
   imports: [
     CommonModule,
     CoreModule,
+    AccountModule,
     LoadingBarHttpClientModule
   ],
   exports: [ProductHeaderComponent, ProductMainMenuComponent, AddProductMenuComponent]

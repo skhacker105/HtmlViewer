@@ -12,6 +12,9 @@ import { AccountMenuComponent } from './components/account-menu/account-menu.com
   imports: [
     CommonModule,
     CoreModule
+  ],
+  exports: [
+    AccountMenuComponent
   ]
 })
 export class AccountModule { }
