@@ -13,7 +13,6 @@ export class AccountMenuComponent implements OnInit, OnDestroy {
   constructor(public userService: UserService) { }
 
   ngOnInit(): void {
-    console.log('loading account menu')
   }
 
   ngOnDestroy(): void {

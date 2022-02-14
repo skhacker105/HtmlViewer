@@ -4,6 +4,7 @@
 
 ::ng-deep.mat-menu-panel {
   max-width: 100% !important;
+  overflow-x: hidden !important;
 }
 
 .product-subheader {
@@ -12,6 +13,5 @@
 }
 
 .product-header-component {
-  width: 60px;
   border-radius: 0px;
 }
