@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from "@angular/core";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
-import { CoreResources } from "@core/shared/utilities/resources";
+import { CoreResources } from "@core/utilities/resources";
 
 @Component({
   selector: 'app-add-product-menu',

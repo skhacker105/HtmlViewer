@@ -1,8 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { MatSelectChange } from "@angular/material/select";
-import { IODataTypes } from "@page/shared/interfaces/enumerations";
-import { IPageIO } from "@page/shared/models/InputOutput";
-import { PageIOService } from "@page/shared/services/page-io.service";
+import { IODataTypes } from "@page/interfaces/enumerations";
+import { IPageIO } from "@page/models/InputOutput";
+import { PageIOService } from "@page/services/page-io.service";
 
 @Component({
   selector: 'app-output',

@@ -4,9 +4,14 @@
 
 ::ng-deep.mat-menu-panel {
   max-width: 100% !important;
+  overflow-x: hidden !important;
 }
 
 .product-subheader {
   font-size: 15px;
   height: 30px;
+}
+
+.product-header-component {
+  border-radius: 0px;
 }

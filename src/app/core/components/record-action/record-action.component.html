@@ -1,12 +1,18 @@
-<button mat-icon-button color="primary" class="add-menu" (click)="handleAddClick()" *ngIf="showAdd" matTooltip="Add">
-    <mat-icon>add</mat-icon>
-</button>
-<button mat-icon-button color="primary" class="add-menu" (click)="handleEditClick()" *ngIf="showEdit" matTooltip="Edit">
-    <mat-icon>edit</mat-icon>
-</button>
-<button mat-icon-button color="primary" class="add-menu" (click)="handleDeleteClick()" *ngIf="showDelete" matTooltip="Delete">
-    <mat-icon>delete</mat-icon>
-</button>
-<button mat-icon-button color="primary" class="add-menu" (click)="handleHideUnhide()" *ngIf="showHide" matTooltip="Hide">
-    <mat-icon>block</mat-icon>
-</button>
+<div class="row action-controls">
+    <button mat-icon-button color="primary" [ngClass]="{ 'col-sm-3 col-md-3 col-lg-3': inline }" class="add-menu"
+        (click)="handleAddClick()" *ngIf="showAdd" matTooltip="Add">
+        <mat-icon>add</mat-icon>
+    </button>
+    <button mat-icon-button color="primary" [ngClass]="{ 'col-sm-3 col-md-3 col-lg-3': inline }" class="add-menu"
+        (click)="handleEditClick()" *ngIf="showEdit" matTooltip="Edit">
+        <mat-icon>edit</mat-icon>
+    </button>
+    <button mat-icon-button color="primary" [ngClass]="{ 'col-sm-3 col-md-3 col-lg-3': inline }" class="add-menu"
+        (click)="handleDeleteClick()" *ngIf="showDelete" matTooltip="Delete">
+        <mat-icon>delete</mat-icon>
+    </button>
+    <button mat-icon-button color="primary" [ngClass]="{ 'col-sm-3 col-md-3 col-lg-3': inline }" class="add-menu"
+        (click)="handleHideUnhide()" *ngIf="showHide" matTooltip="Hide">
+        <mat-icon>block</mat-icon>
+    </button>
+</div>

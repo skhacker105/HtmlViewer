@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { MatDialogRef } from "@angular/material/dialog";
-import { ProducMenuService } from "@header/shared/services/product-menu.service";
+import { ProducMenuService } from "@header/services/product-menu.service";
 
 @Component({
   selector: 'app-change-history',

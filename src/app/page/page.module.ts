@@ -12,6 +12,7 @@ import { ButtonComponent } from "./components/page-controls/button/button.compon
 import { ContainerComponent } from "./components/page-controls/container/container.component";
 import { TextBoxComponent } from "./components/page-controls/text-box/text-box.component";
 import { ProductPageComponent } from "./components/product-page/product-page.component";
+import { PageRoutingModule } from "./page-routing.module";
 
 
 
@@ -31,6 +32,7 @@ import { ProductPageComponent } from "./components/product-page/product-page.com
   ],
   imports: [
     CommonModule,
+    PageRoutingModule,
     CoreModule
   ],
   exports: [

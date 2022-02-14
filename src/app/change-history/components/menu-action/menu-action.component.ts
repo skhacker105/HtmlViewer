@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from "@angular/core";
-import { IMenuAction } from "@change-history/shared/models/MenuActions";
-import { CoreResources } from "@core/shared/utilities/resources";
+import { IMenuAction } from "@change-history/models/MenuActions";
+import { CoreResources } from "@core/utilities/resources";
 
 @Component({
   selector: 'app-menu-action',

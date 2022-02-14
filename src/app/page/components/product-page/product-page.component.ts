@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { MatTabChangeEvent } from "@angular/material/tabs";
-import { PageDesignerService } from "@page/shared/services/page-designer.service";
+import { PageDesignerService } from "@page/services/page-designer.service";
 
 @Component({
   selector: 'app-product-page',

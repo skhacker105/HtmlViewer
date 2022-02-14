@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { UserService } from '@core/shared/services/user.service';
-import { LoginPageForm } from '@core/shared/utilities/enumerations';
+import { UserService } from '@core/services/user.service';
+import { LoginPageForm } from '@core/utilities/enumerations';
 import { takeWhile } from 'rxjs/operators';
 
 @Component({

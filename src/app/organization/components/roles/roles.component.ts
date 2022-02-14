@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
-import { IActionResult } from "@core/shared/interfaces/ActionResult";
-import { Roles } from "@organization/shared/models/roles";
-import { RolesService } from "@organization/shared/services/roles.service";
+import { IActionResult } from "@core/interfaces/ActionResult";
+import { Roles } from "@organization/models/roles";
+import { RolesService } from "@organization/services/roles.service";
 
 interface RolesCrudAction {
   node: Roles,

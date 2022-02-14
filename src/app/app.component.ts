@@ -3,10 +3,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { NavigationEnd, Router } from '@angular/router';
 import { LoginComponent } from '@core/components/login/login.component';
 import { PagePopupComponent } from '@core/components/page-popup/page-popup.component';
-import { MessagingService } from '@core/shared/services/messaging.service';
-import { UserService } from '@core/shared/services/user.service';
-import { LoginPageForm } from '@core/shared/utilities/enumerations';
-import { ProducMenuService } from '@header/shared/services/product-menu.service';
+import { MessagingService } from '@core/services/messaging.service';
+import { UserService } from '@core/services/user.service';
+import { LoginPageForm } from '@core/utilities/enumerations';
+import { ProducMenuService } from '@header/services/product-menu.service';
 import { takeWhile } from 'rxjs/operators';
 
 @Component({

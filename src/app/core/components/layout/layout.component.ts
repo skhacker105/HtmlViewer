@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
-import { PageDesignerService } from "@page/shared/services/page-designer.service";
+import { PageDesignerService } from "@page/services/page-designer.service";
 import { takeWhile } from "rxjs/operators";
 
 @Component({

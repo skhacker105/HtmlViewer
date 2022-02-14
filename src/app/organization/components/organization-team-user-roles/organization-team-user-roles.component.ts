@@ -1,10 +1,10 @@
 import { Component, OnInit, OnDestroy, ViewChild } from "@angular/core";
 import { MatDialogRef } from "@angular/material/dialog";
 import { MatTabChangeEvent } from "@angular/material/tabs";
-import { RolesService } from "@organization/shared/services/roles.service";
-import { TeamsService } from "@organization/shared/services/teams.service";
-import { UsersService } from "@organization/shared/services/users.service";
-import { PageDesignerService } from "@page/shared/services/page-designer.service";
+import { RolesService } from "@organization/services/roles.service";
+import { TeamsService } from "@organization/services/teams.service";
+import { UsersService } from "@organization/services/users.service";
+import { PageDesignerService } from "@page/services/page-designer.service";
 import { Observable, forkJoin } from "rxjs";
 import { takeWhile } from "rxjs/operators";
 import { UsersComponent } from "../users/users.component";

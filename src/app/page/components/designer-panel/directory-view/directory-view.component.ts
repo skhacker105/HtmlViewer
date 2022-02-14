@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
-import { IPageControl } from "@page/shared/models/PageControl";
-import { PageDesignerService } from "@page/shared/services/page-designer.service";
+import { IPageControl } from "@page/models/PageControl";
+import { PageDesignerService } from "@page/services/page-designer.service";
 import { takeWhile } from "rxjs/operators";
 
 @Component({

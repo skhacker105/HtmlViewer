@@ -13,6 +13,7 @@ export class RecordActionComponent implements OnInit {
   @Input() showHide = false;
   @Input() hidden = false;
   @Input() record: any;
+  @Input() inline = true;
 
   @Output() addClick = new EventEmitter();
   @Output() editClick = new EventEmitter();

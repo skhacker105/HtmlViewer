@@ -1,15 +1,15 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { ConfirmationComponent } from "@core/components/confirmation/confirmation.component";
-import { MessagingService } from "@core/shared/services/messaging.service";
+import { MessagingService } from "@core/services/messaging.service";
 import { AddProductMenuComponent } from "@header/components/product-main-menu/add-product-menu/add-product-menu.component";
-import { ProducMenuService } from "@header/shared/services/product-menu.service";
-import { IODataTypes } from "@page/shared/interfaces/enumerations";
-import { IPageIO } from "@page/shared/models/InputOutput";
-import { IPageControl } from "@page/shared/models/PageControl";
-import { PageDesignerService } from "@page/shared/services/page-designer.service";
-import { PageIOService } from "@page/shared/services/page-io.service";
-import { PageResources } from "@page/shared/utilities/page-resources";
+import { ProducMenuService } from "@header/services/product-menu.service";
+import { IODataTypes } from "@page/interfaces/enumerations";
+import { IPageIO } from "@page/models/InputOutput";
+import { IPageControl } from "@page/models/PageControl";
+import { PageDesignerService } from "@page/services/page-designer.service";
+import { PageIOService } from "@page/services/page-io.service";
+import { PageResources } from "@page/utilities/page-resources";
 import { takeWhile } from "rxjs/operators";
 
 @Component({

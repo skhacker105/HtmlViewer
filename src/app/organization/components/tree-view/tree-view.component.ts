@@ -2,8 +2,8 @@ import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from "@angu
 import { MatDialog } from "@angular/material/dialog";
 import { ConfirmationComponent } from "@core/components/confirmation/confirmation.component";
 import { AddProductMenuComponent } from "@header/components/product-main-menu/add-product-menu/add-product-menu.component";
-import { OriganizationResources } from "@organization/shared/utilities/organization-resources";
-import { PageDesignerService } from "@page/shared/services/page-designer.service";
+import { OriganizationResources } from "@organization/utilities/organization-resources";
+import { PageDesignerService } from "@page/services/page-designer.service";
 import { takeWhile } from "rxjs/operators";
 
 @Component({

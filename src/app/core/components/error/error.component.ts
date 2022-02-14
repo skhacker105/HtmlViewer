@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpWrapperService } from '@core/shared/services/http-wrapper.service';
+import { HttpWrapperService } from '@core/services/http-wrapper.service';
 import { takeWhile } from 'rxjs/operators';
 
 @Component({
