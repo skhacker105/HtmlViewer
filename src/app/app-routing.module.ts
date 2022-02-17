@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ErrorComponent } from '@core/components/error/error.component';
 
 const routes: Routes = [
   {
@@ -9,7 +8,7 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'home',
+    path: 'home/:id',
     loadChildren: () => import('@page/page.module').then(m => m.PageModule)
   },
   {
@@ -19,6 +18,10 @@ const routes: Routes = [
   {
     path: 'login',
     loadChildren: () => import('@core/core.module').then(m => m.CoreModule)
+  },
+  {
+    path: 'organization',
+    loadChildren: () => import('@organization/organization.module').then(m => m.OrganizationModule)
   }
 ];
 

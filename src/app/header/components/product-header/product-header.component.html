@@ -13,6 +13,9 @@
         </mat-menu>
 
         <!-- Title -->
+        <button mat-icon-button *ngIf="userService.loggedInUser.value" (click)="home()">
+            <mat-icon>home</mat-icon>
+        </button>
         <span>My App</span>
 
         <span class="example-spacer"></span>

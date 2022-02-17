@@ -1,5 +1,4 @@
 import { Component, OnInit, OnDestroy, ViewChild } from "@angular/core";
-import { MatDialogRef } from "@angular/material/dialog";
 import { MatTabChangeEvent } from "@angular/material/tabs";
 import { RolesService } from "@organization/services/roles.service";
 import { TeamsService } from "@organization/services/teams.service";
@@ -22,7 +21,6 @@ export class OrganizationTeamUserRolesComponent implements OnInit, OnDestroy {
   @ViewChild(UsersComponent) userComponent: UsersComponent;
 
   constructor(
-    public dialogRef: MatDialogRef<OrganizationTeamUserRolesComponent>,
     private pageDesignerService: PageDesignerService,
     public teamsService: TeamsService,
     public rolesService: RolesService,
@@ -56,10 +54,6 @@ export class OrganizationTeamUserRolesComponent implements OnInit, OnDestroy {
     .subscribe(res => {
       this.usersService.users = res;
     });
-  }
-
-  close() {
-    this.dialogRef.close();
   }
 
   tabChanged(tabChangeEvent: MatTabChangeEvent): void {

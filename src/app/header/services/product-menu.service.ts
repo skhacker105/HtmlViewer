@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core";
+import { Router } from "@angular/router";
 import { IMenuAction } from "@change-history/models/MenuActions";
 import { IActionResult } from "@core/interfaces/ActionResult";
 import { HttpWrapperService } from "@core/services/http-wrapper.service";
@@ -30,16 +31,22 @@ export class ProducMenuService {
   selectedMenu = new BehaviorSubject<string>(null);
   selectedMenuId: string;
   flatMenu: IProductMenuItem[];
+  private savedRoute: string;
 
   constructor(private httpService: HttpWrapperService, private messagingService: MessagingService,
     private pageIOService: PageIOService,
-    private userService: UserService ) {
-      this.userService.loggedInUser.subscribe(u => {
-        if (u) {
-          this.loadProductMenu();
-        }
-      });
-    }
+    private userService: UserService,
+    private router: Router) {
+    this.userService.loggedInUser.subscribe(u => {
+      if (u) {
+        this.loadProductMenu();
+      }
+    });
+  }
+
+  resetSavedRoute() {
+    this.savedRoute = null;
+  }
 
   selectMenu(menu: string) {
     if (this.menuActions.length > 0 || this.pageIOService.ioActions.length > 0) {
@@ -50,21 +57,34 @@ export class ProducMenuService {
       return;
     }
     if (menu) {
-      const menuNode = this.findNode(this.ProductMenuList, menu);
-      this.selectedMenuId = menuNode.Id;
-      this.selectedMenu.next(menu);
-      this.pageIOService.loadPageIO(menuNode.Id);
+      const encrypted = CoreHelper.encrypt(menu);
+      this.router.navigate(['home', encrypted]);
     }
   }
 
-  loadProductMenu(callBack?: {(response): void}): any {
+  processMenu(menuName: string) {
+    this.savedRoute = menuName;
+    if (this.ProductMenuList && this.ProductMenuList.length > 0) {
+      const menuNode = this.findNode(this.ProductMenuList, menuName);
+      if (menuNode) {
+        this.selectedMenuId = menuNode.Id;
+        this.selectedMenu.next(menuNode.name);
+        this.pageIOService.loadPageIO(menuNode.Id);
+      }
+    }
+  }
+
+  loadProductMenu(callBack?: { (response): void }): any {
     this.getMenuFromDB().subscribe(res => {
       if (res) {
         this.flatMenu = res;
         if (res.length > 0) {
           this.converFlatMenuToNested(res);
           this.menuActions = [];
-          this.selectMenu(this.ProductMenuList[0].name);
+          if (!this.savedRoute) {
+            this.selectMenu(this.ProductMenuList[0].name);
+            this.processMenu(this.ProductMenuList[0].name);
+          }
           return {
             then: () => {
               if (callBack) {
@@ -74,7 +94,7 @@ export class ProducMenuService {
           };
         } else {
           return {
-            then: () => {}
+            then: () => { }
           };
         }
       }

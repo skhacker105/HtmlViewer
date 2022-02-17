@@ -2,12 +2,12 @@ import { Component, OnInit, OnDestroy } from "@angular/core";
 import { MatBottomSheet } from "@angular/material/bottom-sheet";
 import { MatDialog } from "@angular/material/dialog";
 import { MatSlideToggleChange } from "@angular/material/slide-toggle";
+import { Router } from "@angular/router";
 import { ChangeHistoryComponent } from "@change-history/components/change-history/change-history.component";
 import { MessagingService } from "@core/services/messaging.service";
 import { UserService } from "@core/services/user.service";
 import { ProducMenuService } from "@header/services/product-menu.service";
 import { HeaderResources } from "@header/utilities/header-resources";
-import { OrganizationTeamUserRolesComponent } from "@organization/components/organization-team-user-roles/organization-team-user-roles.component";
 import { InputOutputComponent } from "@page/components/designer-panel/input-output/input-output.component";
 import { PageDesignerService } from "@page/services/page-designer.service";
 import { PageIOService } from "@page/services/page-io.service";
@@ -30,7 +30,8 @@ export class ProductHeaderComponent implements OnInit, OnDestroy {
     public pageDesignerService: PageDesignerService,
     private bottomSheet: MatBottomSheet,
     public pageIOService: PageIOService,
-    public userService: UserService) { }
+    public userService: UserService,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.designerMode = this.pageDesignerService.designerMode.value;
@@ -118,23 +119,20 @@ export class ProductHeaderComponent implements OnInit, OnDestroy {
   }
 
   openOrganization(): void {
-    this.dialog.open(OrganizationTeamUserRolesComponent, {
-      width: '100%',
-      height: '90%'
-    });
+    this.router.navigateByUrl('/organization');
   }
 
   openDataFlow() {
-    this.dialog.open(OrganizationTeamUserRolesComponent, {
-      width: '100%',
-      height: '90%'
-    });
   }
 
   openInputOutput() {
     this.bottomSheet.open(InputOutputComponent, {
       panelClass: 'io-bottom-sheet'
     });
+  }
+
+  home() {
+    this.router.navigateByUrl('/login');
   }
 
 }

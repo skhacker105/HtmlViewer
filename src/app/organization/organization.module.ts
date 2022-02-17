@@ -7,6 +7,7 @@ import { TreeViewComponent } from './components/tree-view/tree-view.component';
 import { TeamsComponent } from './components/teams/teams.component';
 import { CoreModule } from '../core/core.module';
 import { MenuAccessComponent } from './components/menu-access/menu-access.component';
+import { OrganizationRoutingModule } from './organization-routing.module';
 
 
 @NgModule({
@@ -14,6 +15,7 @@ import { MenuAccessComponent } from './components/menu-access/menu-access.compon
     TreeViewComponent, MenuAccessComponent],
   imports: [
     CommonModule,
+    OrganizationRoutingModule,
     CoreModule
   ],
   exports: [TeamsComponent, RolesComponent, UsersComponent, OrganizationTeamUserRolesComponent,

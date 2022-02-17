@@ -1,11 +1,12 @@
 import { Component, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { NavigationEnd, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { LoginComponent } from '@core/components/login/login.component';
 import { PagePopupComponent } from '@core/components/page-popup/page-popup.component';
 import { MessagingService } from '@core/services/messaging.service';
 import { UserService } from '@core/services/user.service';
 import { LoginPageForm } from '@core/utilities/enumerations';
+import { CoreHelper } from '@core/utilities/helper';
 import { ProducMenuService } from '@header/services/product-menu.service';
 import { takeWhile } from 'rxjs/operators';
 
@@ -62,7 +63,14 @@ export class AppComponent implements OnDestroy {
         }
         if ((this.router.url =='/login' || this.router.url =='/' ) && this.userService.loggedInUser.value) {
           this.producMenuService.loadProductMenu();
-          this.router.navigateByUrl('/home');
+        }
+        if (this.router.isActive('/home', false)) {
+          console.log('loading home');
+          const encryptedMenu = this.router.url.split('/').pop();
+          const decryptedMenu = CoreHelper.decrypt(decodeURIComponent(encryptedMenu));
+          this.producMenuService.processMenu(decryptedMenu);
+        } else {
+          this.producMenuService.resetSavedRoute();
         }
       }
     })

@@ -96,9 +96,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       .subscribe(res => {
         if (res) {
           loginActive = false;
-          if (this.redirectOnLogin) {
-            this.router.navigateByUrl('/home');
-          } else {
+          if (!this.redirectOnLogin) {
             this.processComplete.emit();
           }
         }
